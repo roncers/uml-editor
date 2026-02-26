@@ -1,0 +1,17 @@
+@property --color-primary {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: rgb(21, 23, 22);
+}
+
+@property --color-secondary {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: coral;
+}
+
+@property --color-background {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #E8E8E8;
+}

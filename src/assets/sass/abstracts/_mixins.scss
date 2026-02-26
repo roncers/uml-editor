@@ -1,0 +1,23 @@
+@use 'variables' as *;
+
+// RESPONSIVE METHODS
+// responsive behaviour
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media only screen and (max-width: $bp-phone) {
+      @content;
+    } //600px
+  } @else if $breakpoint == tab-port {
+    @media only screen and (max-width: $bp-tab-port) {
+      @content;
+    } //900px
+  } @else if $breakpoint == tab-land {
+    @media only screen and (max-width: $bp-tab-land) {
+      @content;
+    } //1200px
+  } @else if $breakpoint == big-desktop {
+    @media only screen and (min-width: $bp-big-desktop) {
+      @content;
+    } //1800px
+  }
+}

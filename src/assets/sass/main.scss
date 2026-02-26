@@ -1,0 +1,47 @@
+@use "abstracts/mixins";
+@use "abstracts/variables" as *;
+@use "abstracts/properties";
+// :root {
+//   //   color-scheme: light dark;
+//   //   font-synthesis: none;
+//   //   text-rendering: optimizeLegibility;
+//   //   -webkit-font-smoothing: antialiased;
+//   //   -moz-osx-font-smoothing: grayscale;
+// }
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+#root,
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: system-ui, sans-serif;
+  color: var(--color-primary);
+  background-color: var(--color-background);
+  ::selection {
+    background-color: var(--color-secondary);
+  }
+  ::-moz-selection {
+    background-color: var(--color-secondary);
+  }
+}
+
+#root,
+body {
+  font-size: 1.6rem;
+  height: 100%;
+  width: 100%;
+}
