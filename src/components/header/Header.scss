@@ -1,3 +1,18 @@
 .header {
     padding: 1rem 0 0 1rem;
+    &__prefix {
+        animation: toggling 1.5s ease-in-out infinite;
+    }
+
+    @keyframes toggling {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 }
