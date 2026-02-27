@@ -1,4 +1,4 @@
-import type { ClassSynec as ClassSynecInterface } from "../interfaces/ClassSynec.interface";
+import type { ClassSynec as ClassSynecInterface } from "../interfaces/classes/ClassSynec.interface";
 import type { PropertySynec } from "../interfaces/PropertySynec.interface";
 import type { FunctionSynec } from "../interfaces/FunctionSynec.interface";
 import type { RelationshipSynec } from "../interfaces/RelationshipSynec.interface";
