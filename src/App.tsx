@@ -1,5 +1,6 @@
 import Header from "./components/header/Header"
 import UMLEditor from "./components/uml-editor/UMLEditor"
+
 import "./App.scss"
 
 function App() {
