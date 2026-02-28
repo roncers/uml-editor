@@ -1,7 +1,4 @@
-import type { ClassSynec } from "@/interfaces/classes/ClassSynec.interface";
-import type { InterfaceSynec } from "@/interfaces/classes/InterfaceSynec.interface";
-
-type Entity = ClassSynec | InterfaceSynec;
+import type { Entity } from "@/types/entity.types";
 
 export abstract class EntityFactory {
     static createdEntities: Entity[] = [];
