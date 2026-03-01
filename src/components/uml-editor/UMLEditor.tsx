@@ -1,9 +1,10 @@
 import "./UMLEditor.scss";
-import AddButton from "./parts/add-button/AddButton";
+import AddButton from "./parts/buttons/add-button/AddButton";
 import EntityRenderer from "./parts/entity-renderer/EntityRenderer";
+import Board from "./parts/board/Board";
+
 import { InterfaceFactory } from "@/classes/factories/InterfaceFactory";
 import { ClassFactory } from "@/classes/factories/ClassFactory";
-
 import { useState } from "react";
 import { EntityContext } from "./parts/EntityContext";
 
@@ -20,7 +21,9 @@ export default function UMLEditor() {
   return (
     <EntityContext.Provider value={{ createEntity }}>
       <div className="uml-editor">
-        <EntityRenderer entities={createdEntities} />
+        <Board>
+          <EntityRenderer entities={createdEntities} />
+        </Board>
         <AddButton />
       </div>
     </EntityContext.Provider>

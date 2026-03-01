@@ -1,3 +1,9 @@
 .draggable {
-    display: inline-flex;
+  position: absolute;
+  display: inline-flex;
+  touch-action: none;
+  &--dragging {
+    cursor: grabbing;
+    z-index: 1;
+  }
 }

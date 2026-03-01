@@ -9,7 +9,11 @@ export default function EntityRenderer({
   return (
     <>
       {entities.map((entity) => (
-        <Draggable id={entity.id}>
+        <Draggable
+          id={entity.id}
+          key={entity.id}
+          initialPosition={{ x: window.innerWidth + 10, y: window.innerHeight + 10 }}
+        >
           <Entity key={entity.id} entity={entity} />
         </Draggable>
       ))}

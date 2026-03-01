@@ -1,5 +1,12 @@
+@use "@/assets/sass/abstracts/mixins" as *;
+@use "@/assets/sass/abstracts/variables" as *;
+
 .header {
   padding: 0 0 0 3rem;
+  @include respond(phone) {
+    padding-left: 2.5rem;
+    font-size: 2.5rem;
+  }
   &__prefix {
     animation: toggling 1.5s ease-in-out infinite;
   }
