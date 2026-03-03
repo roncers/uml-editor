@@ -1,3 +1,13 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
-export const EntityContext = createContext<{ createEntity: () => void } | undefined>(undefined);
+export interface EntityContextType {
+  createEntity: () => void;
+}
+
+export const EntityContext = createContext<EntityContextType | undefined>(undefined);
+
+export function useEntityContext() {
+  const ctx = useContext(EntityContext);
+  if (!ctx) throw new Error("useEntityContext must be used within EntityContext.Provider");
+  return ctx;
+}

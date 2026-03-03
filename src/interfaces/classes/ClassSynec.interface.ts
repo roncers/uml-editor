@@ -8,4 +8,11 @@ export interface ClassSynec {
     properties: PropertySynec[];
     functions: FunctionSynec[];
     relationships: RelationshipSynec[];
+    setName(name: string): void;
+    setProperties(properties: PropertySynec[]): void;
+    setFunctions(functions: FunctionSynec[]): void;
+    setRelationships(relationships: RelationshipSynec[]): void;
+    addProperty(property: PropertySynec): void;
+    addFunction(function_: FunctionSynec): void;
+    addRelationship(relationship: RelationshipSynec): void;
 }

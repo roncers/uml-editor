@@ -1,4 +1,7 @@
 {
+    "name": "nombre",
+    "attributes": "atributos",
+    "methods": "métodos",
     "header-title": "Editor De Diagramas UML",
     "aria-label-add-entity": "Agregar Nueva Entidad"
 }

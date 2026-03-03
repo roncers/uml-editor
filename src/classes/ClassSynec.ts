@@ -2,6 +2,7 @@ import type { ClassSynec as ClassSynecInterface } from "../interfaces/classes/Cl
 import type { PropertySynec } from "../interfaces/PropertySynec.interface";
 import type { FunctionSynec } from "../interfaces/FunctionSynec.interface";
 import type { RelationshipSynec } from "../interfaces/RelationshipSynec.interface";
+import { makeAutoObservable } from "mobx";
 
 export class ClassSynec implements ClassSynecInterface {
     id: string;
@@ -16,6 +17,7 @@ export class ClassSynec implements ClassSynecInterface {
         this.properties = properties;
         this.functions = functions;
         this.relationships = relationships;
+        makeAutoObservable(this);
     }
 
     public setName(name: string): void {

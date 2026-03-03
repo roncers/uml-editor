@@ -1,4 +1,7 @@
 {
+    "name": "name",
+    "attributes": "attributes",
+    "methods": "methods",
     "header-title": "UML Diagram Editor",
     "aria-label-add-entity": "Add New Entity"
 }

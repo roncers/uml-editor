@@ -18,6 +18,7 @@ export default function UMLEditor() {
   const [createdEntities, setCreatedEntities] = useState(
     InterfaceFactory.createdEntities,
   );
+
   return (
     <EntityContext.Provider value={{ createEntity }}>
       <div className="uml-editor">

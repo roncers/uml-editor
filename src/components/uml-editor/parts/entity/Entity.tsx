@@ -1,18 +1,24 @@
 import "./Entity.scss"
 import type { UMLClassProps } from "./Entity.types"
+import { ClassState } from "@/classes/ClassState"
+import { ClassStateEnum as EntityStates, type ClassStateType } from "@/types/entity.types"
+import { useRef, useState } from "react"
+import DefaultCard from "./states/DefaultEntity"
+import EditionCard from "./states/EditionEntity"
 
 export default function UMLClass({ entity }: UMLClassProps) {
-  // const new State
-  // const componentData = { state: 'default' }
-  function handleRightClick(e: React.MouseEvent) {
-    e.preventDefault();
-    // TODO: Object to handle the state of the component
-    // state.toggle()
-  }
+  const entityState = useRef(new ClassState())
+  const [state, setState] = useState<ClassStateType>(EntityStates.default)
 
+  function toggleEdition(e?: React.MouseEvent) {
+    e?.preventDefault();
+    entityState.current.toggleEdition()
+    setState(entityState.current.getState()) 
+  }
+  const RenderedCard = state === EntityStates.editing ? EditionCard : DefaultCard
   return (
-    <div className="entity" onContextMenu={handleRightClick}>
-      <h3 className="entity__title">{entity.name}</h3>
+    <div className={`entity entity--${state}`} onContextMenu={toggleEdition}>
+      <RenderedCard entity={entity} onToggle={toggleEdition} />
     </div>
   )
 }

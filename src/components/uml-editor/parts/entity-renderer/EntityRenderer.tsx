@@ -1,6 +1,7 @@
 import Entity from "@/components/uml-editor/parts/entity/Entity";
 import type { Entity as EntityType } from "@/types/entity.types";
 import Draggable from "@/components/utils/draggable/Draggable";
+
 export default function EntityRenderer({
   entities,
 }: {
