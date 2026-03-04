@@ -1,4 +1,3 @@
-import "../Entity.scss";
 import type { UMLClassProps } from "../Entity.types";
 import { observer } from "mobx-react-lite";
 

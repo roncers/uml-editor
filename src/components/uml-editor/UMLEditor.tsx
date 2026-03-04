@@ -1,6 +1,6 @@
 import "./UMLEditor.scss";
 import AddButton from "./parts/buttons/add-button/AddButton";
-import EntityRenderer from "./parts/entity-renderer/EntityRenderer";
+import EntitiesRenderer from "./parts/entities-renderer/EntitiesRenderer";
 import Board from "./parts/board/Board";
 
 import { InterfaceFactory } from "@/classes/factories/InterfaceFactory";
@@ -23,7 +23,7 @@ export default function UMLEditor() {
     <EntityContext.Provider value={{ createEntity }}>
       <div className="uml-editor">
         <Board>
-          <EntityRenderer entities={createdEntities} />
+          <EntitiesRenderer entities={createdEntities} />
         </Board>
         <AddButton />
       </div>

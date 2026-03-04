@@ -1,33 +1,18 @@
-import "../Entity.scss";
-import type { UMLClassProps } from "../Entity.types";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import type { UMLClassProps } from "../Entity.types"
+import { observer } from "mobx-react-lite"
+import EntityInput from "./parts/EntityInput"
 
-export default function EditionEntity({ entity, onToggle }: UMLClassProps) {
-  const [localEntity, setLocalEntity] = useState(entity);
-  const { t } = useTranslation();
-  function handleNameChange(newName: string) {
-    console.log("pedro sanchez");
-    entity.setName(newName);
-    setLocalEntity({ ...entity });
-  }
+const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
   return (
     <>
       <form className="entity-form">
-        <div className="entity__input">
-          <label htmlFor="name" className="entity__input-label">{t("name")}</label>
-          <input
-            id="name"
-            className="entity__input-default"
-            autoComplete="off"
-            value={localEntity.name}
-            onChange={(e) => handleNameChange(e.target.value)}
-            onMouseDown={(e) => e.stopPropagation()}
-            onTouchStart={(e) => e.stopPropagation()}
-            onKeyDown={(e) => e.key === "Enter" && onToggle?.()}
-          />
-        </div>
+        <EntityInput
+          value={entity.name}
+          onChange={(value) => entity.setName(value)}
+          onConfirm={onToggle}
+        />
       </form>
     </>
-  );
-}
+  )
+})
+export default EditionEntity
