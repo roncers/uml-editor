@@ -1,6 +1,6 @@
 import "./Entity.scss"
 import type { UMLClassProps } from "./Entity.types"
-import { ClassState } from "@/classes/ClassState"
+import { ClassState } from "@/classes/members/ClassState"
 import {
   ClassStateEnum as EntityStates,
   type ClassStateType,

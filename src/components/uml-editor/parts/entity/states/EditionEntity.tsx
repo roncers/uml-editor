@@ -1,15 +1,24 @@
+import "./EdtionEntity.scss"
 import type { UMLClassProps } from "../Entity.types"
 import { observer } from "mobx-react-lite"
 import EntityInput from "./parts/EntityInput"
+import RelationshipsSelector from "./parts/RelationshipSelector"
+import type { RelationshipType } from "@/types/interface.types"
+import {RelationshipSynec} from "@/classes/members/RelationshipSynec"
 
 const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
+  console.log(entity)
   return (
     <>
-      <form className="entity-form">
+      <form className="entity-form" onSubmit={onToggle}>
         <EntityInput
           value={entity.name}
           onChange={(value) => entity.setName(value)}
-          onConfirm={onToggle}
+        />
+        <RelationshipsSelector
+          onSelection={(type: RelationshipType) =>
+            entity.addRelationship(new RelationshipSynec(entity.id, '', type))
+          }
         />
       </form>
     </>

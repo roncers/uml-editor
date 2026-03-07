@@ -5,6 +5,7 @@ const DefaultEntity = observer(({ entity }: UMLClassProps) => {
   return (
     <>
       <h3 className="entity__title">{entity.name}</h3>
+      <p>{entity.relationships.map((relationship) => relationship.type).join(", ")}</p>
     </>
   );
 });

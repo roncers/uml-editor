@@ -9,8 +9,8 @@ interface FormElementProps {
 export default function FormElement({ children, elementId }: FormElementProps) {
   const { t } = useTranslation()
   return (
-    <div className="entity__input">
-      <label htmlFor={elementId} className="entity__input-label">
+    <div className="entity-form__field">
+      <label htmlFor={elementId} className="entity-form__field-label">
         {t(elementId)}
       </label>
       {children}

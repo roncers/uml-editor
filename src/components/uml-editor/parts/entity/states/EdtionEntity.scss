@@ -1,0 +1,116 @@
+.entity-form {
+  padding: 0.3rem 0 1rem 0;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  &__field-label {
+    font-size: 1rem;
+    color: var(--color-primary);
+    text-transform: capitalize;
+  }
+
+  &__input-default {
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    background-color: var(--color-background-contrast);
+  }
+
+  &__relationship-selector {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    bottom: -1rem;
+    right: 0;
+    transform: translateX(50%);
+    background-color: var(--color-secondary);
+    border-radius: 50%;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 2rem;
+      height: 2rem;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      transition: width 0s 0.15s, height 0s 0.15s;
+    }
+
+    &:hover::after {
+      width: 12rem;
+      height: 12rem;
+      transition: width 0s, height 0s;
+    }
+
+    &:hover > .entity-form__relationship-menu {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+
+  &__relationship-menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  &__relationship-option {
+    --option-angle: 0deg;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.2rem;
+    height: 3.2rem;
+    margin: -1.6rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-background);
+    color: var(--color-primary);
+    font-size: 0.45rem;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0;
+    transform: rotate(var(--option-angle)) translateY(0) rotate(calc(-1 * var(--option-angle)));
+    transition: transform 0.25s ease, opacity 0.2s ease, background-color 0.15s ease;
+
+    img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+    }
+
+    @for $i from 1 through 6 {
+      &:nth-child(#{$i}) {
+        --option-angle: #{$i * 60}deg;
+      }
+    }
+
+    &:hover {
+      background-color: var(--color-secondary);
+    }
+  }
+
+  &__relationship-selector:hover &__relationship-option {
+    opacity: 1;
+    transform: rotate(var(--option-angle)) translateY(-4rem) rotate(calc(-1 * var(--option-angle)));
+    z-index: 3;
+
+    @for $i from 1 through 6 {
+      &:nth-child(#{$i}) {
+        transition-delay: #{($i - 1) * 0.04}s;
+      }
+    }
+  }
+}

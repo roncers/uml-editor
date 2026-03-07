@@ -1,7 +1,7 @@
-import type { ClassSynec as ClassSynecInterface } from "../interfaces/classes/ClassSynec.interface";
-import type { PropertySynec } from "../interfaces/PropertySynec.interface";
-import type { FunctionSynec } from "../interfaces/FunctionSynec.interface";
-import type { RelationshipSynec } from "../interfaces/RelationshipSynec.interface";
+import type { ClassSynec as ClassSynecInterface } from "../../interfaces/classes/ClassSynec.interface";
+import type { PropertySynec } from "../../interfaces/PropertySynec.interface";
+import type { FunctionSynec } from "../../interfaces/FunctionSynec.interface";
+import type { RelationshipSynec } from "../../interfaces/RelationshipSynec.interface";
 import { makeAutoObservable } from "mobx";
 
 export class ClassSynec implements ClassSynecInterface {

@@ -1,4 +1,4 @@
-import { InterfaceSynec } from "@/classes/InterfaceSynec";
+import { InterfaceSynec } from "@/classes/classifiers/InterfaceSynec";
 import { EntityFactory } from "./EntityFactory";
 
 export class InterfaceFactory extends EntityFactory {

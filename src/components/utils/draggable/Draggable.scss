@@ -2,6 +2,7 @@
   position: absolute;
   display: inline-flex;
   touch-action: none;
+  will-change: transform;
   &--dragging {
     cursor: grabbing;
     z-index: 1;

@@ -2,6 +2,13 @@
     "name": "name",
     "attributes": "attributes",
     "methods": "methods",
+    "relationship": "relationship",
     "header-title": "UML Diagram Editor",
-    "aria-label-add-entity": "Add New Entity"
+    "aria-label-add-entity": "Add New Entity",
+    "relationship-dependency": "Dependency",
+    "relationship-association": "Association",
+    "relationship-aggregation": "Aggregation",
+    "relationship-composition": "Composition",
+    "relationship-implementation": "Implementation",
+    "relationship-inheritance": "Inheritance"
 }

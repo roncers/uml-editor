@@ -8,6 +8,9 @@
 //   //   -webkit-font-smoothing: antialiased;
 //   //   -moz-osx-font-smoothing: grayscale;
 // }
+:root {
+  interpolate-size: allow-keywords;
+}
 
 *,
 *::before,

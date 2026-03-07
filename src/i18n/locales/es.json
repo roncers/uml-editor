@@ -2,6 +2,13 @@
     "name": "nombre",
     "attributes": "atributos",
     "methods": "métodos",
+    "relationship": "relación",
     "header-title": "Editor De Diagramas UML",
-    "aria-label-add-entity": "Agregar Nueva Entidad"
+    "aria-label-add-entity": "Agregar Nueva Entidad",
+    "relationship-dependency": "Dependencia",
+    "relationship-association": "Asociación",
+    "relationship-aggregation": "Agregación",
+    "relationship-composition": "Composición",
+    "relationship-implementation": "Implementación",
+    "relationship-inheritance": "Herencia"
 }
