@@ -1,9 +1,38 @@
+$_editor-margin-side: 2rem;
+$_editor-margin-bottom: 1rem;
+.uml-editor-frame {
+  flex: 1;
+  position: relative;
+  margin: $_editor-margin-side $_editor-margin-side $_editor-margin-bottom
+    $_editor-margin-side;
+
+  &__border {
+    position: absolute;
+    inset: -#{$_editor-margin-side} -#{$_editor-margin-side} -#{$_editor-margin-bottom} -#{$_editor-margin-side};
+    background: var(--color-background);
+    z-index: 1001;
+    pointer-events: none;
+    clip-path: polygon(
+      0% 0%,
+      100% 0%,
+      100% 100%,
+      0% 100%,
+      0% calc(100% - #{$_editor-margin-bottom}),
+      calc(100% - #{$_editor-margin-side})
+        calc(100% - #{$_editor-margin-bottom}),
+      calc(100% - #{$_editor-margin-side}) #{$_editor-margin-side},
+      #{$_editor-margin-side} #{$_editor-margin-side},
+      #{$_editor-margin-side} calc(100% - #{$_editor-margin-bottom}),
+      0% calc(100% - #{$_editor-margin-bottom})
+    );
+  }
+}
+
 .uml-editor {
-    background: var(--color-background-contrast);
-    border: 1px solid var(--color-primary);
-    flex: 1;
-    margin: 2rem 2rem 1rem 2rem;
-    border-radius: 1rem;
-    position: relative;
-    overflow: hidden;
+  background: var(--color-background-contrast);
+  border: 1px solid var(--color-primary);
+  height: 100%;
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
 }

@@ -21,7 +21,7 @@ export default function UMLClass({ entity }: UMLClassProps) {
   const RenderedCard =
     state === EntityStates.editing ? EditionCard : DefaultCard
   return (
-    <div className={`entity entity--${state}`} onContextMenu={toggleEdition}>
+    <div className={`entity entity--${state}`} onContextMenu={toggleEdition} id={entity.id}>
       <RenderedCard entity={entity} onToggle={toggleEdition} />
     </div>
   )

@@ -11,7 +11,6 @@ export default function EntitiesRenderer({
     <>
       {entities.map((entity, index) => (
         <Draggable
-          id={entity.id}
           key={entity.id}
           initialPosition={{ x: window.innerWidth + index * 100, y: window.innerHeight}}
         >

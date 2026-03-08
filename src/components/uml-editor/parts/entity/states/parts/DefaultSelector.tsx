@@ -1,13 +1,13 @@
 import FormElement from "./FormElement"
 
-interface EntityDropdownProps<T extends string> {
+interface DefaultSelectorProps<T extends string> {
   elementId: string
   value: T
   options: readonly T[]
   onChange: (value: T) => void
 }
 
-const EntityDropdown = <T extends string>({ elementId, value, options, onChange }: EntityDropdownProps<T>) => {
+const DefaultSelector = <T extends string>({ elementId, value, options, onChange }: DefaultSelectorProps<T>) => {
   return (
     <FormElement elementId={elementId}>
       <select
@@ -27,4 +27,4 @@ const EntityDropdown = <T extends string>({ elementId, value, options, onChange 
   )
 }
 
-export default EntityDropdown
+export default DefaultSelector

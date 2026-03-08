@@ -1,12 +1,13 @@
 import "./UMLEditor.scss";
 import AddButton from "./parts/buttons/add-button/AddButton";
-import EntitiesRenderer from "./parts/entities-renderer/EntitiesRenderer";
+import EntitiesRenderer from "./parts/renderers/entities-renderer/EntitiesRenderer";
 import Board from "./parts/board/Board";
 
 import { InterfaceFactory } from "@/classes/factories/InterfaceFactory";
 import { ClassFactory } from "@/classes/factories/ClassFactory";
 import { useState } from "react";
 import { EntityContext } from "./parts/EntityContext";
+import RelationshipsRenderer from "./parts/renderers/relationships-renderer/RelationshipsRenderer";
 
 export default function UMLEditor() {
   const availableFactories = [new ClassFactory(), new InterfaceFactory()];
@@ -21,11 +22,15 @@ export default function UMLEditor() {
 
   return (
     <EntityContext.Provider value={{ createEntity }}>
-      <div className="uml-editor">
-        <Board>
-          <EntitiesRenderer entities={createdEntities} />
-        </Board>
-        <AddButton />
+      <div className="uml-editor-frame">
+        <div className="uml-editor-frame__border" />
+        <div className="uml-editor">
+          <Board>
+            <EntitiesRenderer entities={createdEntities} />
+            <RelationshipsRenderer entities={createdEntities} />
+          </Board>
+          <AddButton />
+        </div>
       </div>
     </EntityContext.Provider>
   );

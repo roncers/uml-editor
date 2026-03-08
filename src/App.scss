@@ -1,6 +1,24 @@
+$_app-padding: 2rem;
+
 .app-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
+  padding: $_app-padding;
+  position: relative;
+
+  &__border {
+    position: absolute;
+    inset: 0;
+    background: var(--color-background);
+    z-index: 1001;
+    pointer-events: none;
+    clip-path: polygon(
+      0% 0%, 100% 0%, 100% 100%, 0% 100%,
+      0% calc(100% - #{$_app-padding}), calc(100% - #{$_app-padding}) calc(100% - #{$_app-padding}),
+      calc(100% - #{$_app-padding}) #{$_app-padding}, #{$_app-padding} #{$_app-padding},
+      #{$_app-padding} calc(100% - #{$_app-padding}), 0% calc(100% - #{$_app-padding})
+    );
+  }
 }

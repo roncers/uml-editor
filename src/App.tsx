@@ -6,6 +6,7 @@ import "./App.scss"
 function App() {
   return (
     <div className="app-container">
+      <div className="app-container__border" />
       <Header />
       <UMLEditor />
       {/* <InfoPanel /> */}

@@ -60,7 +60,6 @@ export default function Board({ children }: { children: React.ReactNode }) {
       onTouchEnd={onTouchEnd}
     >
       <Draggable
-        id="board"
         initialPosition={{ x: -window.innerWidth, y: -window.innerHeight }}
       >
         <section className="board">{children}</section>

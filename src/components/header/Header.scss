@@ -3,6 +3,8 @@
 
 .header {
   padding: 0 0 0 3rem;
+  z-index: 1001;
+  background-color: var(--color-background);
   @include respond(phone) {
     padding-left: 2.5rem;
     font-size: 2.5rem;

@@ -4,10 +4,13 @@ import { observer } from "mobx-react-lite"
 import EntityInput from "./parts/EntityInput"
 import RelationshipsSelector from "./parts/RelationshipSelector"
 import type { RelationshipType } from "@/types/interface.types"
-import {RelationshipSynec} from "@/classes/members/RelationshipSynec"
+import { RelationshipSynec } from "@/classes/members/RelationshipSynec"
 
 const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
-  console.log(entity)
+  function addRelationship(type: RelationshipType) {
+    const relationship = new RelationshipSynec(entity.id, "", type)
+    entity.addRelationship(relationship)
+  }
   return (
     <>
       <form className="entity-form" onSubmit={onToggle}>
@@ -16,9 +19,7 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
           onChange={(value) => entity.setName(value)}
         />
         <RelationshipsSelector
-          onSelection={(type: RelationshipType) =>
-            entity.addRelationship(new RelationshipSynec(entity.id, '', type))
-          }
+          onSelection={(type: RelationshipType) => addRelationship(type)}
         />
       </form>
     </>

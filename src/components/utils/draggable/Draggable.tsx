@@ -3,11 +3,9 @@ import { useState, useRef } from "react"
 import { useZoom } from "@/components/uml-editor/parts/ZoomContext"
 
 export default function Draggable({
-  id,
   children,
   initialPosition = { x: 0, y: 0 },
 }: {
-  id: string
   children: React.ReactNode
   initialPosition?: { x: number; y: number }
 }) {
@@ -83,7 +81,6 @@ export default function Draggable({
 
   return (
     <div
-      id={id}
       className={`draggable ${isDragging ? " draggable--dragging" : ""}`}
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
