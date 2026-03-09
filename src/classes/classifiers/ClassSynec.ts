@@ -47,4 +47,11 @@ export class ClassSynec implements ClassSynecInterface {
     public addRelationship(relationship: RelationshipSynec): void {
         this.relationships.push(relationship);
     }
+
+    public setRelationshipDestiny(entityId: string): void {
+        const lastRelationship = this.relationships[this.relationships.length - 1];
+        if (lastRelationship) {
+            lastRelationship.destination = entityId;
+        }
+    }
 }

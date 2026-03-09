@@ -3,86 +3,58 @@ import type { Entity as EntityType } from "@/types/entity.types"
 import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { observer } from "mobx-react-lite"
-import { trackMouse } from "@/utils/functions/mouse-tracker"
-
-function closestBorderPoint(rect: DOMRect, cursorX: number, cursorY: number) {
-  const cx = rect.left + rect.width / 2
-  const cy = rect.top + rect.height / 2
-  const dx = cursorX - cx
-  const dy = cursorY - cy
-  const scaleX = dx !== 0 ? rect.width / 2 / Math.abs(dx) : Infinity
-  const scaleY = dy !== 0 ? rect.height / 2 / Math.abs(dy) : Infinity
-  const scale = Math.min(scaleX, scaleY)
-  return { x: cx + dx * scale, y: cy + dy * scale }
-}
+import {
+  trackMouse,
+  getClosestBorderPoint,
+} from "@/utils/functions/mouse-tracker"
+import { useEntityPositions } from "@/components/uml-editor/parts/EntityPositionsContext"
+import RelationshipArrow from "./RelationshipArrow"
 
 const RelationshipsRenderer = observer(
   ({ entities }: { entities: EntityType[] }) => {
     const relationships = entities.flatMap((entity) =>
       entity.relationships.map((rel) => ({ id: entity.id, ...rel })),
     )
-    const [origin, setOrigin] = useState({ x: 0, y: 0 })
+    const [origin, setOrigin] = useState<{ x: number; y: number } | null>(null)
     const [mouse, setMouse] = useState({ x: 0, y: 0 })
+    const mouseRef = useRef({ x: 0, y: 0 })
 
+    const { positions } = useEntityPositions()
     const sourceId = relationships[0]?.id
+    const entityPos = positions[sourceId]
+
     useEffect(() => {
       const ent = document.getElementById(sourceId)
       if (!ent) return
       const rect = ent.getBoundingClientRect()
-      setOrigin(closestBorderPoint(rect, rect.left + rect.width / 2, rect.top + rect.height / 2))
-    }, [sourceId])
+      const { x, y } = mouseRef.current
+      setOrigin(
+        getClosestBorderPoint(rect, {
+          cursorX: x || rect.left + rect.width / 2,
+          cursorY: y || rect.top + rect.height / 2,
+        }),
+      )
+    }, [entityPos, sourceId])
 
     const sourceIdRef = useRef(sourceId)
     sourceIdRef.current = sourceId
 
     function onMove(posX: number, posY: number) {
+      mouseRef.current = { x: posX, y: posY }
       setMouse({ x: posX, y: posY })
       requestAnimationFrame(() => {
         const ent = document.getElementById(sourceIdRef.current)
         if (!ent) return
         const rect = ent.getBoundingClientRect()
-        setOrigin(closestBorderPoint(rect, posX, posY))
+        setOrigin(getClosestBorderPoint(rect, { cursorX: posX, cursorY: posY }))
       })
     }
     const onMoveRef = useRef(onMove)
     onMoveRef.current = onMove
     useEffect(() => trackMouse((x, y) => onMoveRef.current(x, y)), [])
+    if (!origin) return <></>
     return createPortal(
-      <svg
-        width={window.innerWidth}
-        height={window.innerHeight}
-        style={{
-          position: "fixed",
-          inset: 0,
-          pointerEvents: "none",
-          zIndex: 1,
-        }}
-      >
-        {/* Arrowhead marker definition */}
-        <defs>
-          <marker
-            id="arrow"
-            markerWidth="10"
-            markerHeight="7"
-            refX="10"
-            refY="3.5"
-            orient="auto"
-          >
-            <polygon points="0 0, 10 3.5, 0 7" fill="#555" />
-          </marker>
-        </defs>
-
-        {/* Line from entity center → cursor */}
-        <line
-          x1={origin.x}
-          y1={origin.y}
-          x2={mouse.x}
-          y2={mouse.y}
-          stroke="#555"
-          strokeWidth={2}
-          markerEnd="url(#arrow)"
-        />
-      </svg>,
+      <RelationshipArrow from={origin} to={mouse} />,
       document.body,
     )
   },

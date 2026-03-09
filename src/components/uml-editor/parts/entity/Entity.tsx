@@ -9,7 +9,7 @@ import { useRef, useState } from "react"
 import DefaultCard from "./states/DefaultEntity"
 import EditionCard from "./states/EditionEntity"
 
-export default function UMLClass({ entity }: UMLClassProps) {
+export default function UMLClass({ entity, ...props }: UMLClassProps) {
   const entityState = useRef(new ClassState())
   const [state, setState] = useState<ClassStateType>(EntityStates.default)
 
@@ -21,7 +21,7 @@ export default function UMLClass({ entity }: UMLClassProps) {
   const RenderedCard =
     state === EntityStates.editing ? EditionCard : DefaultCard
   return (
-    <div className={`entity entity--${state}`} onContextMenu={toggleEdition} id={entity.id}>
+    <div className={`entity entity--${state}`} onContextMenu={toggleEdition} id={entity.id} {...props}>
       <RenderedCard entity={entity} onToggle={toggleEdition} />
     </div>
   )

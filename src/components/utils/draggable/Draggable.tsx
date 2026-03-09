@@ -1,16 +1,25 @@
 import "./Draggable.scss"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { useZoom } from "@/components/uml-editor/parts/ZoomContext"
+import { useEntityPositions } from "@/components/uml-editor/parts/EntityPositionsContext"
 
 export default function Draggable({
   children,
   initialPosition = { x: 0, y: 0 },
+  entityId,
 }: {
   children: React.ReactNode
   initialPosition?: { x: number; y: number }
+  entityId?: string
 }) {
   const [position, setPosition] = useState(initialPosition)
   const [isDragging, setIsDragging] = useState(false)
+  const { setEntityPosition } = useEntityPositions()
+
+  useEffect(() => {
+    if (entityId) setEntityPosition(entityId, initialPosition)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entityId])
   const dragStart = useRef<{
     mouseX: number
     mouseY: number
@@ -32,14 +41,16 @@ export default function Draggable({
 
     function onMove(x: number, y: number) {
       if (!dragStart.current) return
-      setPosition({
+      const newPos = {
         x:
           dragStart.current.posX +
           (x - dragStart.current.mouseX) / scaleRef.current,
         y:
           dragStart.current.posY +
           (y - dragStart.current.mouseY) / scaleRef.current,
-      })
+      }
+      setPosition(newPos)
+      if (entityId) setEntityPosition(entityId, newPos)
     }
 
     function onMouseMove(ev: MouseEvent) {
