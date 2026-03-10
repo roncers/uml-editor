@@ -7,7 +7,6 @@ import {
   trackMouse,
   getClosestBorderPoint,
 } from "@/utils/functions/mouse-tracker"
-import { useEntityPositions } from "@/components/uml-editor/parts/EntityPositionsContext"
 import RelationshipArrow from "./RelationshipArrow"
 
 const RelationshipsRenderer = observer(
@@ -19,22 +18,7 @@ const RelationshipsRenderer = observer(
     const [mouse, setMouse] = useState({ x: 0, y: 0 })
     const mouseRef = useRef({ x: 0, y: 0 })
 
-    const { positions } = useEntityPositions()
     const sourceId = relationships[0]?.id
-    const entityPos = positions[sourceId]
-
-    useEffect(() => {
-      const ent = document.getElementById(sourceId)
-      if (!ent) return
-      const rect = ent.getBoundingClientRect()
-      const { x, y } = mouseRef.current
-      setOrigin(
-        getClosestBorderPoint(rect, {
-          cursorX: x || rect.left + rect.width / 2,
-          cursorY: y || rect.top + rect.height / 2,
-        }),
-      )
-    }, [entityPos, sourceId])
 
     const sourceIdRef = useRef(sourceId)
     sourceIdRef.current = sourceId
