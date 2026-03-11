@@ -35,10 +35,30 @@ const RelationshipsRenderer = observer(
     }
     const onMoveRef = useRef(onMove)
     onMoveRef.current = onMove
+    const creatingNew = Boolean(sourceId)
+    const createdRelationships = entities.flatMap((entity) => entity.relationships)
     useEffect(() => trackMouse((x, y) => onMoveRef.current(x, y)), [])
+    function getCoordinates(entityId: string, targetEntityId: string) {
+      const ent = document.getElementById(entityId)
+      if (!ent) return { x: 0, y: 0 }
+      const rect = ent.getBoundingClientRect()
+      const target = document.getElementById(targetEntityId)
+      if (!target) return { x: 0, y: 0 }
+      const targetRect = target.getBoundingClientRect()
+      return getClosestBorderPoint(rect, {
+        cursorX: targetRect.left + targetRect.width / 2,
+        cursorY: targetRect.top + targetRect.height / 2,
+      })
+    }
     if (!origin) return <></>
     return createPortal(
-      <RelationshipArrow from={origin} to={mouse} />,
+      <>
+        {creatingNew && <RelationshipArrow from={origin} to={mouse} />}
+        {createdRelationships.length > 0 &&
+          createdRelationships.map((rel, indx) => (
+            <RelationshipArrow key={indx} from={getCoordinates(rel.origin, rel.destination)} to={getCoordinates(rel.destination, rel.origin)} />
+          ))}
+      </>,
       document.body,
     )
   },
