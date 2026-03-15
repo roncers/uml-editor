@@ -25,6 +25,7 @@ export default function UMLEditor() {
     const entity = createdEntities[0]
     console.log(createdEntities)
     if (!entity) return
+    if (entity.relationships.some((rel) => rel?.origin === entityId)) return
     entity.setRelationshipDestiny(entityId)
   }
 

@@ -1,28 +1,27 @@
 import "./Entity.scss"
 import type { UMLClassProps } from "./Entity.types"
-import { ClassState } from "@/classes/members/ClassState"
-import {
-  ClassStateEnum as EntityStates,
-  type ClassStateType,
-} from "@/types/entity.types"
-import { useRef, useState } from "react"
-import DefaultCard from "./states/DefaultEntity"
-import EditionCard from "./states/EditionEntity"
+import { ClassStateEnum as EntityStates } from "@/types/entity.types"
+import { observer } from "mobx-react-lite"
+import DefaultCard from "./states/default-entity/DefaultEntity"
+import EditionCard from "./states/edition-entity/EditionEntity"
 
-export default function UMLClass({ entity, ...props }: UMLClassProps) {
-  const entityState = useRef(new ClassState())
-  const [state, setState] = useState<ClassStateType>(EntityStates.default)
-
+const UMLClass = observer(function UMLClass({ entity, ...props }: UMLClassProps) {
   function toggleEdition(e?: React.MouseEvent) {
     e?.preventDefault()
-    entityState.current.toggleEdition()
-    setState(() => entityState.current.getState())
+    entity.toggleEdition()
   }
   const RenderedCard =
-    state === EntityStates.editing ? EditionCard : DefaultCard
+    entity.state === EntityStates.editing ? EditionCard : DefaultCard
   return (
-    <div className={`entity entity--${state}`} onContextMenu={toggleEdition} id={entity.id} {...props}>
+    <div
+      className={`entity entity--${entity.state}`}
+      onContextMenu={toggleEdition}
+      id={entity.id}
+      {...props}
+    >
       <RenderedCard entity={entity} onToggle={toggleEdition} />
     </div>
   )
-}
+})
+
+export default UMLClass

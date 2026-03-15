@@ -1,31 +1,35 @@
-import FormElement from "./FormElement"
+import { observer } from "mobx-react-lite" // Essential for MobX reactivity
 import { attributeVisibility } from "@/types/interface.types"
 import type { FunctionSynec } from "@/classes/members/FunctionSynec"
 
 interface FunctionSelectorProps<T extends FunctionSynec> {
   value: T
-  onChange: (value: T, type: 'name' | 'visibility') => void
+  onChange: (value: string, type: "name" | "visibility", method: T) => void
+  formId: string | number
 }
 
-const FunctionSelector = <T extends FunctionSynec>({
-  value,
-  onChange,
-}: FunctionSelectorProps<T>) => {
-  return (
-    <FormElement elementId="methods">
+const FunctionSelector = observer(
+  <T extends FunctionSynec>({
+    value,
+    onChange,
+    formId,
+  }: FunctionSelectorProps<T>) => {
+    return (
       <div className="entity-form__field-wrapper">
         <input
-          id="function-name"
+          id={`function-name-${formId}`}
           className="entity-form__input-function"
           autoComplete="off"
           value={value.name}
-          onChange={(e) => onChange({ ...value, name: e.target.value } as T, 'name')}
+          onChange={(e) => onChange(e.target.value, "name", value)}
+          onMouseDown={(e) => e.stopPropagation()}
+          onTouchStart={(e) => e.stopPropagation()}
         />
         <select
-          id="function-visibility"
+          id={`function-visibility-${formId}`}
           className="entity-form__select-function"
           value={value.visibility}
-          onChange={(e) => onChange({ ...value, visibility: e.target.value } as T, 'visibility')}
+          onChange={(e) => onChange(e.target.value, "visibility", value)}
           onMouseDown={(e) => e.stopPropagation()}
         >
           {Object.values(attributeVisibility).map((opt) => (
@@ -35,8 +39,8 @@ const FunctionSelector = <T extends FunctionSynec>({
           ))}
         </select>
       </div>
-    </FormElement>
-  )
-}
+    )
+  },
+)
 
 export default FunctionSelector

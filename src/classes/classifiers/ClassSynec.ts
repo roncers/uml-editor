@@ -3,6 +3,7 @@ import type { PropertySynec } from "../../interfaces/PropertySynec.interface";
 import type { FunctionSynec } from "../../interfaces/FunctionSynec.interface";
 import type { RelationshipSynec } from "../../interfaces/RelationshipSynec.interface";
 import { makeAutoObservable } from "mobx";
+import  { type ClassStateType, ClassStateEnum } from "@/types/entity.types";
 
 export class ClassSynec implements ClassSynecInterface {
     id: string;
@@ -10,6 +11,7 @@ export class ClassSynec implements ClassSynecInterface {
     properties: PropertySynec[];
     functions: FunctionSynec[];
     relationships: RelationshipSynec[];
+    state: ClassStateType;
 
     constructor(name = '', properties = [], functions = [], relationships = []) {
         this.id = self.crypto.randomUUID();
@@ -17,6 +19,7 @@ export class ClassSynec implements ClassSynecInterface {
         this.properties = properties;
         this.functions = functions;
         this.relationships = relationships;
+        this.state = ClassStateEnum.default;
         makeAutoObservable(this);
     }
 
@@ -46,6 +49,18 @@ export class ClassSynec implements ClassSynecInterface {
 
     public addRelationship(relationship: RelationshipSynec): void {
         this.relationships.push(relationship);
+    }
+
+    public toggleEdition(): void {
+        this.state = this.state === ClassStateEnum.editing
+            ? ClassStateEnum.default
+            : ClassStateEnum.editing;
+    }
+
+    public toggleSelection(): void {
+        this.state = this.state === ClassStateEnum.selected
+            ? ClassStateEnum.default
+            : ClassStateEnum.selected;
     }
 
     public setRelationshipDestiny(entityId: string): void {

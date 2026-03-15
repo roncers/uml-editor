@@ -1,3 +1,8 @@
+
+# UML Diagram Editor
+
+This project is a UML diagram editor built with React, TypeScript, and Vite. It allows users to visually create, edit, and manage UML class diagrams in a modern, fast, and scalable web environment. The architecture is designed for maintainability and extensibility, following SOLID principles and centralized state management.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

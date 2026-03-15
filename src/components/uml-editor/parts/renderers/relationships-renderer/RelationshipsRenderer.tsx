@@ -36,7 +36,9 @@ const RelationshipsRenderer = observer(
     const onMoveRef = useRef(onMove)
     onMoveRef.current = onMove
     const creatingNew = Boolean(sourceId)
-    const createdRelationships = entities.flatMap((entity) => entity.relationships)
+    const createdRelationships = entities.flatMap((entity) =>
+      entity.relationships.filter((rel) => rel.destination),
+    )
     useEffect(() => trackMouse((x, y) => onMoveRef.current(x, y)), [])
     function getCoordinates(entityId: string, targetEntityId: string) {
       const ent = document.getElementById(entityId)
