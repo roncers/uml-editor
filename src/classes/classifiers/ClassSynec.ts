@@ -2,7 +2,7 @@ import type { ClassSynec as ClassSynecInterface } from "../../interfaces/classes
 import type { PropertySynec } from "../../interfaces/PropertySynec.interface";
 import type { FunctionSynec } from "../../interfaces/FunctionSynec.interface";
 import type { RelationshipSynec } from "../../interfaces/RelationshipSynec.interface";
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import  { type ClassStateType, ClassStateEnum } from "@/types/entity.types";
 
 export class ClassSynec implements ClassSynecInterface {
@@ -12,6 +12,7 @@ export class ClassSynec implements ClassSynecInterface {
     functions: FunctionSynec[];
     relationships: RelationshipSynec[];
     state: ClassStateType;
+    isToggling: boolean;
 
     constructor(name = '', properties = [], functions = [], relationships = []) {
         this.id = self.crypto.randomUUID();
@@ -20,6 +21,7 @@ export class ClassSynec implements ClassSynecInterface {
         this.functions = functions;
         this.relationships = relationships;
         this.state = ClassStateEnum.default;
+        this.isToggling = false;
         makeAutoObservable(this);
     }
 
@@ -55,6 +57,18 @@ export class ClassSynec implements ClassSynecInterface {
         this.state = this.state === ClassStateEnum.editing
             ? ClassStateEnum.default
             : ClassStateEnum.editing;
+    }
+
+    public toggleEditionWithLock(lockMs = 1): void {
+        if (this.isToggling) return;
+        this.isToggling = true;
+        this.toggleEdition();
+
+        setTimeout(() => {
+            runInAction(() => {
+                this.isToggling = false;
+            });
+        }, lockMs);
     }
 
     public toggleSelection(): void {

@@ -5,10 +5,14 @@ import { observer } from "mobx-react-lite"
 import DefaultCard from "./states/default-entity/DefaultEntity"
 import EditionCard from "./states/edition-entity/EditionEntity"
 
-const UMLClass = observer(function UMLClass({ entity, ...props }: UMLClassProps) {
+const UMLClass = observer(function UMLClass({
+  entity,
+  ...props
+}: UMLClassProps) {
   function toggleEdition(e?: React.MouseEvent) {
+    if (entity.isToggling) return
     e?.preventDefault()
-    entity.toggleEdition()
+    entity.toggleEditionWithLock()
   }
   const RenderedCard =
     entity.state === EntityStates.editing ? EditionCard : DefaultCard
@@ -16,6 +20,10 @@ const UMLClass = observer(function UMLClass({ entity, ...props }: UMLClassProps)
     <div
       className={`entity entity--${entity.state}`}
       onContextMenu={toggleEdition}
+      style={{
+        height: entity.isToggling ? "1rem" : undefined,
+        minHeight: entity.isToggling ? "1rem" : undefined,
+      }}
       id={entity.id}
       {...props}
     >

@@ -10,6 +10,7 @@ export interface ClassSynec {
     functions: FunctionSynec[];
     relationships: RelationshipSynec[];
     state: ClassStateType;
+    isToggling: boolean;
     setName(name: string): void;
     setProperties(properties: PropertySynec[]): void;
     setFunctions(functions: FunctionSynec[]): void;
@@ -19,5 +20,6 @@ export interface ClassSynec {
     addFunction(function_: FunctionSynec): void;
     addRelationship(relationship: RelationshipSynec): void;
     toggleEdition(): void;
+    toggleEditionWithLock(lockMs?: number): void;
     toggleSelection(): void;
 }

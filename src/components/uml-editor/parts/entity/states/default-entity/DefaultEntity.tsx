@@ -5,7 +5,7 @@ import "./DefaultEntity.scss"
 
 const DefaultEntity = observer(({ entity }: UMLClassProps) => {
   return (
-    <>
+    <div className="entity__content">
       <h3 className="entity__title entity--with-padding">{entity.name}</h3>
       {entity.properties.length > 0 && (
         <section className="entity__elements entity--with-padding">
@@ -27,7 +27,7 @@ const DefaultEntity = observer(({ entity }: UMLClassProps) => {
           )}
         </section>
       )}
-    </>
+    </div>
   )
 })
 

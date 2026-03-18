@@ -1,5 +1,9 @@
 .entity-form {
   padding: 0.3rem 1rem 1rem 1rem;
+  width: 17rem;
+  opacity: 0;
+  animation: textIn 200ms ease forwards;
+  animation-delay: 100ms;
 
   &__field {
     display: flex;
@@ -31,7 +35,7 @@
     border-radius: 50%;
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       width: 2rem;
       height: 2rem;
@@ -39,13 +43,17 @@
       left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 50%;
-      transition: width 0s 0.15s, height 0s 0.15s;
+      transition:
+        width 0s 0.15s,
+        height 0s 0.15s;
     }
 
     &:hover::after {
       width: 12rem;
       height: 12rem;
-      transition: width 0s, height 0s;
+      transition:
+        width 0s,
+        height 0s;
     }
 
     &:hover > .entity-form__relationship-menu {
@@ -82,8 +90,12 @@
     font-weight: bold;
     cursor: pointer;
     opacity: 0;
-    transform: rotate(var(--option-angle)) translateY(0) rotate(calc(-1 * var(--option-angle)));
-    transition: transform 0.25s ease, opacity 0.2s ease, background-color 0.15s ease;
+    transform: rotate(var(--option-angle)) translateY(0)
+      rotate(calc(-1 * var(--option-angle)));
+    transition:
+      transform 0.25s ease,
+      opacity 0.2s ease,
+      background-color 0.15s ease;
 
     img {
       width: 80%;
@@ -104,7 +116,8 @@
 
   &__relationship-selector:hover &__relationship-option {
     opacity: 1;
-    transform: rotate(var(--option-angle)) translateY(-4rem) rotate(calc(-1 * var(--option-angle)));
+    transform: rotate(var(--option-angle)) translateY(-4rem)
+      rotate(calc(-1 * var(--option-angle)));
     z-index: 3;
 
     @for $i from 1 through 6 {

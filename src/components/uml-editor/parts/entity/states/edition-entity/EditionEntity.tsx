@@ -40,7 +40,6 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
           value={entity.name}
           onChange={(value) => entity.setName(value)}
         />
-        {/* TODO: TRANSLATE */}
         <h5>
           {t("methods")}
           <button
