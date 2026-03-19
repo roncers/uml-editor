@@ -6,8 +6,8 @@
 
 .board {
     position: relative;
-    width: calc(infinity * 1px);
-    height: calc(infinity * 1px);
+    width: calc(100vw * 3);
+    height: calc(100vh * 3);
     background-color: var(--color-background-contrast);
     background-repeat: repeat;background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Ccircle cx='60' cy='60' r='3' fill='%23888'/%3E%3C/svg%3E");
     background-size: 80px 80px;

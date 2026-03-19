@@ -3,7 +3,7 @@ import type { PropertySynec } from "../../interfaces/PropertySynec.interface";
 import type { FunctionSynec } from "../../interfaces/FunctionSynec.interface";
 import type { RelationshipSynec } from "../../interfaces/RelationshipSynec.interface";
 import { makeAutoObservable, runInAction } from "mobx";
-import  { type ClassStateType, ClassStateEnum } from "@/types/entity.types";
+import { type ClassStateType, ClassStateEnum } from "@/types/entity.types";
 
 export class ClassSynec implements ClassSynecInterface {
     id: string;
@@ -59,7 +59,7 @@ export class ClassSynec implements ClassSynecInterface {
             : ClassStateEnum.editing;
     }
 
-    public toggleEditionWithLock(lockMs = 1): void {
+    public toggleEditionWithLock(lockMs = 150): void {
         if (this.isToggling) return;
         this.isToggling = true;
         this.toggleEdition();

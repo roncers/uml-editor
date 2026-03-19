@@ -21,8 +21,10 @@ const UMLClass = observer(function UMLClass({
       className={`entity entity--${entity.state}`}
       onContextMenu={toggleEdition}
       style={{
-        height: entity.isToggling ? "1rem" : undefined,
-        minHeight: entity.isToggling ? "1rem" : undefined,
+        height: entity.isToggling ? "2rem" : undefined,
+        minHeight: entity.isToggling ? "2rem" : undefined,
+        width: entity.isToggling ? "2rem" : undefined,
+        minWidth: entity.isToggling ? "2rem" : undefined,
       }}
       id={entity.id}
       {...props}
