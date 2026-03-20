@@ -18,7 +18,8 @@ const RelationshipsRenderer = observer(
     const [mouse, setMouse] = useState({ x: 0, y: 0 })
     const mouseRef = useRef({ x: 0, y: 0 })
 
-    const sourceId = relationships[0]?.id
+    const pendingRel = relationships.find((rel) => rel.destination === "")
+    const sourceId = pendingRel?.id
 
     const sourceIdRef = useRef(sourceId)
     sourceIdRef.current = sourceId
@@ -27,6 +28,7 @@ const RelationshipsRenderer = observer(
       mouseRef.current = { x: posX, y: posY }
       setMouse({ x: posX, y: posY })
       requestAnimationFrame(() => {
+        if (!sourceIdRef.current) return
         const ent = document.getElementById(sourceIdRef.current)
         if (!ent) return
         const rect = ent.getBoundingClientRect()

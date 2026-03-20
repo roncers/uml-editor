@@ -5,10 +5,11 @@ import EntityInput from "./parts/EntityInput"
 import RelationshipsSelector from "./parts/RelationshipSelector"
 import type { RelationshipType } from "@/types/interface.types"
 import { RelationshipSynec } from "@/classes/members/RelationshipSynec"
-import FunctionSelector from "./parts/FunctionSelector"
+import FunctionSelector from "./parts/function-selector/FunctionSelector"
 import { FunctionSynec } from "@/classes/members/FunctionSynec"
 import type { AttributeVisibility } from "@/types/interface.types"
 import { useTranslation } from "react-i18next"
+import AddButton from "./parts/add-button-edition/AddButtonEdition"
 
 const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
   const { t } = useTranslation()
@@ -40,14 +41,9 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
           value={entity.name}
           onChange={(value) => entity.setName(value)}
         />
-        <h5>
-          {t("methods")}
-          <button
-            type="button"
-            onClick={() => entity.addFunction(new FunctionSynec())}
-          >
-            +
-          </button>
+        <h5 className="entity-form__methods-title">
+          <span className="entity-form__subtitle">{t("methods")}</span>
+          <AddButton action={() => entity.addFunction(new FunctionSynec())} />
         </h5>
         {entity.functions.map((method, indx) => (
           <FunctionSelector

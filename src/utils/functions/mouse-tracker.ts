@@ -1,14 +1,24 @@
 export function trackMouse(onMove: (x: number, y: number) => void) {
-    const handler = (event: MouseEvent) => {
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
+    let lastX = 0;
+    let lastY = 0;
 
-        onMove(mouseX, mouseY);
+    const moveHandler = (event: MouseEvent) => {
+        lastX = event.clientX;
+        lastY = event.clientY;
+        onMove(lastX, lastY);
     };
 
-    document.addEventListener('mousemove', handler);
+    const scrollHandler = () => {
+        onMove(lastX, lastY);
+    };
 
-    return () => document.removeEventListener('mousemove', handler);
+    document.addEventListener('mousemove', moveHandler);
+    document.addEventListener('wheel', scrollHandler, true);
+
+    return () => {
+        document.removeEventListener('mousemove', moveHandler);
+        document.removeEventListener('wheel', scrollHandler, true);
+    };
 }
 
 export function getClosestBorderPoint(rect: DOMRect, { cursorX, cursorY }: { cursorX: number; cursorY: number }) {

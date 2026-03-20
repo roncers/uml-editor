@@ -17,11 +17,28 @@
     text-transform: capitalize;
   }
 
+  &__subtitle {
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    color: var(--color-primary);
+    text-transform: capitalize;
+  }
+
+  &__methods-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
   &__input-default {
-    font-size: 1.1rem;
     font-weight: bold;
     border: none;
-    background-color: var(--color-background-contrast);
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-size: 0.875rem;
+    outline: none;
   }
 
   &__relationship-selector {

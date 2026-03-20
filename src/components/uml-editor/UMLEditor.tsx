@@ -22,10 +22,11 @@ export default function UMLEditor() {
   )
 
   function joinRelationship(entityId: string) {
-    const entity = createdEntities[0]
-    console.log(createdEntities)
+    const entity = createdEntities.find((e) =>
+      e.relationships.some((rel) => rel.destination === ""),
+    )
     if (!entity) return
-    if (entity.relationships.some((rel) => rel?.origin === entityId)) return
+    if (entity.id === entityId) return
     entity.setRelationshipDestiny(entityId)
   }
 

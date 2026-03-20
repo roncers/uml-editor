@@ -1,0 +1,20 @@
+.entity-form {
+  &__add-button {
+    background-color: var(--color-secondary-contrast);
+    border-color: var(--color-secondary-contrast);
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    &:hover {
+      background-color: var(--color-secondary);
+    }
+
+    &:active {
+      transform: translateY(0.1rem);
+    }
+  }
+}

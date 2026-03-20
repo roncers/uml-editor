@@ -1,6 +1,7 @@
-import { observer } from "mobx-react-lite" // Essential for MobX reactivity
+import { observer } from "mobx-react-lite" 
 import { attributeVisibility } from "@/types/interface.types"
 import type { FunctionSynec } from "@/classes/members/FunctionSynec"
+import "./FunctionSelector.scss"
 
 interface FunctionSelectorProps<T extends FunctionSynec> {
   value: T
