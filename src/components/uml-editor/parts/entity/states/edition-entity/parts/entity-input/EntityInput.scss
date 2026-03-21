@@ -1,0 +1,12 @@
+.entity-form {
+  &__input-default {
+    font-weight: bold;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-size: 0.875rem;
+    outline: none;
+  }
+}

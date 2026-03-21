@@ -4,4 +4,7 @@ export interface PropertySynec {
     name: string;
     type: AttributeType;
     visibility: AttributeVisibility;
+    setName(name: string): void;
+    setType(type: AttributeType): void;
+    setVisibility(visibility: AttributeVisibility): void;
 }

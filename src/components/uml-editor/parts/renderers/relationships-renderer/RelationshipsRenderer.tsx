@@ -1,6 +1,6 @@
 import "./RelationsihpsRenderer.scss"
 import type { Entity as EntityType } from "@/types/entity.types"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { observer } from "mobx-react-lite"
 import {
@@ -8,7 +8,7 @@ import {
   getClosestBorderPoint,
 } from "@/utils/functions/mouse-tracker"
 import RelationshipArrow from "./RelationshipArrow"
-
+import { useZoom } from "@/components/uml-editor/parts/ZoomContext"
 const RelationshipsRenderer = observer(
   ({ entities }: { entities: EntityType[] }) => {
     const relationships = entities.flatMap((entity) =>
@@ -41,6 +41,12 @@ const RelationshipsRenderer = observer(
     const createdRelationships = entities.flatMap((entity) =>
       entity.relationships.filter((rel) => rel.destination),
     )
+    // for using the scaling in the relationships when wheel is used
+    const scale = useZoom()
+    const [, forceRender] = useState(0)
+    useLayoutEffect(() => {
+      forceRender((n) => n + 1)
+    }, [scale])
     useEffect(() => trackMouse((x, y) => onMoveRef.current(x, y)), [])
     function getCoordinates(entityId: string, targetEntityId: string) {
       const ent = document.getElementById(entityId)

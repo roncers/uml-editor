@@ -1,5 +1,5 @@
-import FormElement from "./FormElement"
-
+import FormElement from "../FormElement"
+import "./EntityInput.scss"
 interface EntityInputProps {
   value: string
   onChange: (value: string) => void
