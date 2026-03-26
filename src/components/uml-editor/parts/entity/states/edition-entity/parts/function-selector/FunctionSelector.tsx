@@ -1,6 +1,8 @@
 import { observer } from "mobx-react-lite" 
 import { attributeVisibility } from "@/types/interface.types"
 import type { FunctionSynec } from "@/classes/members/FunctionSynec"
+import { useTranslation } from "react-i18next"
+
 import "./FunctionSelector.scss"
 
 interface FunctionSelectorProps<T extends FunctionSynec> {
@@ -15,6 +17,7 @@ const FunctionSelector = observer(
     onChange,
     formId,
   }: FunctionSelectorProps<T>) => {
+    const { t } = useTranslation()
     return (
       <div className="entity-form__field-wrapper">
         <input
@@ -25,6 +28,7 @@ const FunctionSelector = observer(
           onChange={(e) => onChange(e.target.value, "name", value)}
           onMouseDown={(e) => e.stopPropagation()}
           onTouchStart={(e) => e.stopPropagation()}
+          placeholder={t('name-placeholder')}
         />
         <select
           id={`function-visibility-${formId}`}

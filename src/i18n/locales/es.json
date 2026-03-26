@@ -1,5 +1,6 @@
 {
     "name": "nombre",
+    "name-placeholder": "Ingrese nombre",
     "attributes": "atributos",
     "methods": "métodos",
     "relationship": "relación",

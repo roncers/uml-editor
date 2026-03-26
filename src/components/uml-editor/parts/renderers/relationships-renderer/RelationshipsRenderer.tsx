@@ -7,7 +7,8 @@ import {
   trackMouse,
   getClosestBorderPoint,
 } from "@/utils/functions/mouse-tracker"
-import RelationshipArrow from "./RelationshipArrow"
+import RelationshipArrow from "@/components/uml-editor/parts/relationships/RelationshipArrow"
+import ArrowMarkerDefs from "@/components/uml-editor/parts/relationships/ArrowMarkerDefs"
 import { useZoom } from "@/components/uml-editor/parts/ZoomContext"
 const RelationshipsRenderer = observer(
   ({ entities }: { entities: EntityType[] }) => {
@@ -62,13 +63,30 @@ const RelationshipsRenderer = observer(
     }
     if (!origin) return <></>
     return createPortal(
-      <>
-        {creatingNew && <RelationshipArrow from={origin} to={mouse} />}
-        {createdRelationships.length > 0 &&
-          createdRelationships.map((rel, indx) => (
-            <RelationshipArrow key={indx} from={getCoordinates(rel.origin, rel.destination)} to={getCoordinates(rel.destination, rel.origin)} />
-          ))}
-      </>,
+      <svg
+        width={window.innerWidth}
+        height={window.innerHeight}
+        style={{
+          position: "fixed",
+          inset: 0,
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      >
+        <ArrowMarkerDefs />
+        {creatingNew && pendingRel && (
+          <RelationshipArrow from={origin} to={mouse} type={pendingRel.type} scale={scale} />
+        )}
+        {createdRelationships.map((rel, indx) => (
+          <RelationshipArrow
+            key={indx}
+            from={getCoordinates(rel.origin, rel.destination)}
+            to={getCoordinates(rel.destination, rel.origin)}
+            type={rel.type}
+            scale={scale}
+          />
+        ))}
+      </svg>,
       document.body,
     )
   },

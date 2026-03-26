@@ -1,0 +1,13 @@
+.entity-form {
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  &__field-label {
+    font-size: 1rem;
+    color: var(--color-primary);
+    text-transform: capitalize;
+  }
+}

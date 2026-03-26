@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next"
 import type { ReactNode } from "react"
+import "./FormElement.scss"
 
 interface FormElementProps {
   elementId: string

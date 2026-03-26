@@ -1,4 +1,5 @@
-import FormElement from "../FormElement"
+import { useTranslation } from "react-i18next"
+import FormElement from "../form-element/FormElement"
 import "./EntityInput.scss"
 interface EntityInputProps {
   value: string
@@ -6,6 +7,7 @@ interface EntityInputProps {
 }
 
 const EntityInput = ({ value, onChange }: EntityInputProps) => {
+  const { t } = useTranslation()
   return (
     <FormElement elementId="name">
       <input
@@ -16,6 +18,7 @@ const EntityInput = ({ value, onChange }: EntityInputProps) => {
         onChange={(e) => onChange(e.target.value)}
         onMouseDown={(e) => e.stopPropagation()}
         onTouchStart={(e) => e.stopPropagation()}
+        placeholder={t('name-placeholder')}
       />
     </FormElement>
   )

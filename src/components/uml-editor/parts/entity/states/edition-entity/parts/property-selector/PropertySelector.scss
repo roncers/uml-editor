@@ -26,5 +26,9 @@
     &:focus {
       border-color: var(--color-secondary);
     }
+    &--alone {
+      width: 100%;
+      margin-bottom: 0.25rem;
+    }
   }
 }

@@ -9,6 +9,7 @@ import aggregationSvg from "@/assets/svg/aggregation.svg"
 import compositionSvg from "@/assets/svg/composition.svg"
 import implementationSvg from "@/assets/svg/implementation.svg"
 import inheritanceSvg from "@/assets/svg/inheritance.svg"
+import './RelationshipSelector.scss'
 
 interface RelationshipProps {
   onSelection: (type: RelationshipType) => void
