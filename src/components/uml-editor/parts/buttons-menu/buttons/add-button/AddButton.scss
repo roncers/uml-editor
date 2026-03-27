@@ -1,0 +1,55 @@
+@mixin entrance-animation($axis: "Y", $offset: -10px) {
+  display: block;
+  opacity: 1;
+  // This correctly sets the property to 'transform'
+  // and the value to 'translateY(0)' or 'translateX(0)'
+  transform: translate#{$axis }(0);
+
+  @starting-style {
+    opacity: 0;
+    transform: translate#{$axis }($offset);
+  }
+}
+.buttons-menu {
+  &__add-button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+
+    .buttons-menu__add-button-sub-1 {
+      transform: translateY(-10px);
+    }
+    .buttons-menu__add-button-sub-2 {
+      transform: translateX(-10px);
+    }
+
+    .buttons-menu__add-button-sub-1,
+    .buttons-menu__add-button-sub-2 {
+      display: none;
+      opacity: 0;
+      transition:
+        opacity 0.4s ease,
+        transform 0.4s ease,
+        display 0.4s allow-discrete;
+    }
+
+    &:hover {
+      .buttons-menu__add-button-sub-1 {
+        @include entrance-animation("Y", -10px);
+      }
+      .buttons-menu__add-button-sub-2 {
+        @include entrance-animation("X", -10px);
+      }
+    }
+  }
+  &__add-button {
+    &#{&} {
+      cursor: default;
+    }
+  }
+}
+

@@ -1,0 +1,12 @@
+.button {
+  padding: 0 1rem;
+  font-size: 2rem;
+  z-index: 2;
+  cursor: pointer;
+  background-color: var(--color-background);
+  transition: background-color 0.2s ease-in-out;
+  &:hover,
+  &:active {
+    background-color: var(--color-secondary-contrast);
+  }
+}

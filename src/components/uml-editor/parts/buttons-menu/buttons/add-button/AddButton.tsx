@@ -1,7 +1,8 @@
 import "./AddButton.scss"
 import { useContext, useEffect } from "react"
-import { EntityContext } from "../../EntityContext"
+import { EntityContext } from "@/components/uml-editor/parts/EntityContext"
 import { useTranslation } from "react-i18next"
+import SyButton from "@/components/shared/sy-button/SyButton"
 
 export default function AddButton() {
   const context = useContext(EntityContext)
@@ -28,13 +29,17 @@ export default function AddButton() {
   }, [context])
 
   return (
-    <button
-      className="add-button"
+    <div className="buttons-menu__add-button-group">
+    <SyButton
+      className="buttons-menu__add-button"
       onClick={context?.createEntity}
       aria-label={t("aria-label-add-entity")}
       title={t("aria-label-add-entity")}
     >
       +
-    </button>
+    </SyButton>
+    <SyButton className="buttons-menu__add-button-sub-1">Class</SyButton>
+    <SyButton className="buttons-menu__add-button-sub-2">Interface</SyButton>
+    </div>
   )
 }

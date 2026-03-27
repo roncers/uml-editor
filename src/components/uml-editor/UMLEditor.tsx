@@ -1,5 +1,5 @@
 import "./UMLEditor.scss"
-import AddButton from "./parts/buttons/add-button/AddButton"
+import AddButton from "./parts/buttons-menu/buttons/add-button/AddButton"
 import EntitiesRenderer from "./parts/renderers/entities-renderer/EntitiesRenderer"
 import Board from "./parts/board/Board"
 
