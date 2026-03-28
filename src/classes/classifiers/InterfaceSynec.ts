@@ -2,13 +2,17 @@ import { ClassSynec } from "./ClassSynec";
 import type { InterfaceSynec as InterfaceSynecInterface } from "@/interfaces/classes/InterfaceSynec.interface";
 import type { RelationshipSynec } from "@/interfaces/RelationshipSynec.interface";
 import { relationshipType } from "@/types/interface.types";
+import { makeObservable, override } from "mobx";
 
 export class InterfaceSynec extends ClassSynec implements InterfaceSynecInterface {
-    relationships: (Omit<RelationshipSynec, 'type'> & { type: typeof relationshipType.implementation })[];
+    declare relationships: (Omit<RelationshipSynec, 'type'> & { type: typeof relationshipType.implementation })[];
 
     constructor(name = '', properties = [], functions = [], relationships: (Omit<RelationshipSynec, 'type'> & { type: typeof relationshipType.implementation })[] = []) {
         super(name, properties, functions);
         this.relationships = relationships;
+        makeObservable(this, {
+            addRelationship: override // Use 'override' because it's a specialized version of an entity action
+        });
     }
 
     public addRelationship(relationship: Omit<RelationshipSynec, 'type'> & { type: typeof relationshipType.implementation }): void {

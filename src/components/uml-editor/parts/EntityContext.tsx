@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 
 export interface EntityContextType {
-  createEntity: () => void;
+  createEntity: (entityType: "class" | "interface") => void;
 }
 
 export const EntityContext = createContext<EntityContextType | undefined>(undefined);

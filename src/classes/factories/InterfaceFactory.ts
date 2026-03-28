@@ -3,6 +3,8 @@ import { EntityFactory } from "./EntityFactory";
 
 export class InterfaceFactory extends EntityFactory {
     createEntity(): InterfaceSynec {
-        return new InterfaceSynec();
+        const interfaceElement = new InterfaceSynec(`Interface ${EntityFactory.createdEntities.length}`);
+        this.addEntity(interfaceElement);
+        return interfaceElement;
     }
 }

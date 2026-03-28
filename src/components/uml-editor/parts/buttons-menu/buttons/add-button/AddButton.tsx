@@ -21,7 +21,7 @@ export default function AddButton() {
         )
       ) {
         e.preventDefault()
-        context?.createEntity()
+        context?.createEntity("class")
       }
     }
     window.addEventListener("keydown", onKeyDown)
@@ -30,16 +30,29 @@ export default function AddButton() {
 
   return (
     <div className="buttons-menu__add-button-group">
-    <SyButton
-      className="buttons-menu__add-button"
-      onClick={context?.createEntity}
-      aria-label={t("aria-label-add-entity")}
-      title={t("aria-label-add-entity")}
-    >
-      +
-    </SyButton>
-    <SyButton className="buttons-menu__add-button-sub-1">Class</SyButton>
-    <SyButton className="buttons-menu__add-button-sub-2">Interface</SyButton>
+      <SyButton
+        className="buttons-menu__add-button"
+        aria-label={t("aria-label-add-entity")}
+        title={t("aria-label-add-entity")}
+      >
+        +
+      </SyButton>
+      <SyButton
+        className="buttons-menu__add-button-sub-1"
+        aria-label={t("aria-label-add-class")}
+        title={t("aria-label-add-class")}
+        onClick={() => context?.createEntity("class")}
+      >
+        Class
+      </SyButton>
+      <SyButton
+        className="buttons-menu__add-button-sub-2"
+        aria-label={t("aria-label-add-interface")}
+        title={t("aria-label-add-interface")}
+        onClick={() => context?.createEntity("interface")}
+      >
+        Interface
+      </SyButton>
     </div>
   )
 }

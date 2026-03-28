@@ -11,10 +11,14 @@ import RelationshipsRenderer from "./parts/renderers/relationships-renderer/Rela
 import { EntityPositionsProvider } from "./parts/EntityPositionsContext"
 
 export default function UMLEditor() {
-  const availableFactories = [new ClassFactory(), new InterfaceFactory()]
-  const selectedFactory = availableFactories[0]
-  function createEntity() {
-    selectedFactory.createEntity()
+  const availableFactories = {
+    class: new ClassFactory(),
+    interface: new InterfaceFactory(),
+  }
+  function createEntity(entityType: "class" | "interface") {
+    availableFactories[entityType].createEntity()
+    // the two factories share the same static createdEntities array
+    console.log("Created entities:", [...InterfaceFactory.createdEntities])
     setCreatedEntities([...InterfaceFactory.createdEntities])
   }
   const [createdEntities, setCreatedEntities] = useState(
