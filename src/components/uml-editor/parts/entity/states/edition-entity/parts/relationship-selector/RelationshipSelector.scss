@@ -1,13 +1,19 @@
 .entity-form {
   &__relationship-selector {
+    border: none;
     position: absolute;
     width: 2rem;
     height: 2rem;
     bottom: -1rem;
-    right: 0;
+    right: 50%;
     transform: translateX(50%);
     background-color: var(--color-secondary-contrast);
     border-radius: 50%;
+    opacity: 1;
+    transition: opacity .7s .5s;
+    @starting-style {
+      opacity: 0;
+    }
 
     &::after {
       content: "";
@@ -54,9 +60,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 3.2rem;
-    height: 3.2rem;
-    margin: -1.6rem;
+    width: 4.2rem;
+    height: 4.2rem;
+    margin: -2.1rem;
     border-radius: 50%;
     border: 1px solid var(--color-primary);
     background-color: var(--color-background);

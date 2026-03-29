@@ -30,7 +30,8 @@ export default function RelationshipsSelector({
   const { t } = useTranslation()
 
   return (
-    <div className="entity-form__relationship-selector">
+    <button className="entity-form__relationship-selector" onClick={(e) => {e.preventDefault()}}>
+      +
       <div className="entity-form__relationship-menu">
         {Object.values(relationshipType).map((type) => (
           <button
@@ -45,6 +46,6 @@ export default function RelationshipsSelector({
           </button>
         ))}
       </div>
-    </div>
+    </button>
   )
 }
