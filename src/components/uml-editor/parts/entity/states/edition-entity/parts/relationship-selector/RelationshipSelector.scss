@@ -1,10 +1,10 @@
+$_base-offset: 3.5;
 .entity-form {
   &__relationship-selector {
     border: none;
     position: absolute;
-    width: 2rem;
-    height: 2rem;
     bottom: -1rem;
+    padding: 0rem 0.2rem 0.2rem 0.2rem;
     right: 50%;
     transform: translateX(50%);
     background-color: var(--color-secondary-contrast);
@@ -30,8 +30,12 @@
     }
 
     &:hover::after {
-      width: 12rem;
-      height: 12rem;
+      position: absolute;
+      width: 2.5rem;
+      height: 30rem;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
       transition:
         width 0s,
         height 0s;
@@ -55,7 +59,7 @@
   }
 
   &__relationship-option {
-    --option-angle: 0deg;
+    --option-offset: 0rem;
     position: absolute;
     display: flex;
     align-items: center;
@@ -71,8 +75,7 @@
     font-weight: bold;
     cursor: pointer;
     opacity: 0;
-    transform: rotate(var(--option-angle)) translateY(0)
-      rotate(calc(-1 * var(--option-angle)));
+    transform: translateY(var(--option-offset));
     transition:
       transform 0.25s ease,
       opacity 0.2s ease,
@@ -84,9 +87,14 @@
       object-fit: contain;
     }
 
+    
     @for $i from 1 through 6 {
       &:nth-child(#{$i}) {
-        --option-angle: #{$i * 60}deg;
+        @if ($i == 1) {
+          --option-offset: #{$_base-offset}rem;
+        } @else {
+          --option-offset: #{($i - 1) * 4.5 + $_base-offset}rem;
+        }
       }
     }
 
@@ -97,13 +105,12 @@
 
   &__relationship-selector:hover &__relationship-option {
     opacity: 1;
-    transform: rotate(var(--option-angle)) translateY(-4rem)
-      rotate(calc(-1 * var(--option-angle)));
+    transform: translateY(var(--option-offset));
     z-index: 3;
 
     @for $i from 1 through 6 {
       &:nth-child(#{$i}) {
-        transition-delay: #{($i - 1) * 0.04}s;
+        transition-delay: #{($i - 1) * 0.1}s;
       }
     }
   }

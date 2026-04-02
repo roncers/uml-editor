@@ -9,31 +9,43 @@ import aggregationSvg from "@/assets/svg/aggregation.svg"
 import compositionSvg from "@/assets/svg/composition.svg"
 import implementationSvg from "@/assets/svg/implementation.svg"
 import inheritanceSvg from "@/assets/svg/inheritance.svg"
-import './RelationshipSelector.scss'
+import "./RelationshipSelector.scss"
 
 interface RelationshipProps {
   onSelection: (type: RelationshipType) => void
+  entityType: string
 }
 
 const relationshipIcons: Record<RelationshipType, string> = {
+  [relationshipType.inheritance]: inheritanceSvg,
   [relationshipType.dependency]: dependencySvg,
   [relationshipType.association]: associationSvg,
   [relationshipType.aggregation]: aggregationSvg,
   [relationshipType.composition]: compositionSvg,
   [relationshipType.implementation]: implementationSvg,
-  [relationshipType.inheritance]: inheritanceSvg,
 }
 
 export default function RelationshipsSelector({
   onSelection,
+  entityType,
 }: RelationshipProps) {
   const { t } = useTranslation()
+  const { implementation, ...rest } = relationshipType
+
+  const relationshipTypes =
+    entityType === "InterfaceSynec" ? { implementation } : rest
 
   return (
-    <span role="button" className="entity-form__relationship-selector" onClick={(e) => {e.preventDefault()}}>
+    <span
+      role="button"
+      className="entity-form__relationship-selector"
+      onClick={(e) => {
+        e.preventDefault()
+      }}
+    >
       +
       <div className="entity-form__relationship-menu">
-        {Object.values(relationshipType).map((type) => (
+        {Object.values(relationshipTypes).map((type) => (
           <button
             key={type}
             type="button"
@@ -42,7 +54,10 @@ export default function RelationshipsSelector({
             title={t(`relationship-${type}`)}
             onClick={() => onSelection(type)}
           >
-            <img src={relationshipIcons[type]} alt={t(`relationship-${type}`)} />
+            <img
+              src={relationshipIcons[type]}
+              alt={t(`relationship-${type}`)}
+            />
           </button>
         ))}
       </div>

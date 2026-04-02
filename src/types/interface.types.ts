@@ -20,11 +20,11 @@ export const attributeVisibility = {
 export type AttributeVisibility = typeof attributeVisibility[keyof typeof attributeVisibility];
 
 export const relationshipType = {
+    inheritance: 'inheritance',
     dependency: 'dependency',
     association: 'association',
     aggregation: 'aggregation',
     composition: 'composition',
-    implementation: 'implementation',
-    inheritance: 'inheritance'
+    implementation: 'implementation'
 } as const;
 export type RelationshipType = typeof relationshipType[keyof typeof relationshipType];

@@ -5,6 +5,8 @@ import { InterfaceSynec } from "@/classes/classifiers/InterfaceSynec"
 import "./DefaultEntity.scss"
 
 const DefaultEntity = observer(({ entity }: UMLClassProps) => {
+  // TODO: Fix the InterfaceSynec detection
+  console.log(entity instanceof InterfaceSynec)
   return (
     <div className="entity__content">
       {entity instanceof InterfaceSynec && (

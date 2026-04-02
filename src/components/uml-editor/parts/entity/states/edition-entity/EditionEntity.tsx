@@ -9,9 +9,19 @@ import FunctionSelector from "./parts/function-selector/FunctionSelector"
 import PropertySelector from "./parts/property-selector/PropertySelector"
 import { FunctionSynec } from "@/classes/members/FunctionSynec"
 import { PropertySynec } from "@/classes/members/PropertySynec"
-import type { AttributeVisibility, AttributeType } from "@/types/interface.types"
+import type {
+  AttributeVisibility,
+  AttributeType,
+} from "@/types/interface.types"
 import { useTranslation } from "react-i18next"
 import AddButton from "./parts/add-button-edition/AddButtonEdition"
+
+const getEntityType = (obj: unknown): string => {
+  if (obj && typeof obj === "object") {
+    return obj.constructor.name
+  }
+  return "Unknown"
+}
 
 const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
   const { t } = useTranslation()
@@ -86,6 +96,7 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
         ))}
         <RelationshipsSelector
           onSelection={(type: RelationshipType) => addRelationship(type)}
+          entityType={getEntityType(entity)}
         />
       </form>
     </>
