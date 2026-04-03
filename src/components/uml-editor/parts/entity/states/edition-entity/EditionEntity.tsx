@@ -23,8 +23,6 @@ const getEntityType = (obj: unknown): string => {
   }
   return "Unknown"
 }
-// TODO: Difference the interface.
-
 const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
   const { t } = useTranslation()
   function addRelationship(type: RelationshipType) {
@@ -57,6 +55,13 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
       method.setVisibility(value as AttributeVisibility)
     }
   }
+  let type
+  if (entity instanceof InterfaceSynec) {
+    type = "interface"
+  } else {
+    type = "class"
+  }
+
   return (
     <>
       <form
@@ -64,11 +69,9 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
         id={`form-${entity.id}`}
         onSubmit={onToggle}
       >
-        {entity instanceof InterfaceSynec && (
-          <span className="entity-form__identifier">
-            &lt;&lt;{t("interface")}&gt;&gt;
-          </span>
-        )}
+        <span className="entity-form__identifier">
+          &lt;&lt;{t(type)}&gt;&gt;
+        </span> 
         <EntityInput
           value={entity.name}
           onChange={(value) => entity.setName(value)}
