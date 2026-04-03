@@ -59,7 +59,6 @@ $_base-offset: 3.5;
   }
 
   &__relationship-option {
-    --option-offset: 0rem;
     position: absolute;
     display: flex;
     align-items: center;
@@ -75,9 +74,7 @@ $_base-offset: 3.5;
     font-weight: bold;
     cursor: pointer;
     opacity: 0;
-    transform: translateY(var(--option-offset));
     transition:
-      transform 0.25s ease,
       opacity 0.2s ease,
       background-color 0.15s ease;
 
@@ -87,14 +84,14 @@ $_base-offset: 3.5;
       object-fit: contain;
     }
 
-    
     @for $i from 1 through 6 {
       &:nth-child(#{$i}) {
-        @if ($i == 1) {
-          --option-offset: #{$_base-offset}rem;
-        } @else {
-          --option-offset: #{($i - 1) * 4.5 + $_base-offset}rem;
-        }
+        @if $i == 1 { transform: translate(5rem, 0); }
+        @else if $i == 2 { transform: translate(2.5rem, 4.33rem); }
+        @else if $i == 3 { transform: translate(-2.5rem, 4.33rem); }
+        @else if $i == 4 { transform: translate(-5rem, 0); }
+        @else if $i == 5 { transform: translate(-2.5rem, -4.33rem); }
+        @else if $i == 6 { transform: translate(2.5rem, -4.33rem); }
       }
     }
 
@@ -105,7 +102,6 @@ $_base-offset: 3.5;
 
   &__relationship-selector:hover &__relationship-option {
     opacity: 1;
-    transform: translateY(var(--option-offset));
     z-index: 3;
 
     @for $i from 1 through 6 {
