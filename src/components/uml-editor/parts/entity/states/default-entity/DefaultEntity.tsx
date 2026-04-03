@@ -3,14 +3,14 @@ import { observer } from "mobx-react-lite"
 import { attributeVisibility } from "@/types/interface.types"
 import { InterfaceSynec } from "@/classes/classifiers/InterfaceSynec"
 import "./DefaultEntity.scss"
+import { useTranslation } from "react-i18next"
 
 const DefaultEntity = observer(({ entity }: UMLClassProps) => {
-  // TODO: Fix the InterfaceSynec detection
-  console.log(entity instanceof InterfaceSynec)
+  const { t } = useTranslation()
   return (
     <div className="entity__content">
       {entity instanceof InterfaceSynec && (
-        <h3 className="entity__subtitle">&lt;&lt;Interface&gt;&gt;</h3>
+        <h3 className="entity__subtitle">&lt;&lt;{t("interface")}&gt;&gt;</h3>
       )}
       <h3 className="entity__title entity--with-padding">{entity.name}</h3>
       {entity.properties.length > 0 &&

@@ -5,6 +5,14 @@
   animation: textIn 200ms ease forwards;
   animation-delay: 100ms;
 
+  &__identifier {
+    font-size: 1rem;
+    font-style: italic;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0.5rem;
+  }
+
   &__subtitle {
     padding: 0.5rem 0;  
     font-size: 1rem;

@@ -15,6 +15,7 @@ import type {
 } from "@/types/interface.types"
 import { useTranslation } from "react-i18next"
 import AddButton from "./parts/add-button-edition/AddButtonEdition"
+import { InterfaceSynec } from "@/classes/classifiers/InterfaceSynec"
 
 const getEntityType = (obj: unknown): string => {
   if (obj && typeof obj === "object") {
@@ -22,6 +23,7 @@ const getEntityType = (obj: unknown): string => {
   }
   return "Unknown"
 }
+// TODO: Difference the interface.
 
 const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
   const { t } = useTranslation()
@@ -62,6 +64,11 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
         id={`form-${entity.id}`}
         onSubmit={onToggle}
       >
+        {entity instanceof InterfaceSynec && (
+          <span className="entity-form__identifier">
+            &lt;&lt;{t("interface")}&gt;&gt;
+          </span>
+        )}
         <EntityInput
           value={entity.name}
           onChange={(value) => entity.setName(value)}
