@@ -1,12 +1,12 @@
 .entity-form {
   padding: 0.3rem 1rem 1rem 1rem;
-  width: 17rem;
+  width: 20rem;
   opacity: 0;
   animation: textIn 200ms ease forwards;
   animation-delay: 100ms;
 
   &__identifier {
-    font-size: 1rem;
+    font-size: 1.25rem;
     font-style: italic;
     display: flex;
     justify-content: center;
@@ -15,7 +15,7 @@
 
   &__subtitle {
     padding: 0.5rem 0;  
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--color-primary);
     text-transform: capitalize;
   }
