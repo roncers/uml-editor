@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react"
 import { EntityContext } from "@/components/uml-editor/parts/EntityContext"
 import { useTranslation } from "react-i18next"
 import SyButton from "@/components/shared/sy-button/SyButton"
+import addSvg from "@/assets/svg/common/add.svg"
 
 export default function AddButton() {
   const context = useContext(EntityContext)
@@ -35,7 +36,7 @@ export default function AddButton() {
         aria-label={t("aria-label-add-entity")}
         title={t("aria-label-add-entity")}
       >
-        +
+        <img className="add-button__icon" src={addSvg} alt={t("add")} />
       </SyButton>
       <SyButton
         className="buttons-menu__add-button-sub-1"

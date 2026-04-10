@@ -1,5 +1,5 @@
 import "./UMLEditor.scss"
-import AddButton from "./parts/buttons-menu/buttons/add-button/AddButton"
+import ButtonsMenu from "./parts/buttons-menu/ButtonsMenu"
 import EntitiesRenderer from "./parts/renderers/entities-renderer/EntitiesRenderer"
 import Board from "./parts/board/Board"
 
@@ -8,7 +8,7 @@ import { ClassFactory } from "@/classes/factories/ClassFactory"
 import { useState } from "react"
 import { EntityContext } from "./parts/EntityContext"
 import RelationshipsRenderer from "./parts/renderers/relationships-renderer/RelationshipsRenderer"
-import { EntityPositionsProvider } from "./parts/EntityPositionsContext"
+import { PositionsProvider } from "./parts/PositionsProvider"
 
 export default function UMLEditor() {
   const availableFactories = {
@@ -18,8 +18,11 @@ export default function UMLEditor() {
   function createEntity(entityType: "class" | "interface") {
     availableFactories[entityType].createEntity()
     // the two factories share the same static createdEntities array
-    console.log("Created entities:", [...InterfaceFactory.createdEntities])
     setCreatedEntities([...InterfaceFactory.createdEntities])
+  }
+  function clearEntities() {
+    InterfaceFactory.clearEntities()
+    setCreatedEntities([])
   }
   const [createdEntities, setCreatedEntities] = useState(
     InterfaceFactory.createdEntities,
@@ -35,22 +38,22 @@ export default function UMLEditor() {
   }
 
   return (
-    <EntityContext.Provider value={{ createEntity }}>
-      <EntityPositionsProvider>
-        <div className="uml-editor-frame">
-          <div className="uml-editor-frame__border" />
-          <div className="uml-editor">
-            <Board>
-              <EntitiesRenderer
-                entities={createdEntities}
-                joinRelationship={joinRelationship}
-              />
-              <RelationshipsRenderer entities={createdEntities} />
-            </Board>
-            <AddButton />
+      <EntityContext.Provider value={{ createEntity, clearEntities }}>
+        <PositionsProvider>
+          <div className="uml-editor-frame">
+            <div className="uml-editor-frame__border" />
+            <div className="uml-editor">
+              <Board>
+                <EntitiesRenderer
+                  entities={createdEntities}
+                  joinRelationship={joinRelationship}
+                />
+                <RelationshipsRenderer entities={createdEntities} />
+              </Board>
+              <ButtonsMenu />
+            </div>
           </div>
-        </div>
-      </EntityPositionsProvider>
-    </EntityContext.Provider>
+        </PositionsProvider>
+      </EntityContext.Provider>
   )
 }

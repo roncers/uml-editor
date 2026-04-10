@@ -1,7 +1,7 @@
 import "./Board.scss";
 import Draggable from "@/components/utils/draggable/Draggable";
 import { useState, useRef, useEffect } from "react";
-import { ZoomContext } from "../ZoomContext";
+import { ZoomContext } from "./ZoomContext";
 
 const MIN_SCALE = 0.2;
 const MAX_SCALE = 4;

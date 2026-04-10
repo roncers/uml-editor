@@ -1,0 +1,15 @@
+.buttons-menu {
+  &__delete-button {
+    display: block;
+    position: fixed;
+
+    img {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    &__text {
+      font-size: 0.9rem;
+    }
+  }
+}

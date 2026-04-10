@@ -9,7 +9,7 @@ import {
 } from "@/utils/functions/mouse-tracker"
 import RelationshipArrow from "@/components/uml-editor/parts/relationships/RelationshipArrow"
 import ArrowMarkerDefs from "@/components/uml-editor/parts/relationships/ArrowMarkerDefs"
-import { useZoom } from "@/components/uml-editor/parts/ZoomContext"
+import { useZoom } from "@/components/uml-editor/parts/board/ZoomContext"
 const RelationshipsRenderer = observer(
   ({ entities }: { entities: EntityType[] }) => {
     const relationships = entities.flatMap((entity) =>

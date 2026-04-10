@@ -3,12 +3,12 @@ import {
   relationshipType,
 } from "@/types/interface.types"
 import { useTranslation } from "react-i18next"
-import dependencySvg from "@/assets/svg/dependency.svg"
-import associationSvg from "@/assets/svg/association.svg"
-import aggregationSvg from "@/assets/svg/aggregation.svg"
-import compositionSvg from "@/assets/svg/composition.svg"
-import implementationSvg from "@/assets/svg/implementation.svg"
-import inheritanceSvg from "@/assets/svg/inheritance.svg"
+import dependencySvg from "@/assets/svg/relationships/dependency.svg"
+import associationSvg from "@/assets/svg/relationships/association.svg"
+import aggregationSvg from "@/assets/svg/relationships/aggregation.svg"
+import compositionSvg from "@/assets/svg/relationships/composition.svg"
+import implementationSvg from "@/assets/svg/relationships/implementation.svg"
+import inheritanceSvg from "@/assets/svg/relationships/inheritance.svg"
 import "./RelationshipSelector.scss"
 
 interface RelationshipProps {

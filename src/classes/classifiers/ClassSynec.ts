@@ -2,7 +2,7 @@ import type { ClassSynec as ClassSynecInterface } from "../../interfaces/classes
 import type { PropertySynec } from "../../interfaces/PropertySynec.interface";
 import type { FunctionSynec } from "../../interfaces/FunctionSynec.interface";
 import type { RelationshipSynec } from "../../interfaces/RelationshipSynec.interface";
-import { makeObservable, runInAction } from "mobx";
+import { makeObservable, runInAction, action } from "mobx";
 import { type ClassStateType, ClassStateEnum } from "@/types/entity.types";
 
 export class ClassSynec implements ClassSynecInterface {
@@ -29,7 +29,16 @@ export class ClassSynec implements ClassSynecInterface {
             relationships: true,
             state: true,
             isToggling: true,
-            addRelationship: true
+            setName: action,
+            setProperties: action,
+            setFunctions: action,
+            addFunction: action,
+            addRelationship: action,
+            setRelationships: action,
+            setRelationshipDestiny: action,
+            addProperty: action,
+            toggleEditionWithLock: action,
+            toggleEdition: action
         });
     }
 

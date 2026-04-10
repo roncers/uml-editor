@@ -1,10 +1,46 @@
-import './ConfirmationDialog.scss'
-export default function ConfirmationDialog({ action, children, id }: { action: () => void; children: React.ReactNode; id: string }) {
+import "./ConfirmationDialog.scss"
+
+import { forwardRef, useImperativeHandle } from 'react'
+import { useTranslation } from 'react-i18next'
+
+export interface ConfirmationDialogRef {
+  openDialog: () => void
+  closeDialog: () => void
+}
+
+const ConfirmationDialog = forwardRef<ConfirmationDialogRef, {
+  action: () => void
+  children: React.ReactNode
+  id?: string
+}>(({ action, children, id = crypto.randomUUID() }, ref) => {
+  const { t } = useTranslation()
+  function closeDialog() {
+    const dialog = document.getElementById(id) as HTMLDialogElement
+    if (dialog) {
+      dialog.close()
+    }
+  }
+
+  function openDialog() {
+    const dialog = document.getElementById(id) as HTMLDialogElement
+    if (dialog) {
+      dialog.showModal()
+    }
+  }
+
+  // this provides the functions to the ref
+  useImperativeHandle(ref, () => ({
+    openDialog,
+    closeDialog
+  }))
+
   return (
     <dialog className="confirmation-dialog" id={id}>
       {children}
-      <button onClick={action}>Confirm</button>
-      <button onClick={() => {}}>Cancel</button>
+      <button onClick={action}>{t("confirm")}</button>
+      <button onClick={closeDialog}>{t("cancel")}</button>
     </dialog>
   )
-}
+})
+
+export default ConfirmationDialog

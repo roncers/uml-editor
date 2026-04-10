@@ -1,36 +1,33 @@
 import "./DeleteButton.scss"
 import SyButton from "@/components/shared/sy-button/SyButton"
 import ConfirmationDialog from "@/components/overlays/confirmation-dialog/ConfirmationDialog"
+import { useRef } from "react"
 import { useTranslation } from "react-i18next"
+import { useEntityContext } from "../../../EntityContext"
+import type { ConfirmationDialogRef } from "@/components/overlays/confirmation-dialog/ConfirmationDialog"
+import deleteSvg from "@/assets/svg/common/delete.svg"
 
 export default function DeleteButton() {
-  function openDialog() {
-    const dialog = document.getElementById("deleteDialog") as HTMLDialogElement
-    if (dialog) {
-      dialog.showModal()
-    }
-  }
-
-  function closeDialog() {
-    const dialog = document.getElementById("deleteDialog") as HTMLDialogElement
-    if (dialog) {
-      dialog.close()
-    }
-  }
+  const deleteDialogRef = useRef<ConfirmationDialogRef>(null)
+  const { clearEntities } = useEntityContext()
 
   function deleteAll() {
-    closeDialog()
-    // TODO: Implement delete all logic
+    deleteDialogRef.current?.closeDialog()
+    clearEntities()
   }
   const { t } = useTranslation()
   return (
     <>
-      <SyButton className="delete-button" onClick={() => openDialog()}>
-        <span className="delete-button__icon">🗑️</span>
-        <span className="delete-button__text">{t("delete")}</span>
+      <SyButton
+        className="buttons-menu__delete-button"
+        aria-label={t("delete-all")}
+        title={t("delete-all")}
+        onClick={() => deleteDialogRef.current?.openDialog()}
+      >
+        <img src={deleteSvg} alt={t("delete-all")} />
       </SyButton>
-      <ConfirmationDialog id="deleteDialog" action={deleteAll}>
-        <p>Are you sure you want to delete this item?</p>
+      <ConfirmationDialog ref={deleteDialogRef} action={deleteAll}>
+        <p>{t("dialog-delete-all-text")}</p>
       </ConfirmationDialog>
     </>
   )

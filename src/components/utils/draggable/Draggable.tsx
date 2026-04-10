@@ -1,7 +1,7 @@
 import "./Draggable.scss"
 import { useState, useRef, useEffect } from "react"
-import { useZoom } from "@/components/uml-editor/parts/ZoomContext"
-import { useEntityPositions } from "@/components/uml-editor/parts/EntityPositionsContext"
+import { useZoom } from "@/components/uml-editor/parts/board/ZoomContext"
+import { useEntityPositions } from "@/components/uml-editor/parts/PositionsProvider"
 
 export default function Draggable({
   children,

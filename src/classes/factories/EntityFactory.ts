@@ -7,4 +7,8 @@ export abstract class EntityFactory {
     protected addEntity(entity: Entity): void {
         EntityFactory.createdEntities.push(entity);
     }
+
+    static clearEntities(): void {
+        EntityFactory.createdEntities = [];
+    }
 }
