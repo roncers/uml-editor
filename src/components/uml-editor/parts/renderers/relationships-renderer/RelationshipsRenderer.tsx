@@ -70,7 +70,7 @@ const RelationshipsRenderer = observer(
           position: "fixed",
           inset: 0,
           pointerEvents: "none",
-          zIndex: 1,
+          zIndex: 4,
         }}
       >
         <ArrowMarkerDefs />

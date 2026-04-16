@@ -7,31 +7,38 @@
   }
   // This correctly sets the property to 'transform'
   // and the value to 'translateY(0)' or 'translateX(0)'
-  transform: translate#{$axis }(0);
+  transform: translate#{$axis}(0);
 
   @starting-style {
     opacity: 0;
-    transform: translate#{$axis}($offset);
+    transform: translate#{$axis }($offset);
   }
 }
-// TODO: Fix
-.buttons-menu {
+$__buttons-menu: ".buttons-menu";
+$__buttons-menu-gap: 0.5rem;
+#{$__buttons-menu} {
   &__add-button-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-shrink: 1;
-    gap: 0.5rem;
+    z-index: 2;
+    position: relative;
 
-    .buttons-menu__add-button-sub-1 {
+    #{$__buttons-menu}__add-buttons-sub {
+      display: flex;
+      flex-direction: column;
+      gap: $__buttons-menu-gap;
+      position: absolute;
+      padding-top: $__buttons-menu-gap;
+      top: 100%;
+    }
+
+    #{$__buttons-menu}__add-buttons-sub--1 {
       transform: translateY(-20px);
     }
-    .buttons-menu__add-button-sub-2 {
+    #{$__buttons-menu}__add-buttons-sub--2 {
       transform: translateX(-20px);
     }
 
-    .buttons-menu__add-button-sub-1,
-    .buttons-menu__add-button-sub-2 {
+    #{$__buttons-menu}__add-buttons-sub--1,
+    #{$__buttons-menu}__add-buttons-sub--2 {
       display: none;
       opacity: 0;
       transition:
@@ -41,10 +48,10 @@
     }
 
     &:hover {
-      .buttons-menu__add-button-sub-1 {
+      #{$__buttons-menu}__add-buttons-sub--1 {
         @include entrance-animation("Y", -20px);
       }
-      .buttons-menu__add-button-sub-2 {
+      #{$__buttons-menu}__add-buttons-sub--2 {
         @include entrance-animation("X", -20px);
       }
     }

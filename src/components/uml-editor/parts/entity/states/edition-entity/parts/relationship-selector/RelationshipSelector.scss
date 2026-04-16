@@ -1,6 +1,8 @@
-$_base-offset: 3.5;
+$_radius: 5rem;
+
 .entity-form {
   &__relationship-selector {
+    font-size: 2rem;
     border: none;
     position: absolute;
     bottom: -1rem;
@@ -55,6 +57,8 @@ $_base-offset: 3.5;
   }
 
   &__relationship-option {
+    --_angle: calc((var(--i) / var(--total)) * 360deg + 90deg);
+
     position: absolute;
     display: flex;
     align-items: center;
@@ -70,6 +74,10 @@ $_base-offset: 3.5;
     font-weight: bold;
     cursor: pointer;
     opacity: 0;
+    transform: translate(
+      calc(cos(var(--_angle)) * #{$_radius}),
+      calc(sin(var(--_angle)) * #{$_radius})
+    );
     transition:
       opacity 0.2s ease,
       background-color 0.15s ease;
@@ -80,17 +88,6 @@ $_base-offset: 3.5;
       object-fit: contain;
     }
 
-    @for $i from 1 through 6 {
-      &:nth-child(#{$i}) {
-        @if $i == 1 { transform: translate(5rem, 0); }
-        @else if $i == 2 { transform: translate(2.5rem, 4.33rem); }
-        @else if $i == 3 { transform: translate(-2.5rem, 4.33rem); }
-        @else if $i == 4 { transform: translate(-5rem, 0); }
-        @else if $i == 5 { transform: translate(-2.5rem, -4.33rem); }
-        @else if $i == 6 { transform: translate(2.5rem, -4.33rem); }
-      }
-    }
-
     &:hover {
       background-color: var(--color-secondary);
     }
@@ -99,11 +96,14 @@ $_base-offset: 3.5;
   &__relationship-selector:hover &__relationship-option {
     opacity: 1;
     z-index: 3;
+    animation: relationship-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    animation-delay: calc(var(--i) * 0.07s);
+  }
+}
 
-    @for $i from 1 through 6 {
-      &:nth-child(#{$i}) {
-        transition-delay: #{($i - 1) * 0.1}s;
-      }
-    }
+@keyframes relationship-pop {
+  from {
+    opacity: 0;
+    transform: translate(0, 0) scale(0) perspective(300px) ;
   }
 }

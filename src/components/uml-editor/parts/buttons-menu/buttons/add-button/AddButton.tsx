@@ -38,22 +38,24 @@ export default function AddButton() {
       >
         <img className="add-button__icon" src={addSvg} alt={t("add")} />
       </SyButton>
-      <SyButton
-        className="buttons-menu__add-button-sub-1"
-        aria-label={t("aria-label-add-class")}
-        title={t("aria-label-add-class")}
-        onClick={() => context?.createEntity("class")}
-      >
-        Class
-      </SyButton>
-      <SyButton
-        className="buttons-menu__add-button-sub-2"
-        aria-label={t("aria-label-add-interface")}
-        title={t("aria-label-add-interface")}
-        onClick={() => context?.createEntity("interface")}
-      >
-        Interface
-      </SyButton>
+      <div className="buttons-menu__add-buttons-sub">
+        <SyButton
+          className="buttons-menu__add-buttons-sub--1"
+          aria-label={t("aria-label-add-class")}
+          title={t("aria-label-add-class")}
+          onClick={() => context?.createEntity("class")}
+        >
+          {t("class")}
+        </SyButton>
+        <SyButton
+          className="buttons-menu__add-buttons-sub--2"
+          aria-label={t("aria-label-add-interface")}
+          title={t("aria-label-add-interface")}
+          onClick={() => context?.createEntity("interface")}
+        >
+          {t("interface")}
+        </SyButton>
+      </div>
     </div>
   )
 }

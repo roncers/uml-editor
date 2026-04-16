@@ -7,4 +7,7 @@
     will-change: transform;
     z-index: 1;
   }
+  &:has(.entity-form__relationship-selector:hover) {
+    z-index: 2;
+  }
 }

@@ -17,6 +17,7 @@ export const attributeVisibility = {
     public: 'public',
     private: 'private'
 } as const;
+
 export type AttributeVisibility = typeof attributeVisibility[keyof typeof attributeVisibility];
 
 export const relationshipType = {
