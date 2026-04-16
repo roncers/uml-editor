@@ -10,6 +10,7 @@ $_editor-margin-bottom: 1rem;
     position: absolute;
     inset: -#{$_editor-margin-side} -#{$_editor-margin-side} -#{$_editor-margin-bottom} -#{$_editor-margin-side};
     background: var(--color-background);
+    z-index: 1000;
     pointer-events: none;
     clip-path: polygon(
       0% 0%,

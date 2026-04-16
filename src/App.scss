@@ -12,6 +12,7 @@ $_app-padding: 2rem;
     position: absolute;
     inset: 0;
     background: var(--color-background);
+    z-index: 1000;
     pointer-events: none;
     clip-path: polygon(
       0% 0%, 100% 0%, 100% 100%, 0% 100%,

@@ -7,7 +7,7 @@
   }
   // This correctly sets the property to 'transform'
   // and the value to 'translateY(0)' or 'translateX(0)'
-  transform: translate#{$axis}(0);
+  transform: translate#{$axis }(0);
 
   @starting-style {
     opacity: 0;
@@ -18,7 +18,7 @@ $__buttons-menu: ".buttons-menu";
 $__buttons-menu-gap: 0.5rem;
 #{$__buttons-menu} {
   &__add-button-group {
-    z-index: 2;
+    z-index: 6;
     position: relative;
 
     #{$__buttons-menu}__add-buttons-sub {
