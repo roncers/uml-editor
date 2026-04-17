@@ -1,10 +1,11 @@
-import { ClassSynec } from "@/classes/classifiers/ClassSynec";
-import { EntityFactory } from "./EntityFactory";
+import { ClassSynec } from "@/classes/classifiers/ClassSynec"
+import { EntityFactory } from "./EntityFactory"
+import { getRandomName } from "@/utils/functions/randomName"
 
 export class ClassFactory extends EntityFactory {
-    createEntity(): ClassSynec {
-        const classElement = new ClassSynec(`Class ${EntityFactory.createdEntities.length}`);
-        this.addEntity(classElement);
-        return classElement;
-    }
+  createEntity(position: [number, number] = [0, 0]): ClassSynec {
+    const classElement = new ClassSynec(getRandomName(), position)
+    this.addEntity(classElement)
+    return classElement
+  }
 }

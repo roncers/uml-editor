@@ -39,6 +39,12 @@ $_radius: 5rem;
         height 0s;
     }
 
+    &:has(.entity-form__relationship-menu > .entity-form__relationship-option:only-child):hover::after {
+      width: 8rem;
+      height: 8rem;
+      transform: translate(-50%, -20%);
+    }
+
     &:hover > .entity-form__relationship-menu {
       opacity: 1;
       pointer-events: all;

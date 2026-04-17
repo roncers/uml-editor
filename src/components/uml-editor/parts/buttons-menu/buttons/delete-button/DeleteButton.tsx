@@ -12,7 +12,6 @@ export default function DeleteButton() {
   const { clearEntities } = useEntityContext()
 
   function deleteAll() {
-    deleteDialogRef.current?.closeDialog()
     clearEntities()
   }
   const { t } = useTranslation()
@@ -27,7 +26,7 @@ export default function DeleteButton() {
         <img src={deleteSvg} alt={t("delete-all")} />
       </SyButton>
       <ConfirmationDialog ref={deleteDialogRef} action={deleteAll}>
-        <p>{t("dialog-delete-all-text")}</p>
+        <p dangerouslySetInnerHTML={{ __html: t("dialog-delete-all-text") }} />
       </ConfirmationDialog>
     </>
   )

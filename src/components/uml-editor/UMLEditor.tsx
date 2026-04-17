@@ -5,28 +5,75 @@ import Board from "./parts/board/Board"
 
 import { InterfaceFactory } from "@/classes/factories/InterfaceFactory"
 import { ClassFactory } from "@/classes/factories/ClassFactory"
-import { useState } from "react"
+import { EntityFactory } from "@/classes/factories/EntityFactory"
+import { useState, useRef, useEffect } from "react"
+import {
+  loadFromLocalStorage,
+  storeToLocalStorage,
+} from "@/utils/functions/localStorage"
 import { EntityContext } from "./parts/EntityContext"
 import RelationshipsRenderer from "./parts/renderers/relationships-renderer/RelationshipsRenderer"
-import { PositionsProvider } from "./parts/PositionsProvider"
 
 export default function UMLEditor() {
+  const boardSectionRef = useRef<HTMLElement | null>(null)
   const availableFactories = {
     class: new ClassFactory(),
     interface: new InterfaceFactory(),
   }
-  function createEntity(entityType: "class" | "interface") {
-    availableFactories[entityType].createEntity()
-    // the two factories share the same static createdEntities array
-    setCreatedEntities([...InterfaceFactory.createdEntities])
+
+  // TODO: upgrade and understand well
+  function computeEntityPosition(entityCount: number): [number, number] {
+    const board = boardSectionRef.current!
+    const rect = board.getBoundingClientRect()
+    const zoomEl = board.closest(".board-zoom")
+    const zoom = zoomEl ? parseFloat(getComputedStyle(zoomEl).zoom) || 1 : 1
+
+    const centerX = (window.innerWidth / 2 - rect.left) / zoom
+    const centerY = (window.innerHeight / 2 - rect.top) / zoom
+
+    return [centerX + entityCount * 30, centerY + entityCount * 20]
   }
+
+  function createEntity(entityType: "class" | "interface") {
+    const position = computeEntityPosition(EntityFactory.createdEntities.length)
+    availableFactories[entityType].createEntity(position)
+    setCreatedEntities([...EntityFactory.createdEntities])
+  }
+
   function clearEntities() {
-    InterfaceFactory.clearEntities()
+    EntityFactory.clearEntities()
     setCreatedEntities([])
   }
-  const [createdEntities, setCreatedEntities] = useState(
-    InterfaceFactory.createdEntities,
-  )
+
+  const [createdEntities, setCreatedEntities] = useState(() => {
+    loadFromLocalStorage()
+    return [...EntityFactory.createdEntities]
+  })
+
+  // localStorage handling: persist on every change (skips initial mount)
+  const didMountRef = useRef(false)
+  useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true
+      return
+    }
+    storeToLocalStorage(createdEntities)
+  }, [createdEntities])
+
+  // persist on tab close / reload / navigation away
+  const latestRef = useRef(createdEntities)
+  useEffect(() => {
+    latestRef.current = createdEntities
+  }, [createdEntities])
+  
+  useEffect(() => {
+    const handler = () => storeToLocalStorage(latestRef.current)
+    window.addEventListener("beforeunload", handler)
+    return () => {
+      handler() // also save on component unmount (SPA route change)
+      window.removeEventListener("beforeunload", handler)
+    }
+  }, [])
 
   function joinRelationship(entityId: string) {
     const entity = createdEntities.find((e) =>
@@ -38,22 +85,20 @@ export default function UMLEditor() {
   }
 
   return (
-      <EntityContext.Provider value={{ createEntity, clearEntities }}>
-        <PositionsProvider>
-          <div className="uml-editor-frame">
-            <div className="uml-editor-frame__border" />
-            <div className="uml-editor">
-              <Board>
-                <EntitiesRenderer
-                  entities={createdEntities}
-                  joinRelationship={joinRelationship}
-                />
-                <RelationshipsRenderer entities={createdEntities} />
-              </Board>
-              <ButtonsMenu />
-            </div>
-          </div>
-        </PositionsProvider>
-      </EntityContext.Provider>
+    <EntityContext.Provider value={{ createEntity, clearEntities }}>
+      <div className="uml-editor-frame">
+        <div className="uml-editor-frame__border" />
+        <div className="uml-editor">
+          <Board boardSectionRef={boardSectionRef}>
+            <EntitiesRenderer
+              entities={createdEntities}
+              joinRelationship={joinRelationship}
+            />
+            <RelationshipsRenderer entities={createdEntities} />
+          </Board>
+          <ButtonsMenu />
+        </div>
+      </div>
+    </EntityContext.Provider>
   )
 }

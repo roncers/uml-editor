@@ -61,7 +61,6 @@ const RelationshipsRenderer = observer(
         cursorY: targetRect.top + targetRect.height / 2,
       })
     }
-    if (!origin) return <></>
     return createPortal(
       <svg
         width={window.innerWidth}
@@ -74,7 +73,7 @@ const RelationshipsRenderer = observer(
         }}
       >
         <ArrowMarkerDefs />
-        {creatingNew && pendingRel && (
+        {creatingNew && pendingRel && origin && (
           <RelationshipArrow from={origin} to={mouse} type={pendingRel.type} scale={scale} />
         )}
         {createdRelationships.map((rel, indx) => (
