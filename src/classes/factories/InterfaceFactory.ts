@@ -1,10 +1,11 @@
-import { InterfaceSynec } from "@/classes/classifiers/InterfaceSynec";
-import { EntityFactory } from "./EntityFactory";
+import { InterfaceSynec } from "@/classes/classifiers/InterfaceSynec"
+import { EntityFactory } from "./EntityFactory"
+import { getRandomName } from "@/utils/functions/randomName"
 
 export class InterfaceFactory extends EntityFactory {
-    createEntity(): InterfaceSynec {
-        const interfaceElement = new InterfaceSynec(`Interface ${EntityFactory.createdEntities.length}`);
-        this.addEntity(interfaceElement);
-        return interfaceElement;
-    }
+  createEntity(position: [number, number] = [0, 0]): InterfaceSynec {
+    const interfaceElement = new InterfaceSynec(getRandomName(), position)
+    this.addEntity(interfaceElement)
+    return interfaceElement
+  }
 }

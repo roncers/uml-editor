@@ -9,14 +9,12 @@ export default function EntitiesRenderer({
   entities: EntityType[];
   joinRelationship: (entityId: string) => void
 }) {
-  // TODO: improve the initial position calculation
   return (
     <>
-      {entities.map((entity, index) => (
+      {entities.map((entity) => (
         <Draggable
           key={entity.id}
-          entityId={entity.id}
-          initialPosition={{ x: window.innerWidth + index * 150, y: window.innerHeight}}
+          entityPosition={entity.position}
         >
           <Entity key={entity.id} entity={entity} onClick={() => {joinRelationship(entity.id)}}/>
         </Draggable>

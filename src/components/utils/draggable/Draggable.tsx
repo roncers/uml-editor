@@ -1,25 +1,26 @@
 import "./Draggable.scss"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef } from "react"
 import { useZoom } from "@/components/uml-editor/parts/board/ZoomContext"
-import { useEntityPositions } from "@/components/uml-editor/parts/PositionsProvider"
+import { observer } from "mobx-react-lite"
+import type { Position } from "@/classes/members/Position"
 
-export default function Draggable({
+const Draggable = observer(function Draggable({
   children,
   initialPosition = { x: 0, y: 0 },
-  entityId,
+  entityPosition,
+  onUpdatePosition = () => {},
 }: {
   children: React.ReactNode
   initialPosition?: { x: number; y: number }
-  entityId?: string
+  entityPosition?: Position
+  onUpdatePosition?: (x: number, y: number) => void
 }) {
-  const [position, setPosition] = useState(initialPosition)
+  const [localPos, setLocalPos] = useState(initialPosition)
   const [isDragging, setIsDragging] = useState(false)
-  const { setEntityPosition } = useEntityPositions()
 
-  useEffect(() => {
-    if (entityId) setEntityPosition(entityId, initialPosition)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entityId])
+  const posX = entityPosition ? entityPosition.x : localPos.x
+  const posY = entityPosition ? entityPosition.y : localPos.y
+
   const dragStart = useRef<{
     mouseX: number
     mouseY: number
@@ -35,8 +36,8 @@ export default function Draggable({
     dragStart.current = {
       mouseX: clientX,
       mouseY: clientY,
-      posX: position.x,
-      posY: position.y,
+      posX: posX,
+      posY: posY,
     }
 
     function onMove(x: number, y: number) {
@@ -49,8 +50,12 @@ export default function Draggable({
           dragStart.current.posY +
           (y - dragStart.current.mouseY) / scaleRef.current,
       }
-      setPosition(newPos)
-      if (entityId) setEntityPosition(entityId, newPos)
+      if (entityPosition) {
+        entityPosition.setPosition(newPos.x, newPos.y)
+      } else {
+        setLocalPos(newPos)
+      }
+      onUpdatePosition(newPos.x, newPos.y)
     }
 
     function onMouseMove(ev: MouseEvent) {
@@ -94,7 +99,7 @@ export default function Draggable({
     <div
       className={`draggable ${isDragging ? " draggable--dragging" : ""}`}
       style={{
-        transform: `translate(${position.x}px, ${position.y}px)`,
+        transform: `translate(${posX}px, ${posY}px)`,
       }}
       onMouseDown={onMouseDown}
       onTouchStart={onTouchStart}
@@ -102,4 +107,6 @@ export default function Draggable({
       {children}
     </div>
   )
-}
+})
+
+export default Draggable

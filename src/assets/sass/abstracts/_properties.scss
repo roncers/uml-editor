@@ -27,3 +27,15 @@
   inherits: true;
   initial-value: white;
 }
+
+@property --board-width-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 3;
+}
+
+@property --board-height-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 3;
+}

@@ -9,8 +9,6 @@ function App() {
       <div className="app-container__border" />
       <Header />
       <UMLEditor />
-      {/* <InfoPanel /> */}
-      {/* <Footer /> */}
     </div>
   )
 }
