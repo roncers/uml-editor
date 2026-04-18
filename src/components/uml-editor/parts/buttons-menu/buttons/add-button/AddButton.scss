@@ -60,6 +60,11 @@ $__buttons-menu-gap: 0.5rem;
     &#{&} {
       cursor: default;
       font-weight: bold;
+      // TODO: reusable style in parent
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1rem;
     }
     img {
       width: 2.5rem;
