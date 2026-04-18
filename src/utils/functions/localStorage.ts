@@ -9,9 +9,10 @@ import { RelationshipSynec } from "@/classes/members/RelationshipSynec"
 
 const LOCAL_STORAGE_KEY = "martin-roncero-uml-editor"
 
-// TODO: fix first time used is like they restore the state of the previous elements when adding new element.
-
 export function loadFromLocalStorage(): void {
+  // Guard: if entities are already hydrated (caused by React StrictMode)
+  if (EntityFactory.createdEntities.length > 0) return
+
   const data = localStorage.getItem(LOCAL_STORAGE_KEY)
   const parsedData = JSON.parse(data || "[]") as LocalStorageEntity[]
 
@@ -81,64 +82,3 @@ function adaptToFormat(data: LocalStorageEntity[]): Entity[] {
     return factory(entity)
   })
 }
-
-// function adaptToFormat(data: LocalStorageEntity[]): Entity[] {
-//   return data.map((entity) => {
-//     if (entity.type === "InterfaceSynec") {
-//       return new InterfaceSynec(
-//         entity.name,
-//         [entity.position.x, entity.position.y],
-//         entity.properties.map(
-//           (property) =>
-//             new PropertySynec(
-//               property.name,
-//               property.type,
-//               property.visibility,
-//             ),
-//         ),
-//         entity.functions.map(
-//           (functionSynec) =>
-//             new FunctionSynec(functionSynec.name, functionSynec.visibility),
-//         ),
-//         entity.relationships.map(
-//           (relationship) =>
-//             new RelationshipSynec(
-//               relationship.origin,
-//               relationship.destination,
-//               relationship.type,
-//             ),
-//         )
-//         entity.id,
-//       )
-//     }
-//     if (entity.type === "ClassSynec") {
-//       return new ClassSynec(
-//         entity.name,
-//         [entity.position.x, entity.position.y],
-//         entity.properties.map(
-//           (property) =>
-//             new PropertySynec(
-//               property.name,
-//               property.type,
-//               property.visibility,
-//             ),
-//         ),
-//         entity.functions.map(
-//           (functionSynec) =>
-//             new FunctionSynec(functionSynec.name, functionSynec.visibility),
-//         ),
-//         entity.relationships.map(
-//           (relationship) =>
-//             new RelationshipSynec(
-//               relationship.origin,
-//               relationship.destination,
-//               relationship.type,
-//             ),
-//         ),
-//         entity.id,
-//       )
-//     }
-//     console.error("This error is pretty weird, you are cooked, hohoho")
-//     return undefined as unknown as Entity
-//   })
-// }

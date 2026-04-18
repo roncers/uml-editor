@@ -50,16 +50,6 @@ export default function UMLEditor() {
     return [...EntityFactory.createdEntities]
   })
 
-  // localStorage handling: persist on every change (skips initial mount)
-  const didMountRef = useRef(false)
-  useEffect(() => {
-    if (!didMountRef.current) {
-      didMountRef.current = true
-      return
-    }
-    storeToLocalStorage(createdEntities)
-  }, [createdEntities])
-
   // persist on tab close / reload / navigation away
   const latestRef = useRef(createdEntities)
   useEffect(() => {
