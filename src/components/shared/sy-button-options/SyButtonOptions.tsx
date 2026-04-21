@@ -26,7 +26,7 @@ export default function AddButton({
           className={styles["buttons-menu__add-buttons-sub--1"]}
           aria-label={buttons[0].texts.label}
           title={buttons[0].texts.label}
-          onClick={() => buttons[0].onClick}
+          onClick={() => buttons[0].onClick()}
         >
           {buttons[0].texts.value}
         </SyButton>
@@ -34,7 +34,7 @@ export default function AddButton({
           className={styles["buttons-menu__add-buttons-sub--2"]}
           aria-label={buttons[1].texts.label}
           title={buttons[1].texts.label}
-          onClick={() => buttons[1].onClick}
+          onClick={() => buttons[1].onClick()}
         >
           {buttons[1].texts.value}
         </SyButton>

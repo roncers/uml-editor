@@ -1,13 +1,21 @@
+@use "@/assets/sass/abstracts/mixins" as *;
 .buttons-menu {
   position: absolute;
   top: 1.5rem;
   left: 1.5rem;
-  
+  z-index: 6;
+
   &__buttons-list {
     display: flex;
     gap: 1.5rem;
     list-style: none;
     margin: 0;
     padding: 0;
+  }
+
+  &__export-button {
+    @include respond(tab-port) {
+      display: none;
+    }
   }
 }

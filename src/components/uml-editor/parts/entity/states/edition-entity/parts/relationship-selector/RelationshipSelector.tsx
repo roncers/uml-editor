@@ -9,6 +9,8 @@ import aggregationSvg from "@/assets/svg/relationships/aggregation.svg"
 import compositionSvg from "@/assets/svg/relationships/composition.svg"
 import implementationSvg from "@/assets/svg/relationships/implementation.svg"
 import inheritanceSvg from "@/assets/svg/relationships/inheritance.svg"
+import addSvg from "@/assets/svg/common/add.svg"
+
 import "./RelationshipSelector.scss"
 
 interface RelationshipProps {
@@ -46,7 +48,7 @@ export default function RelationshipsSelector({
         e.preventDefault()
       }}
     >
-      +
+      <img src={addSvg} alt="" aria-hidden="true" />
       <div className="entity-form__relationship-menu">
         {types.map((type, index) => (
           <button

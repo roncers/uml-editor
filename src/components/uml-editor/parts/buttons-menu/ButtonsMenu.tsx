@@ -13,7 +13,7 @@ function ButtonsMenu() {
         <li>
           <DeleteButton />
         </li>
-        <li>
+        <li className="buttons-menu__export-button">
           <InterchangeButton />
         </li>
       </ul>

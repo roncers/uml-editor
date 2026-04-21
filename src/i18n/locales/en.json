@@ -23,9 +23,9 @@
     "export": "Export",
     "aria-label-export": "Export existing diagram",
     "import": "Import",
-    "aria-label-import": "Import existing diagram",
+    "aria-label-import": "Import the current diagram to a file",
     "interchange-button": "Import / Export diagrams",
-    "aria-label-interchange-button": "Import or export diagrams to files",
+    "aria-label-interchange-button": "Import or export diagrams",
 
     "random-words": {
         "1": "charity",

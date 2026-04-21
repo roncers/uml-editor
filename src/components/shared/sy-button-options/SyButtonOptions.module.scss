@@ -18,7 +18,6 @@ $__buttons-menu: ".buttons-menu";
 $__buttons-menu-gap: 0.5rem;
 #{$__buttons-menu} {
   &__add-button-group {
-    z-index: 6;
     position: relative;
 
     #{$__buttons-menu}__add-buttons-sub {

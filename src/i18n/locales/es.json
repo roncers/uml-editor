@@ -23,9 +23,9 @@
     "export": "Exportar",
     "aria-label-export": "Exportar diagrama existente",
     "import": "Importar",
-    "aria-label-import": "Importar diagrama existente",
+    "aria-label-import": "Importar el diagrama actual a un fichero",
     "interchange-button": "Importar / Exportar diagramas",
-    "aria-label-interchange-button": "Importar o exportar diagramas a ficheros",
+    "aria-label-interchange-button": "Importar o exportar diagramas",
 
     "random-words": {
         "1": "caridad",
