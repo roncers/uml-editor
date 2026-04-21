@@ -20,6 +20,12 @@
     "relationship-composition": "Composición",
     "relationship-implementation": "Implementación",
     "relationship-inheritance": "Herencia",
+    "export": "Exportar",
+    "aria-label-export": "Exportar diagrama existente",
+    "import": "Importar",
+    "aria-label-import": "Importar diagrama existente",
+    "interchange-button": "Importar / Exportar diagramas",
+    "aria-label-interchange-button": "Importar o exportar diagramas a ficheros",
 
     "random-words": {
         "1": "caridad",
