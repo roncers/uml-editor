@@ -1,5 +1,6 @@
 import AddButton from "./buttons/add-button/AddButton"
 import DeleteButton from "./buttons/delete-button/DeleteButton"
+import InterchangeButton from "./buttons/interchange-button/InterchangeButton"
 import "./ButtonsMenu.scss"
 
 function ButtonsMenu() {
@@ -11,6 +12,9 @@ function ButtonsMenu() {
         </li>
         <li>
           <DeleteButton />
+        </li>
+        <li>
+          <InterchangeButton />
         </li>
       </ul>
     </nav>

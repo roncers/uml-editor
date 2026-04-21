@@ -1,8 +1,7 @@
-import "./AddButton.scss"
 import { useContext, useEffect } from "react"
 import { EntityContext } from "@/components/uml-editor/parts/EntityContext"
 import { useTranslation } from "react-i18next"
-import SyButton from "@/components/shared/sy-button/SyButton"
+import SyButtonOptions from "@/components/shared/sy-button-options/SyButtonOptions"
 import addSvg from "@/assets/svg/common/add.svg"
 
 export default function AddButton() {
@@ -30,32 +29,20 @@ export default function AddButton() {
   }, [context])
 
   return (
-    <div className="buttons-menu__add-button-group">
-      <SyButton
-        className="buttons-menu__add-button"
-        aria-label={t("aria-label-add-entity")}
-        title={t("aria-label-add-entity")}
-      >
-        <img className="add-button__icon" src={addSvg} alt={t("add")} />
-      </SyButton>
-      <div className="buttons-menu__add-buttons-sub">
-        <SyButton
-          className="buttons-menu__add-buttons-sub--1"
-          aria-label={t("aria-label-add-class")}
-          title={t("aria-label-add-class")}
-          onClick={() => context?.createEntity("class")}
-        >
-          {t("class")}
-        </SyButton>
-        <SyButton
-          className="buttons-menu__add-buttons-sub--2"
-          aria-label={t("aria-label-add-interface")}
-          title={t("aria-label-add-interface")}
-          onClick={() => context?.createEntity("interface")}
-        >
-          {t("interface")}
-        </SyButton>
-      </div>
-    </div>
+    <SyButtonOptions
+      buttons={[
+        {
+          texts: { label: t("aria-label-add-class"), value: t("class") },
+          onClick: () => context?.createEntity("class"),
+        },
+        {
+          texts: { label: t("aria-label-add-interface"), value: t("interface") },
+          onClick: () => context?.createEntity("interface"),
+        },
+      ]}
+      label={t("aria-label-add-entity")}
+    >
+      <img className="add-button__icon" src={addSvg} alt={t("add")} />
+    </SyButtonOptions>
   )
 }

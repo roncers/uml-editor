@@ -1,16 +1,17 @@
 $_radius: 5rem;
 
+// TODO: fix the centering of the "+"
 .entity-form {
   &__relationship-selector {
     font-size: 2rem;
     border: none;
     position: absolute;
-    bottom: -1rem;
     padding: 0rem 0.2rem 0.2rem 0.2rem;
-    right: 50%;
+    bottom: -5%;
+    right: 2%;
+    border-radius: 0.1rem;
     transform: translateX(50%);
     background-color: var(--color-secondary-contrast);
-    border-radius: 50%;
     opacity: 1;
     transition: opacity .7s .5s;
     @starting-style {
