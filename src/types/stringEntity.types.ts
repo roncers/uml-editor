@@ -3,7 +3,7 @@ import type { PropertySynec } from "@/classes/members/PropertySynec"
 import type { FunctionSynec } from "@/classes/members/FunctionSynec"
 import type { RelationshipSynec } from "@/classes/members/RelationshipSynec"
 
-export type LocalStorageEntity = {
+export type StringEntity = {
   id: string
   name: string
   properties: PropertySynec[]

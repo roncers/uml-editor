@@ -21,9 +21,9 @@
     "relationship-implementation": "Implementación",
     "relationship-inheritance": "Herencia",
     "export": "Exportar",
-    "aria-label-export": "Exportar diagrama existente",
+    "aria-label-export": "Exportar diagrama a un fichero",
     "import": "Importar",
-    "aria-label-import": "Importar el diagrama actual a un fichero",
+    "aria-label-import": "Importar nuevo diagrama desde un fichero",
     "interchange-button": "Importar / Exportar diagramas",
     "aria-label-interchange-button": "Importar o exportar diagramas",
 

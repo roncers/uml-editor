@@ -6,6 +6,7 @@ import type { FunctionSynec } from "@/interfaces/FunctionSynec.interface"
 import { relationshipType } from "@/types/interface.types"
 import { makeObservable, override } from "mobx"
 
+// TODO: When creating a relationship do the object related to inherit the methods and props.
 export class InterfaceSynec
   extends ClassSynec
   implements InterfaceSynecInterface

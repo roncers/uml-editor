@@ -57,7 +57,7 @@ export default function UMLEditor() {
   }, [createdEntities])
   
   useEffect(() => {
-    const handler = () => storeToLocalStorage(latestRef.current)
+    const handler = () => storeToLocalStorage()
     window.addEventListener("beforeunload", handler)
     return () => {
       handler() // also save on component unmount (SPA route change)
