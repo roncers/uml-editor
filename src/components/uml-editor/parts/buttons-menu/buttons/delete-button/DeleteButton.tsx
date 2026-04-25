@@ -3,7 +3,7 @@ import SyButton from "@/components/shared/sy-button/SyButton"
 import ConfirmationDialog from "@/components/overlays/confirmation-dialog/ConfirmationDialog"
 import { useRef } from "react"
 import { useTranslation } from "react-i18next"
-import { useEntityContext } from "../../../EntityContext"
+import { useEntityContext } from "@/components/uml-editor/parts/EntityContext"
 import type { ConfirmationDialogRef } from "@/components/overlays/confirmation-dialog/ConfirmationDialog"
 import deleteSvg from "@/assets/svg/common/delete.svg"
 

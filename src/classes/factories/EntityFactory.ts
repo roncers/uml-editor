@@ -24,7 +24,7 @@ export abstract class EntityFactory {
       ...entity,
       type: entity.constructor.name,
     }))
-    return JSON.stringify(entities)
+    return JSON.stringify(entities, null, 2)
   }
 
   static fromString(data: string): Entity[] {

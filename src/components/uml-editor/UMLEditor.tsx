@@ -55,7 +55,11 @@ export default function UMLEditor() {
   useEffect(() => {
     latestRef.current = createdEntities
   }, [createdEntities])
-  
+
+  function refreshEntities() {
+    setCreatedEntities([...EntityFactory.createdEntities])
+  }
+
   useEffect(() => {
     const handler = () => storeToLocalStorage()
     window.addEventListener("beforeunload", handler)
@@ -75,7 +79,7 @@ export default function UMLEditor() {
   }
 
   return (
-    <EntityContext.Provider value={{ createEntity, clearEntities }}>
+    <EntityContext.Provider value={{ createEntity, clearEntities, refreshEntities }}>
       <div className="uml-editor-frame">
         <div className="uml-editor-frame__border" />
         <div className="uml-editor">
