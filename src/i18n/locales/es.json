@@ -7,6 +7,7 @@
     "header-title": "Editor De Diagramas UML",
     "class": "Clase",
     "interface": "Interfaz",
+    "delete": "Eliminar",
     "delete-all": "Eliminar Todo",
     "dialog-delete-all-text": "¿Estás seguro de que quieres eliminar <strong>TODOS</strong> los elementos?",
     "confirm": "Confirmar",

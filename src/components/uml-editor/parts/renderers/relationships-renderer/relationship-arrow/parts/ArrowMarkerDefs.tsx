@@ -1,11 +1,15 @@
-const STROKE_COLOR = "#555"
 const STROKE_WIDTH = 1.5
 
-export default function ArrowMarkerDefs() {
+interface ArrowMarkerDefsProps {
+  idPrefix: string
+  color: string
+}
+
+export default function ArrowMarkerDefs({ idPrefix, color }: ArrowMarkerDefsProps) {
   return (
     <defs>
       <marker
-        id="arrow-open"
+        id={`${idPrefix}-arrow-open`}
         markerWidth="10"
         markerHeight="10"
         refX="10"
@@ -16,13 +20,13 @@ export default function ArrowMarkerDefs() {
         <polyline
           points="0 0, 10 5, 0 10"
           fill="none"
-          stroke={STROKE_COLOR}
+          stroke={color}
           strokeWidth={STROKE_WIDTH}
         />
       </marker>
 
       <marker
-        id="triangle-hollow"
+        id={`${idPrefix}-triangle-hollow`}
         markerWidth="12"
         markerHeight="10"
         refX="12"
@@ -33,13 +37,13 @@ export default function ArrowMarkerDefs() {
         <polygon
           points="0 0, 12 5, 0 10"
           fill="white"
-          stroke={STROKE_COLOR}
+          stroke={color}
           strokeWidth={STROKE_WIDTH}
         />
       </marker>
 
       <marker
-        id="diamond-hollow"
+        id={`${idPrefix}-diamond-hollow`}
         markerWidth="14"
         markerHeight="10"
         refX="0"
@@ -50,13 +54,13 @@ export default function ArrowMarkerDefs() {
         <polygon
           points="0 5, 7 0, 14 5, 7 10"
           fill="white"
-          stroke={STROKE_COLOR}
+          stroke={color}
           strokeWidth={STROKE_WIDTH}
         />
       </marker>
 
       <marker
-        id="diamond-filled"
+        id={`${idPrefix}-diamond-filled`}
         markerWidth="14"
         markerHeight="10"
         refX="0"
@@ -66,8 +70,8 @@ export default function ArrowMarkerDefs() {
       >
         <polygon
           points="0 5, 7 0, 14 5, 7 10"
-          fill={STROKE_COLOR}
-          stroke={STROKE_COLOR}
+          fill={color}
+          stroke={color}
           strokeWidth={STROKE_WIDTH}
         />
       </marker>

@@ -7,6 +7,7 @@
     "header-title": "UML Diagram Editor",
     "class": "Class",
     "interface": "Interface",
+    "delete": "Delete",
     "delete-all": "Delete All",
     "dialog-delete-all-text": "Are you sure you want to delete <strong>ALL</strong> the items?",
     "confirm": "Confirm",

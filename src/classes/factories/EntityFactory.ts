@@ -31,4 +31,11 @@ export abstract class EntityFactory {
     const parsedData = JSON.parse(data || "[]") as StringEntity[]
     return adaptToFormat(parsedData)
   }
+  
+  static deleteEntity(id: string): void {
+    const entity = EntityFactory.createdEntities.find((entity) => entity.id === id)
+    if (entity) {
+      EntityFactory.createdEntities.splice(EntityFactory.createdEntities.indexOf(entity), 1)
+    }
+  }
 }

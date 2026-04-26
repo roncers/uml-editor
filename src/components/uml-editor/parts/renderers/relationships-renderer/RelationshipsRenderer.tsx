@@ -7,8 +7,7 @@ import {
   trackMouse,
   getClosestBorderPoint,
 } from "@/utils/functions/mouse-tracker"
-import RelationshipArrow from "@/components/uml-editor/parts/relationships/RelationshipArrow"
-import ArrowMarkerDefs from "@/components/uml-editor/parts/relationships/ArrowMarkerDefs"
+import RelationshipArrow from "@/components/uml-editor/parts/renderers/relationships-renderer/relationship-arrow/RelationshipArrow"
 import { useZoom } from "@/components/uml-editor/parts/board/ZoomContext"
 const RelationshipsRenderer = observer(
   ({ entities }: { entities: EntityType[] }) => {
@@ -72,7 +71,6 @@ const RelationshipsRenderer = observer(
           zIndex: 4,
         }}
       >
-        <ArrowMarkerDefs />
         {creatingNew && pendingRel && origin && (
           <RelationshipArrow from={origin} to={mouse} type={pendingRel.type} scale={scale} />
         )}

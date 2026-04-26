@@ -21,6 +21,9 @@ export interface ClassSynec {
     addProperty(property: PropertySynec): void;
     addFunction(function_: FunctionSynec): void;
     addRelationship(relationship: RelationshipSynec): void;
+    inheritFrom(source: ClassSynec): void;
+    pruneEmptyMembers(): void;
+    syncImplementors(): void;
     toggleEdition(): void;
     toggleEditionWithLock(lockMs?: number): void;
     toggleSelection(): void;

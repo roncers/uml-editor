@@ -32,15 +32,13 @@ export default function RelationshipsSelector({
   entityType,
 }: RelationshipProps) {
   const { t } = useTranslation()
-  const { implementation, ...rest } = relationshipType
 
-  const relationshipTypes =
-    entityType === "InterfaceSynec" ? { implementation } : rest
-
-  const types = Object.values(relationshipTypes)
+  const types = Object.values(relationshipType)
   const total = types.length
 
-  return (
+  return entityType === "InterfaceSynec" ? (
+    <> </>
+  ) : (
     <span
       role="button"
       className="entity-form__relationship-selector"
@@ -55,7 +53,7 @@ export default function RelationshipsSelector({
             key={type}
             type="button"
             className="entity-form__relationship-option"
-            style={{ '--i': index, '--total': total } as React.CSSProperties}
+            style={{ "--i": index, "--total": total } as React.CSSProperties}
             data-type={type}
             title={t(`relationship-${type}`)}
             onClick={() => onSelection(type)}

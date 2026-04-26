@@ -9,6 +9,7 @@ import FunctionSelector from "./parts/function-selector/FunctionSelector"
 import PropertySelector from "./parts/property-selector/PropertySelector"
 import { FunctionSynec } from "@/classes/members/FunctionSynec"
 import { PropertySynec } from "@/classes/members/PropertySynec"
+import { useEntityContext } from "@/components/uml-editor/parts/EntityContext"
 import type {
   AttributeVisibility,
   AttributeType,
@@ -16,6 +17,7 @@ import type {
 import { useTranslation } from "react-i18next"
 import AddButton from "./parts/add-button-edition/AddButtonEdition"
 import { InterfaceSynec } from "@/classes/classifiers/InterfaceSynec"
+import deleteSvg from "@/assets/svg/common/delete.svg"
 
 const getEntityType = (obj: unknown): string => {
   if (obj && typeof obj === "object") {
@@ -23,8 +25,10 @@ const getEntityType = (obj: unknown): string => {
   }
   return "Unknown"
 }
+
 const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
   const { t } = useTranslation()
+  const { deleteEntity } = useEntityContext()
   function addRelationship(type: RelationshipType) {
     const relationship = new RelationshipSynec(entity.id, "", type)
     entity.addRelationship(relationship)
@@ -48,10 +52,8 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
     method: FunctionSynec,
   ) {
     if (type === "name") {
-      console.log(value)
       method.setName(value)
     } else {
-      console.log(value)
       method.setVisibility(value as AttributeVisibility)
     }
   }
@@ -71,7 +73,7 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
       >
         <span className="entity-form__identifier">
           &lt;&lt;{t(type)}&gt;&gt;
-        </span> 
+        </span>
         <EntityInput
           value={entity.name}
           onChange={(value) => entity.setName(value)}
@@ -108,6 +110,15 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
           onSelection={(type: RelationshipType) => addRelationship(type)}
           entityType={getEntityType(entity)}
         />
+        {/* forces submit when pressing enter */}
+        <button type="submit" style={{ display: "none" }} />
+        {/* TODO: delete button should trigger a confirmation dialog */}
+        <button
+          onClick={() => deleteEntity(entity.id)}
+          aria-label={t("delete")}
+        >
+          <img src={deleteSvg} alt={t("delete")} />
+        </button>
       </form>
     </>
   )

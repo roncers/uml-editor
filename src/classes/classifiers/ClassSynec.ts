@@ -1,10 +1,12 @@
 import type { ClassSynec as ClassSynecInterface } from "@/interfaces/classes/ClassSynec.interface"
-import type { PropertySynec } from "@/interfaces/PropertySynec.interface"
-import type { FunctionSynec } from "@/interfaces/FunctionSynec.interface"
 import type { RelationshipSynec } from "@/interfaces/RelationshipSynec.interface"
 import { Position } from "@/classes/members/Position"
+import { PropertySynec } from "@/classes/members/PropertySynec"
+import { FunctionSynec } from "@/classes/members/FunctionSynec"
 import { makeObservable, runInAction, action } from "mobx"
 import { type ClassStateType, ClassStateEnum } from "@/types/entity.types"
+import { relationshipType } from "@/types/interface.types"
+import { EntityFactory } from "@/classes/factories/EntityFactory"
 
 export class ClassSynec implements ClassSynecInterface {
   id: string
@@ -48,6 +50,9 @@ export class ClassSynec implements ClassSynecInterface {
       setRelationships: action,
       setRelationshipDestiny: action,
       addProperty: action,
+      inheritFrom: action,
+      pruneEmptyMembers: action,
+      syncImplementors: action,
       toggleEditionWithLock: action,
       toggleEdition: action,
     })
@@ -82,11 +87,13 @@ export class ClassSynec implements ClassSynecInterface {
   }
 
   public toggleEdition(): void {
-    console.log('edition is toggling')
-    this.state =
-      this.state === ClassStateEnum.editing
-        ? ClassStateEnum.default
-        : ClassStateEnum.editing
+    const wasEditing = this.state === ClassStateEnum.editing
+    this.state = wasEditing ? ClassStateEnum.default : ClassStateEnum.editing
+
+    if (wasEditing) {
+      this.pruneEmptyMembers()
+      this.syncImplementors()
+    }
   }
 
   public toggleEditionWithLock(lockMs = 150): void {
@@ -110,8 +117,48 @@ export class ClassSynec implements ClassSynecInterface {
 
   public setRelationshipDestiny(entityId: string): void {
     const lastRelationship = this.relationships[this.relationships.length - 1]
-    if (lastRelationship) {
-      lastRelationship.destination = entityId
+    if (!lastRelationship) return
+    lastRelationship.destination = entityId
+
+    if (lastRelationship.type === relationshipType.implementation) {
+      const target = EntityFactory.createdEntities.find(
+        (entity) => entity.id === entityId,
+      )
+      if (target) this.inheritFrom(target as ClassSynec)
+    }
+  }
+
+  public pruneEmptyMembers(): void {
+    this.properties = this.properties.filter((p) => p.name.trim() !== "")
+    this.functions = this.functions.filter((f) => f.name.trim() !== "")
+  }
+
+  public syncImplementors(): void {
+    for (const entity of EntityFactory.createdEntities) {
+      const implementsThis = entity.relationships.some(
+        (rel) =>
+          rel.type === relationshipType.implementation &&
+          rel.destination === this.id,
+      )
+      if (implementsThis) {
+        (entity as ClassSynec).inheritFrom(this)
+      }
+    }
+  }
+
+  public inheritFrom(source: ClassSynec): void {
+    const ownPropertyNames = new Set(this.properties.map((p) => p.name))
+    for (const prop of source.properties) {
+      if (ownPropertyNames.has(prop.name)) continue
+      this.addProperty(
+        new PropertySynec(prop.name, prop.type, prop.visibility),
+      )
+    }
+
+    const ownFunctionNames = new Set(this.functions.map((f) => f.name))
+    for (const fn of source.functions) {
+      if (ownFunctionNames.has(fn.name)) continue
+      this.addFunction(new FunctionSynec(fn.name, fn.visibility))
     }
   }
 }

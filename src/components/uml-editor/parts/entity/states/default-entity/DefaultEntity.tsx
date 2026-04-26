@@ -12,7 +12,7 @@ const DefaultEntity = observer(({ entity }: UMLClassProps) => {
       {entity instanceof InterfaceSynec && (
         <h3 className="entity__subtitle">&lt;&lt;{t("interface")}&gt;&gt;</h3>
       )}
-      <h3 className="entity__title entity--with-padding">{entity.name}</h3>
+      <h3 className="entity__title">{entity.name}</h3>
       {entity.properties.length > 0 &&
         entity.properties.some((prop) => prop.name) && (
           <section className="entity__elements entity--with-padding">
@@ -20,7 +20,7 @@ const DefaultEntity = observer(({ entity }: UMLClassProps) => {
               (prop, indx) =>
                 prop.name && (
                   <p key={indx}>
-                    {prop.visibility === attributeVisibility.public ? "+" : "-"}
+                    {prop.visibility === attributeVisibility.public ? "+ " : "- "}
                     {prop.name}
                     {prop.type && `: ${prop.type}`}
                   </p>
@@ -35,7 +35,7 @@ const DefaultEntity = observer(({ entity }: UMLClassProps) => {
               (func, indx) =>
                 func.name && (
                   <p key={indx}>
-                    {func.visibility === attributeVisibility.public ? "+" : "-"}
+                    {func.visibility === attributeVisibility.public ? "+ " : "- "}
                     {func.name}()
                   </p>
                 ),

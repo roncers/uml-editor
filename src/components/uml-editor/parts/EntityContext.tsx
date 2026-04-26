@@ -4,6 +4,7 @@ export interface EntityContextType {
   createEntity: (entityType: "class" | "interface") => void;
   clearEntities: () => void;
   refreshEntities: () => void;
+  deleteEntity: (id: string) => void;
 }
 
 export const EntityContext = createContext<EntityContextType | undefined>(undefined);

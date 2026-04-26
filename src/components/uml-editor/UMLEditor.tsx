@@ -78,8 +78,13 @@ export default function UMLEditor() {
     entity.setRelationshipDestiny(entityId)
   }
 
+  function deleteEntity(id: string) {
+    EntityFactory.deleteEntity(id)
+    setCreatedEntities([...EntityFactory.createdEntities])
+  }
+
   return (
-    <EntityContext.Provider value={{ createEntity, clearEntities, refreshEntities }}>
+    <EntityContext.Provider value={{ createEntity, clearEntities, refreshEntities, deleteEntity }}>
       <div className="uml-editor-frame">
         <div className="uml-editor-frame__border" />
         <div className="uml-editor">
