@@ -70,8 +70,8 @@ Data flows **down** via props and context; mutations flow **inward** via entity 
 The architecture is designed to be **fully serializable**:
 
 1. **Export (`toJSON`)**: Every entity class must implement a `toJSON(): object` method that returns a plain-object snapshot of its observable state (id, name, properties, functions, relationships, state).
-2. **Import (`hydrate`)**: A utility function (or static factory method) will accept a JSON/txt payload, parse it, and reconstruct observable entity instances via the appropriate factory, restoring the full diagram.
-3. **Format**: The serialization target is a `.json` file (with `.txt` as an alternative extension). The schema will be an array of entity snapshots plus metadata (version, timestamp).
+2. **Import (`hydrate`)**: A utility function (or static factory method) will accept a JSON payload, parse it, and reconstruct observable entity instances via the appropriate factory, restoring the full diagram.
+3. **Format**: The serialization target is a `.json` file. The schema will be an array of entity snapshots plus metadata (version, timestamp).
 
 ```typescript
 // Future API surface
