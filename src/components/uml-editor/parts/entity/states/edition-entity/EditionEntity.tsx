@@ -18,6 +18,10 @@ import { useTranslation } from "react-i18next"
 import AddButton from "./parts/add-button-edition/AddButtonEdition"
 import { InterfaceSynec } from "@/classes/classifiers/InterfaceSynec"
 import deleteSvg from "@/assets/svg/common/delete.svg"
+import ConfirmationDialog, {
+  type ConfirmationDialogRef,
+} from "@/components/overlays/confirmation-dialog/ConfirmationDialog"
+import { useRef } from "react"
 
 const getEntityType = (obj: unknown): string => {
   if (obj && typeof obj === "object") {
@@ -63,6 +67,8 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
   } else {
     type = "class"
   }
+
+  const deleteDialogRef = useRef<ConfirmationDialogRef>(null)
 
   return (
     <>
@@ -112,13 +118,23 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
         />
         {/* forces submit when pressing enter */}
         <button type="submit" style={{ display: "none" }} />
-        {/* TODO: delete button should trigger a confirmation dialog */}
-        <button
-          onClick={() => deleteEntity(entity.id)}
-          aria-label={t("delete")}
+        <ConfirmationDialog
+          ref={deleteDialogRef}
+          action={() => deleteEntity(entity.id)}
         >
-          <img src={deleteSvg} alt={t("delete")} />
-        </button>
+          <p>{t("dialog-delete-text")}</p>
+        </ConfirmationDialog>
+        <div className="entity-form__delete-button">
+          <button
+            onClick={(e) => {
+              e.preventDefault()
+              deleteDialogRef.current?.openDialog()
+            }}
+            aria-label={t("delete")}
+          >
+            <img src={deleteSvg} alt={t("delete")} />
+          </button>
+        </div>
       </form>
     </>
   )

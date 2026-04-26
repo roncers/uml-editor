@@ -10,6 +10,7 @@
     "delete": "Eliminar",
     "delete-all": "Eliminar Todo",
     "dialog-delete-all-text": "¿Estás seguro de que quieres eliminar <strong>TODOS</strong> los elementos?",
+    "dialog-delete-text": "¿Estás seguro de que quieres eliminar este elemento?",
     "confirm": "Confirmar",
     "cancel": "Cancelar",
     "aria-label-add-entity": "Agregar Nueva Entidad",

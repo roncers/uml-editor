@@ -1,6 +1,5 @@
 import "./ConfirmationDialog.scss"
-
-import { forwardRef, useImperativeHandle } from "react"
+import { forwardRef, useImperativeHandle, useRef } from "react"
 import { useTranslation } from "react-i18next"
 
 export interface ConfirmationDialogRef {
@@ -13,36 +12,29 @@ const ConfirmationDialog = forwardRef<
   {
     action: () => void
     children: React.ReactNode
-    id?: string
   }
->(({ action, children, id = crypto.randomUUID() }, ref) => {
+>(({ action, children }, ref) => {
   const { t } = useTranslation()
-  function closeDialog() {
-    const dialog = document.getElementById(id) as HTMLDialogElement
-    if (dialog) {
-      dialog.close()
-    }
-  }
+  const dialogRef = useRef<HTMLDialogElement>(null)
 
-  function openDialog() {
-    const dialog = document.getElementById(id) as HTMLDialogElement
-    if (dialog) {
-      dialog.showModal()
-    }
-  }
-
-  // this provides the functions to the ref
   useImperativeHandle(ref, () => ({
-    openDialog,
-    closeDialog,
+    openDialog: () => dialogRef.current?.showModal(),
+    closeDialog: () => dialogRef.current?.close(),
   }))
 
   return (
-    <dialog className="confirmation-dialog" id={id}>
-      {children}
+    <dialog 
+      ref={dialogRef} 
+      className="confirmation-dialog"
+    >
+      <div className="confirmation-dialog__content">
+        {children}
+      </div>
       <form method="dialog" className="confirmation-dialog__actions">
-        <button onClick={action}>{t("confirm")}</button>
-        <button>{t("cancel")}</button>
+        <button type="button" onClick={() => { action(); dialogRef.current?.close(); }}>
+            {t("confirm")}
+        </button>
+        <button value="cancel">{t("cancel")}</button>
       </form>
     </dialog>
   )

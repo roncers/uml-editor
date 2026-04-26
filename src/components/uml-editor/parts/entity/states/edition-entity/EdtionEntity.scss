@@ -25,4 +25,9 @@
     align-items: center;
     gap: 0.5rem;
   }
+  &__delete-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

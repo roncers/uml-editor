@@ -3,7 +3,7 @@
   transition: display 0.5s allow-discrete, overlay 0.5s allow-discrete;
   animation: fadeOut 0.5s forwards;
 
-  background-color: var(--color-secondary-contrast);
+  background-color: color-mix(in srgb, var(--color-secondary-contrast) 90%, var(--color-background-contrast) 10%);
   &::backdrop {
     animation: backdropFadeOut 0.5s forwards;
     background-color: rgba(0, 0, 0, 0.85);
@@ -22,7 +22,7 @@
     justify-content: flex-end;
     margin-top: 1.5rem;
     button {
-      background-color: var(--color-secondary);
+      background-color: color-mix(in srgb, var(--color-secondary) 90%, var(--color-background) 10%);
       padding: 0.5rem 1rem;
       border-radius: 0.25rem;
       box-sizing: border-box;
