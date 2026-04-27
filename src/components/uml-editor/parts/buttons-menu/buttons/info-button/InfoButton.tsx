@@ -7,6 +7,7 @@ export default function InfoButton() {
   return (  
     <>
       <SyButton
+        popoverTarget="information-popover"
         className="buttons-menu__info-button"
         aria-label="Info"
         title="Info"

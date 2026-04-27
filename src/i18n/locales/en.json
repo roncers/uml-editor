@@ -28,6 +28,10 @@
     "aria-label-import": "Import a new diagram from a file",
     "interchange-button": "Import / Export diagrams",
     "aria-label-interchange-button": "Import or export diagrams",
+    "information": "Information",
+    "aria-label-close-info": "Close information",
+    "information-title-usage": "Usage",
+    "information-title-uml": "What's UML?",
 
     "random-words": {
         "1": "charity",

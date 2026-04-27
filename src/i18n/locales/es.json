@@ -28,6 +28,10 @@
     "aria-label-import": "Importar nuevo diagrama desde un fichero",
     "interchange-button": "Importar / Exportar diagramas",
     "aria-label-interchange-button": "Importar o exportar diagramas",
+    "information": "Información",
+    "aria-label-close-info": "Cerrar información",
+    "information-title-usage": "Uso",
+    "information-title-uml": "¿Qué es UML?",
 
     "random-words": {
         "1": "caridad",
