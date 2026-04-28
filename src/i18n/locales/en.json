@@ -32,6 +32,10 @@
     "aria-label-close-info": "Close information",
     "information-title-usage": "Usage",
     "information-title-uml": "What's UML?",
+    "title-creation-usage": "Entity Creation",
+    "information-creation-usage": "The most important functionality of the application is the ability to create classes and interfaces at will. To do this, just direct the cursor to the + button and select class or interface. After this, a new entity will be created in your visual field on the board.",
+    "title-edition-usage": "Entity Edition",
+    "information-edition-usage": "For toggle the edition mode in any entity just click it with the right click. This will enable the edition of it's name, attributes and methods, additionally, the button with the trash icon allow the deletion of the entity.",
 
     "random-words": {
         "1": "charity",

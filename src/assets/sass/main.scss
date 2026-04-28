@@ -33,10 +33,10 @@ html {
   color: var(--color-primary);
   background-color: var(--color-background);
   ::selection {
-    background-color: var(--color-secondary);
+    background-color: color-mix(in srgb, var(--color-secondary), transparent 30%);
   }
   ::-moz-selection {
-    background-color: var(--color-secondary);
+    background-color: color-mix(in srgb, var(--color-secondary), transparent 30%);
   }
 }
 

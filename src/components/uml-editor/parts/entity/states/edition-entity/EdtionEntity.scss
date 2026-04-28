@@ -14,7 +14,7 @@
   }
 
   &__subtitle {
-    padding: 0.5rem 0;  
+    padding: 0.5rem 0;
     font-size: 1.1rem;
     color: var(--color-primary);
     text-transform: capitalize;
@@ -25,12 +25,22 @@
     align-items: center;
     gap: 0.5rem;
   }
+  &__delete-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0.5rem;
+  }
   &__delete-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    > button {
-      margin-left: 5rem;
-    }
+    cursor: pointer;
+    // margin-left: 5rem;
+    &:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+      border-color: transparent;
+    } 
   }
 }

@@ -124,8 +124,10 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
         >
           <p>{t("dialog-delete-text")}</p>
         </ConfirmationDialog>
-        <div className="entity-form__delete-button">
+        <div className="entity-form__delete-button-container">
           <button
+            className="entity-form__delete-button"
+            onMouseDown={(e) => e.stopPropagation()}
             onClick={(e) => {
               e.preventDefault()
               deleteDialogRef.current?.openDialog()
