@@ -1,3 +1,4 @@
+@use "@/assets/sass/abstracts/mixins" as *;
 .popover-container {
   --_popover-width: 90vw;
   --_popover-height: 75vh;
@@ -31,15 +32,20 @@
     h3 {
       font-size: 2.5rem;
       margin-left: 2rem;
+      @include respond(tab-port) {
+        margin-left: 0;
+      }
     }
     h4 {
       font-size: 2rem;
       margin-left: 4rem;
+      @include respond(tab-port) {
+        margin-left: 0;
+      }
     }
     p {
-      margin-left: 5rem;
+      // margin-left: 5rem;
     }
-
   }
 }
 
@@ -94,14 +100,11 @@
     gap: 2rem;
   }
   &__add-elements {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    p {
-    }
-    div {
-      flex: 0 0 0rem;
-      z-index: 3;
+    padding: 2rem 3rem;
+    margin-left: 5rem;
+    @include respond(tab-port) {
+      padding: 2rem 2rem;
+      margin-left: 0;
     }
   }
   &__with-usage {
@@ -114,13 +117,26 @@
     flex-direction: column;
     gap: 2rem;
   }
+  &__add-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    @include respond(tab-port) {
+      flex-direction: column;
+    }
+  }
   &__tested-addition {
+    padding: 1.5rem 7rem 1.5rem 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    @include respond(tab-port) {
+      margin-left: 0;
+    }
+  }
+  &__background-dashed {
     background-color: white;
     z-index: 1;
-    padding: 1.5rem 7rem 1.5rem 2rem;
     border-radius: 1.5rem;
     border: 2px dashed var(--color-primary);
   }

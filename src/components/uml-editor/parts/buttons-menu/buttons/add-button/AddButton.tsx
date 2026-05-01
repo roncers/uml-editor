@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 import SyButtonOptions from "@/components/shared/sy-button-options/SyButtonOptions"
 import addSvg from "@/assets/svg/common/add.svg"
 
-export default function AddButton() {
+export default function AddButton({ disabled }: { disabled?: boolean }) {
   const context = useContext(EntityContext)
   const { t } = useTranslation()
 
@@ -33,11 +33,11 @@ export default function AddButton() {
       buttons={[
         {
           texts: { label: t("aria-label-add-class"), value: t("class") },
-          onClick: () => context?.createEntity("class"),
+          onClick: () => disabled ? undefined : context?.createEntity("class"),
         },
         {
           texts: { label: t("aria-label-add-interface"), value: t("interface") },
-          onClick: () => context?.createEntity("interface"),
+          onClick: () => disabled ? undefined : context?.createEntity("interface"),
         },
       ]}
       label={t("aria-label-add-entity")}

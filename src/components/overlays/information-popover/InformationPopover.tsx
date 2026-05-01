@@ -24,12 +24,14 @@ export default function InformationPopover() {
           <div className="information-card__with-usage">
             <div className="information-card__creation-usage">
               <h4 className="mimic-text">{t("title-creation-usage")}</h4>
-              <section className="information-card__add-elements">
-                <p>{t("information-creation-usage")}</p>
+              <section className="information-card__add-container">
+                <div className="information-card__add-elements information-card__background-dashed">
+                  <p>{t("information-creation-usage")}</p>
+                </div>
+                <div className="information-card__tested-addition information-card__background-dashed">
+                  <AddButton disabled/>
+                </div>
               </section>
-            </div>
-            <div className="information-card__tested-addition">
-              <AddButton />
             </div>
           </div>
 
