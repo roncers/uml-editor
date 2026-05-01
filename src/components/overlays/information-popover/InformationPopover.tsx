@@ -21,11 +21,18 @@ export default function InformationPopover() {
         </section>
         <section className="information-card__content">
           <h3 className="mimic-text">{t("information-title-usage")}</h3>
-          <h4 className="mimic-text">{t("title-creation-usage")}</h4>
-          <section className="information-card__add-elements">
-            <p>{t("information-creation-usage")}</p>
-            <AddButton />
-          </section>
+          <div className="information-card__with-usage">
+            <div className="information-card__creation-usage">
+              <h4 className="mimic-text">{t("title-creation-usage")}</h4>
+              <section className="information-card__add-elements">
+                <p>{t("information-creation-usage")}</p>
+              </section>
+            </div>
+            <div className="information-card__tested-addition">
+              <AddButton />
+            </div>
+          </div>
+
           <h4 className="mimic-text">{t("title-edition-usage")}</h4>
           <p>{t("information-edition-usage")}</p>
           <h3 className="mimic-text">{t("information-title-uml")}</h3>
