@@ -118,12 +118,6 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
         />
         {/* forces submit when pressing enter */}
         <button type="submit" style={{ display: "none" }} />
-        <ConfirmationDialog
-          ref={deleteDialogRef}
-          action={() => deleteEntity(entity.id)}
-        >
-          <p>{t("dialog-delete-text")}</p>
-        </ConfirmationDialog>
         <div className="entity-form__delete-button-container">
           <button
             className="entity-form__delete-button"
@@ -138,6 +132,12 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
           </button>
         </div>
       </form>
+      <ConfirmationDialog
+        ref={deleteDialogRef}
+        action={() => deleteEntity(entity.id)}
+      >
+        <p>{t("dialog-delete-text")}</p>
+      </ConfirmationDialog>
     </>
   )
 })

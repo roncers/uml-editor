@@ -5,19 +5,21 @@ import AddButton from "@/components/uml-editor/parts/buttons-menu/buttons/add-bu
 
 export default function InformationPopover() {
   const { t } = useTranslation()
+  // TODO: refactor of classes names pls.
   return (
     <div className="popover-container" popover="auto" id="information-popover">
       <div className="information-card">
         <section className="information-card__header">
           <h2 className="mimic-text">{t("information")}</h2>
-          <button
-            onClick={() =>
-              document.getElementById("information-popover")?.hidePopover()
-            }
-            aria-label={t("aria-label-close-info")}
-          >
-            <img src={closeSvg} alt="Close" />
-          </button>
+            <button
+            className="mimic-button"
+              onClick={() =>
+                document.getElementById("information-popover")?.hidePopover()
+              }
+              aria-label={t("aria-label-close-info")}
+            >
+              <img src={closeSvg} alt="Close" />
+            </button>
         </section>
         <section className="information-card__content">
           <h3 className="mimic-text">{t("information-title-usage")}</h3>
@@ -29,7 +31,7 @@ export default function InformationPopover() {
                   <p>{t("information-creation-usage")}</p>
                 </div>
                 <div className="information-card__tested-addition information-card__background-dashed">
-                  <AddButton disabled/>
+                  <AddButton disabled />
                 </div>
               </section>
             </div>
