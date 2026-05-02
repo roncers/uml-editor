@@ -5,41 +5,40 @@ import AddButton from "@/components/uml-editor/parts/buttons-menu/buttons/add-bu
 
 export default function InformationPopover() {
   const { t } = useTranslation()
-  // TODO: refactor of classes names pls.
   return (
     <div className="popover-container" popover="auto" id="information-popover">
       <div className="information-card">
         <section className="information-card__header">
-          <h2 className="mimic-text">{t("information")}</h2>
-            <button
+          <h2 className="g-mimic-text">{t("information")}</h2>
+          <button
             className="mimic-button"
-              onClick={() =>
-                document.getElementById("information-popover")?.hidePopover()
-              }
-              aria-label={t("aria-label-close-info")}
-            >
-              <img src={closeSvg} alt="Close" />
-            </button>
+            onClick={() =>
+              document.getElementById("information-popover")?.hidePopover()
+            }
+            aria-label={t("aria-label-close-info")}
+          >
+            <img src={closeSvg} alt="Close" />
+          </button>
         </section>
         <section className="information-card__content">
-          <h3 className="mimic-text">{t("information-title-usage")}</h3>
-          <div className="information-card__with-usage">
-            <div className="information-card__creation-usage">
-              <h4 className="mimic-text">{t("title-creation-usage")}</h4>
-              <section className="information-card__add-container">
-                <div className="information-card__add-elements information-card__background-dashed">
-                  <p>{t("information-creation-usage")}</p>
-                </div>
-                <div className="information-card__tested-addition information-card__background-dashed">
+          <h3 className="g-mimic-text">{t("information-title-usage")}</h3>
+          <section className="information-card__information-container">
+            <article className="information-card__information">
+              <h4 className="g-mimic-text">{t("title-creation-usage")}</h4>
+              <section className="information-card__info-data">
+                <p className="information-card__info-text g-background-dashed">
+                  {t("information-creation-usage")}
+                </p>
+                <div className="information-card__info-test g-background-dashed">
                   <AddButton disabled />
                 </div>
               </section>
-            </div>
-          </div>
+            </article>
+          </section>
 
-          <h4 className="mimic-text">{t("title-edition-usage")}</h4>
+          <h4 className="g-mimic-text">{t("title-edition-usage")}</h4>
           <p>{t("information-edition-usage")}</p>
-          <h3 className="mimic-text">{t("information-title-uml")}</h3>
+          <h3 className="g-mimic-text">{t("information-title-uml")}</h3>
           <div className="background-dots">
             {Array.from({ length: 36 }, (_, i) => {
               return <div className="dot" key={i}></div>

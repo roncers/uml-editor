@@ -60,7 +60,7 @@
   }
 }
 
-.mimic-text {
+.g-mimic-text {
   width: fit-content;
   border-radius: 0.2rem;
   border: 1px solid var(--color-primary);
@@ -68,6 +68,13 @@
   background-color: var(--color-background);
   line-height: 1.4;
   z-index: 4;
+}
+
+.g-background-dashed {
+  background-color: white;
+  z-index: 1;
+  border-radius: 1.5rem;
+  border: 2px dashed var(--color-primary);
 }
 
 .information-card {
@@ -120,25 +127,17 @@
     align-items: flex-start;
     gap: 2rem;
   }
-  &__add-elements {
-    padding: 2rem 3rem;
-    margin-left: 5rem;
-    @include respond(tab-port) {
-      padding: 2rem 2rem;
-      margin-left: 0;
-    }
-  }
-  &__with-usage {
+  &__information-container {
     display: flex;
     align-items: flex-start;
     gap: 4rem;
   }
-  &__creation-usage {
+  &__information {
     display: flex;
     flex-direction: column;
     gap: 2rem;
   }
-  &__add-container {
+  &__info-data {
     display: flex;
     flex-direction: row;
     gap: 2rem;
@@ -146,20 +145,23 @@
       flex-direction: column;
     }
   }
-  &__tested-addition {
+  &__info-text {
+    padding: 2rem 3rem;
+    margin-left: 5rem;
+    @include respond(tab-port) {
+      padding: 2rem 2rem;
+      margin-left: 0;
+    }
+  }
+  &__info-test {
     padding: 1.5rem 7rem 1.5rem 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     @include respond(tab-port) {
       margin-left: 0;
+      padding-left: 9rem;
     }
-  }
-  &__background-dashed {
-    background-color: white;
-    z-index: 1;
-    border-radius: 1.5rem;
-    border: 2px dashed var(--color-primary);
   }
 }
 
