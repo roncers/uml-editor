@@ -34,6 +34,7 @@
   "information-title-uml": "¿Qué es UML?",
   "title-creation-usage": "Creación de Entidades",
   "information-creation-usage": "La funcionalidad más importante de la aplicación es la posibilidad de crear clases e interfaces a su antojo. Para ello solo hay que dirigir el cursor al botón + y seleccionar clase o interfaz. Después de esto una nueva entidad será creado en tu campo visual del tablero.",
+  "right-click-me": "Haz clic derecho en mí",
 
   "random-words": {
     "1": "caridad",

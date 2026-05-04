@@ -1,10 +1,14 @@
 import "./InformationPopover.scss"
+import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import closeSvg from "@/assets/svg/common/close.svg"
 import AddButton from "@/components/uml-editor/parts/buttons-menu/buttons/add-button/AddButton"
+import Entity from "@/components/uml-editor/parts/entity/Entity"
+import { ClassSynec } from "@/classes/classifiers/ClassSynec"
 
 export default function InformationPopover() {
   const { t } = useTranslation()
+  const mockEntity = useMemo(() => new ClassSynec(t("right-click-me")), [t])
   return (
     <div className="popover-container" popover="auto" id="information-popover">
       <div className="information-card">
@@ -29,15 +33,27 @@ export default function InformationPopover() {
                 <p className="information-card__info-text g-background-dashed">
                   {t("information-creation-usage")}
                 </p>
-                <div className="information-card__info-test g-background-dashed">
+                <div className="information-card__info-test information-card__padding-add-button g-background-dashed">
                   <AddButton disabled />
                 </div>
               </section>
             </article>
           </section>
 
-          <h4 className="g-mimic-text">{t("title-edition-usage")}</h4>
-          <p>{t("information-edition-usage")}</p>
+          <section className="information-card__information-container">
+            <article className="information-card__information">
+              <h4 className="g-mimic-text">{t("title-edition-usage")}</h4>
+              <section className="information-card__info-data">
+                <p className="information-card__info-text information-card__entity-toggling-text g-background-dashed">
+                  {t("information-edition-usage")}
+                </p>
+                <div className="information-card__info-test information-card__entity-toggling-test g-background-dashed">
+                  <Entity entity={mockEntity} />
+                </div>
+              </section>
+            </article>
+          </section>
+
           <h3 className="g-mimic-text">{t("information-title-uml")}</h3>
           <div className="background-dots">
             {Array.from({ length: 36 }, (_, i) => {

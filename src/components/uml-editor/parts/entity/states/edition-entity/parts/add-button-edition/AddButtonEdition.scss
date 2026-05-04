@@ -2,11 +2,12 @@
   &__add-button {
     background-color: var(--color-secondary-contrast);
     border-color: var(--color-secondary-contrast);
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 2rem;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
     &:hover {

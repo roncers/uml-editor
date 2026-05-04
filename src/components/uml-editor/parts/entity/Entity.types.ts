@@ -1,7 +1,7 @@
 import type { InterfaceSynec } from "@/interfaces/classes/InterfaceSynec.interface"
 import type { ClassSynec } from "@/interfaces/classes/ClassSynec.interface"
 export interface UMLClassProps {
-    entity: InterfaceSynec | ClassSynec
-    onToggle?: () => void
-    [key: string]: string | number | boolean | undefined | object
+  entity: InterfaceSynec | ClassSynec
+  onToggle?: () => void
+  [key: string]: string | number | boolean | undefined | object
 }

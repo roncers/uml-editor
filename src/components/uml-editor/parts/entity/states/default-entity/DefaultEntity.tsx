@@ -10,9 +10,9 @@ const DefaultEntity = observer(({ entity }: UMLClassProps) => {
   return (
     <div className="entity__content">
       {entity instanceof InterfaceSynec && (
-        <h3 className="entity__subtitle">&lt;&lt;{t("interface")}&gt;&gt;</h3>
+        <h6 className="entity__subtitle">&lt;&lt;{t("interface")}&gt;&gt;</h6>
       )}
-      <h3 className="entity__title">{entity.name}</h3>
+      <h6 className="entity__title">{entity.name}</h6>
       {entity.properties.length > 0 &&
         entity.properties.some((prop) => prop.name) && (
           <section className="entity__elements entity--with-padding">
