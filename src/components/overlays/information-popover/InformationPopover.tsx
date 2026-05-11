@@ -44,8 +44,23 @@ export default function InformationPopover() {
             <article className="information-card__information">
               <h4 className="g-mimic-text">{t("title-edition-usage")}</h4>
               <section className="information-card__info-data">
+                <div className="information-card__info-text information-card__entity-toggling-text g-background-dashed">
+                  <p>{t("information-edition-usage-1")}</p>
+                  <p>{t("information-edition-usage-2")}</p>
+                </div>
+                <div className="information-card__info-test information-card__entity-toggling-test g-background-dashed">
+                  <Entity entity={mockEntity} />
+                </div>
+              </section>
+            </article>
+          </section>
+
+          <section className="information-card__information-container">
+            <article className="information-card__information">
+              <h4 className="g-mimic-text">{t("title-relationships-usage")}</h4>
+              <section className="information-card__info-data">
                 <p className="information-card__info-text information-card__entity-toggling-text g-background-dashed">
-                  {t("information-edition-usage")}
+                  {t("information-relationships-usage-1")}
                 </p>
                 <div className="information-card__info-test information-card__entity-toggling-test g-background-dashed">
                   <Entity entity={mockEntity} />

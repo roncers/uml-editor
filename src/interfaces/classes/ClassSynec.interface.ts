@@ -21,6 +21,7 @@ export interface ClassSynec {
     addProperty(property: PropertySynec): void;
     addFunction(function_: FunctionSynec): void;
     addRelationship(relationship: RelationshipSynec): void;
+    deleteRelationship(relationshipId: string): void;
     inheritFrom(source: ClassSynec): void;
     pruneEmptyMembers(): void;
     syncImplementors(): void;

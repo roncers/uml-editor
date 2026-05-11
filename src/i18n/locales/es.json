@@ -11,6 +11,8 @@
   "delete-all": "Eliminar Todo",
   "dialog-delete-all-text": "¿Estás seguro de que quieres eliminar <strong>TODOS</strong> los elementos?",
   "dialog-delete-text": "¿Estás seguro de que quieres eliminar este elemento?",
+  "dialog-delete-relationship-text": "¿Estás seguro de que quieres eliminar esta relación?",
+  "dialog-delete-relationship-text-warn": "Está acción borrará todas las relaciones entre los 2 elementos.",
   "confirm": "Confirmar",
   "cancel": "Cancelar",
   "aria-label-add-entity": "Agregar Nueva Entidad",
@@ -35,6 +37,8 @@
   "title-creation-usage": "Creación de Entidades",
   "information-creation-usage": "La funcionalidad más importante de la aplicación es la posibilidad de crear clases e interfaces a su antojo. Para ello solo hay que dirigir el cursor al botón + y seleccionar clase o interfaz. Después de esto una nueva entidad será creado en tu campo visual del tablero.",
   "right-click-me": "Haz clic derecho en mí",
+  "information-edition-usage-1": "Para alternar el modo de edición de cualquier entidad, haz clic con el botón derecho. Esto permitirá editar su nombre, atributos y métodos, además el botón con el icono de basura permite eliminar la entidad.",
+  "information-edition-usage-2": "El botón de agregar de la esquina inferior derecha de la entidad permite agregar nuevas relaciones, antes de usarlo asegúrate de que hay otra entidad con la que quieres emparejar la actual. Al pasar el cursor se mostrará el catálogo de relaciones disponibles, selecciona una y haz clic en la entidad con la que quieres conectar.",
 
   "random-words": {
     "1": "caridad",

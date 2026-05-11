@@ -148,6 +148,9 @@
   &__info-text {
     padding: 2rem 3rem;
     margin-left: 5rem;
+    p {
+      margin-bottom: 2rem;
+    }
     @include respond(tab-port) {
       padding: 2rem 2rem;
       margin-left: 0;

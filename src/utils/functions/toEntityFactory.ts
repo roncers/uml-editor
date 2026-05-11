@@ -18,7 +18,7 @@ const toEntityFactory: Record<string, (data: StringEntity) => Entity> =
         ),
         data.functions.map((f) => new FunctionSynec(f.name, f.visibility)),
         data.relationships.map(
-          (r) => new RelationshipSynec(r.origin, r.destination, r.type),
+          (r) => new RelationshipSynec(r.origin, r.destination, r.type, r.id),
         ) as (Omit<RelationshipSynec, "type"> & {
           type: "implementation"
         })[],
@@ -37,7 +37,7 @@ const toEntityFactory: Record<string, (data: StringEntity) => Entity> =
         ),
         data.functions.map((f) => new FunctionSynec(f.name, f.visibility)),
         data.relationships.map(
-          (r) => new RelationshipSynec(r.origin, r.destination, r.type),
+          (r) => new RelationshipSynec(r.origin, r.destination, r.type, r.id),
         ),
         data.id,
       )

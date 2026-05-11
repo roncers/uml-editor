@@ -47,6 +47,7 @@ export class ClassSynec implements ClassSynecInterface {
       setFunctions: action,
       addFunction: action,
       addRelationship: action,
+      deleteRelationship: action,
       setRelationships: action,
       setRelationshipDestiny: action,
       addProperty: action,
@@ -84,6 +85,12 @@ export class ClassSynec implements ClassSynecInterface {
 
   public addRelationship(relationship: RelationshipSynec): void {
     this.relationships.push(relationship)
+  }
+
+  public deleteRelationship(relationshipId: string): void {
+    this.relationships = this.relationships.filter(
+      (r) => r.id !== relationshipId,
+    )
   }
 
   public toggleEdition(): void {

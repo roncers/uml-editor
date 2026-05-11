@@ -12,14 +12,14 @@ import { useZoom } from "@/components/uml-editor/parts/board/ZoomContext"
 const RelationshipsRenderer = observer(
   ({ entities }: { entities: EntityType[] }) => {
     const relationships = entities.flatMap((entity) =>
-      entity.relationships.map((rel) => ({ id: entity.id, ...rel })),
+      entity.relationships.map((rel) => ({ entityId: entity.id, ...rel })),
     )
     const [origin, setOrigin] = useState<{ x: number; y: number } | null>(null)
     const [mouse, setMouse] = useState({ x: 0, y: 0 })
     const mouseRef = useRef({ x: 0, y: 0 })
 
     const pendingRel = relationships.find((rel) => rel.destination === "")
-    const sourceId = pendingRel?.id
+    const sourceId = pendingRel?.entityId
 
     const sourceIdRef = useRef(sourceId)
     sourceIdRef.current = sourceId
@@ -39,7 +39,9 @@ const RelationshipsRenderer = observer(
     onMoveRef.current = onMove
     const creatingNew = Boolean(sourceId)
     const createdRelationships = entities.flatMap((entity) =>
-      entity.relationships.filter((rel) => rel.destination),
+      entity.relationships
+        .filter((rel) => rel.destination)
+        .map((rel) => ({ entity, rel })),
     )
     // for using the scaling in the relationships when wheel is used
     const scale = useZoom()
@@ -72,15 +74,25 @@ const RelationshipsRenderer = observer(
         }}
       >
         {creatingNew && pendingRel && origin && (
-          <RelationshipArrow from={origin} to={mouse} type={pendingRel.type} scale={scale} />
-        )}
-        {createdRelationships.map((rel, indx) => (
           <RelationshipArrow
-            key={indx}
+            from={origin}
+            to={mouse}
+            type={pendingRel.type}
+            scale={scale}
+            onDelete={() => {
+              const owner = entities.find((e) => e.id === pendingRel.entityId)
+              owner?.deleteRelationship(pendingRel.id)
+            }}
+          />
+        )}
+        {createdRelationships.map(({ entity, rel }) => (
+          <RelationshipArrow
+            key={rel.id}
             from={getCoordinates(rel.origin, rel.destination)}
             to={getCoordinates(rel.destination, rel.origin)}
             type={rel.type}
             scale={scale}
+            onDelete={() => entity.deleteRelationship(rel.id)}
           />
         ))}
       </svg>,

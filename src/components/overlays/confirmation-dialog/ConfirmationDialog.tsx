@@ -25,6 +25,7 @@ const ConfirmationDialog = forwardRef<
   return (
     <dialog
       onClose={() => dialogRef.current?.close()}
+      onMouseDown={(e) => e.stopPropagation()}
       ref={dialogRef}
       className="confirmation-dialog"
     >
