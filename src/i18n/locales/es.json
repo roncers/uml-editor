@@ -39,6 +39,8 @@
   "right-click-me": "Haz clic derecho en mí",
   "information-edition-usage-1": "Para alternar el modo de edición de cualquier entidad, haz clic con el botón derecho. Esto permitirá editar su nombre, atributos y métodos, además el botón con el icono de basura permite eliminar la entidad.",
   "information-edition-usage-2": "El botón de agregar de la esquina inferior derecha de la entidad permite agregar nuevas relaciones, antes de usarlo asegúrate de que hay otra entidad con la que quieres emparejar la actual. Al pasar el cursor se mostrará el catálogo de relaciones disponibles, selecciona una y haz clic en la entidad con la que quieres conectar.",
+  "information-uml-definition": "UML (Unified Modeling Language) es un lenguaje de modelado unificado que proporciona una notación estándar para representar gráficamente los sistemas de software y los procesos de negocio. Es ampliamente utilizado en ingeniería de software para el modelado de sistemas de información y el diseño de arquitecturas de software.",
+  "information-relationships-title": "Relaciones",
 
   "random-words": {
     "1": "caridad",
