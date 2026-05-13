@@ -3,12 +3,7 @@ import {
   relationshipType,
 } from "@/types/interface.types"
 import { useTranslation } from "react-i18next"
-import dependencySvg from "@/assets/svg/relationships/dependency.svg"
-import associationSvg from "@/assets/svg/relationships/association.svg"
-import aggregationSvg from "@/assets/svg/relationships/aggregation.svg"
-import compositionSvg from "@/assets/svg/relationships/composition.svg"
-import implementationSvg from "@/assets/svg/relationships/implementation.svg"
-import inheritanceSvg from "@/assets/svg/relationships/inheritance.svg"
+import { RelationshipIcons } from "@/utils/iconsBundle"
 import addSvg from "@/assets/svg/common/add.svg"
 
 import "./RelationshipSelector.scss"
@@ -19,12 +14,12 @@ interface RelationshipProps {
 }
 
 const relationshipIcons: Record<RelationshipType, string> = {
-  [relationshipType.inheritance]: inheritanceSvg,
-  [relationshipType.dependency]: dependencySvg,
-  [relationshipType.association]: associationSvg,
-  [relationshipType.aggregation]: aggregationSvg,
-  [relationshipType.composition]: compositionSvg,
-  [relationshipType.implementation]: implementationSvg,
+  [relationshipType.inheritance]: RelationshipIcons.inheritance,
+  [relationshipType.dependency]: RelationshipIcons.dependency,
+  [relationshipType.association]: RelationshipIcons.association,
+  [relationshipType.aggregation]: RelationshipIcons.aggregation,
+  [relationshipType.composition]: RelationshipIcons.composition,
+  [relationshipType.implementation]: RelationshipIcons.implementation,
 }
 
 export default function RelationshipsSelector({

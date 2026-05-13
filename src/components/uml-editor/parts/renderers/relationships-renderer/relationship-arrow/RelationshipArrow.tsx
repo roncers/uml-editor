@@ -46,9 +46,15 @@ export default function RelationshipArrow({
       setShowDelete(false)
     }
     document.addEventListener("mousedown", onDocMouseDown, true)
-    return () =>
-      document.removeEventListener("mousedown", onDocMouseDown, true)
+    return () => document.removeEventListener("mousedown", onDocMouseDown, true)
   }, [showDelete])
+
+function toggleDeleteButton(e: React.MouseEvent) {
+  e.preventDefault()
+  if (hovered) {
+    setShowDelete(true)
+  }
+}
 
   return (
     <>
@@ -56,10 +62,10 @@ export default function RelationshipArrow({
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onContextMenu={(e) => {
-          e.preventDefault()
-          if (hovered) {
-            setShowDelete(true)
-          }
+          toggleDeleteButton(e)
+        }}
+        onDoubleClick={(e) => {
+          toggleDeleteButton(e)
         }}
       >
         <ArrowMarkerDefs idPrefix={idPrefix} color={color} />
