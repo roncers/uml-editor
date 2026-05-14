@@ -155,7 +155,9 @@
     justify-content: space-between;
     // align-items: baseline;
     gap: 2rem;
-    line-height: 3rem;
+    p {
+      line-height: 2.75rem;
+    }
     @include respond(tab-land) {
       grid-template-columns: 1fr 1fr;
     }
@@ -167,6 +169,7 @@
   &__info-text {
     padding: 2rem 3rem;
     margin-left: 5rem;
+    line-height: 2.5rem;
     p {
       margin-bottom: 2rem;
     }

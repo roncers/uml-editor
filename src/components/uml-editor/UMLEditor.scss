@@ -1,29 +1,40 @@
-$_editor-margin-side: 2rem;
-$_editor-margin-bottom: 1rem;
+@use "@/assets/sass/abstracts/mixins" as *;
 .uml-editor-frame {
+  --editor-margin-side: 2rem;
+  --editor-margin-bottom: 1rem;
+
   flex: 1;
   position: relative;
-  margin: $_editor-margin-side $_editor-margin-side $_editor-margin-bottom
-    $_editor-margin-side;
+  margin: var(--editor-margin-side) var(--editor-margin-side) var(--editor-margin-bottom) var(--editor-margin-side);
+
+  @include respond(phone) {
+    --editor-margin-side: 0.5rem;
+    --editor-margin-bottom: 1rem;
+  }
 
   &__border {
     position: absolute;
-    inset: -#{$_editor-margin-side} -#{$_editor-margin-side} -#{$_editor-margin-bottom} -#{$_editor-margin-side};
+    inset: 
+      calc(-1 * var(--editor-margin-side)) 
+      calc(-1 * var(--editor-margin-side)) 
+      calc(-1 * var(--editor-margin-bottom)) 
+      calc(-1 * var(--editor-margin-side));
+      
     background: var(--color-background);
     z-index: 1000;
     pointer-events: none;
+    
     clip-path: polygon(
       0% 0%,
       100% 0%,
       100% 100%,
       0% 100%,
-      0% calc(100% - #{$_editor-margin-bottom}),
-      calc(100% - #{$_editor-margin-side})
-        calc(100% - #{$_editor-margin-bottom}),
-      calc(100% - #{$_editor-margin-side}) #{$_editor-margin-side},
-      #{$_editor-margin-side} #{$_editor-margin-side},
-      #{$_editor-margin-side} calc(100% - #{$_editor-margin-bottom}),
-      0% calc(100% - #{$_editor-margin-bottom})
+      0% calc(100% - var(--editor-margin-bottom)),
+      calc(100% - var(--editor-margin-side)) calc(100% - var(--editor-margin-bottom)),
+      calc(100% - var(--editor-margin-side)) var(--editor-margin-side),
+      var(--editor-margin-side) var(--editor-margin-side),
+      var(--editor-margin-side) calc(100% - var(--editor-margin-bottom)),
+      0% calc(100% - var(--editor-margin-bottom))
     );
   }
 }
@@ -35,4 +46,7 @@ $_editor-margin-bottom: 1rem;
   border-radius: 1rem;
   position: relative;
   overflow: hidden;
+  @include respond(phone) {
+    border-color: transparent;
+  }
 }

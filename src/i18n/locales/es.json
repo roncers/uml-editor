@@ -41,7 +41,13 @@
   "information-edition-usage-2": "El botón de agregar de la esquina inferior derecha de la entidad permite agregar nuevas relaciones, antes de usarlo asegúrate de que hay otra entidad con la que quieres emparejar la actual. Al pasar el cursor se mostrará el catálogo de relaciones disponibles, selecciona una y haz clic en la entidad con la que quieres conectar.",
   "information-uml-definition": "UML (Unified Modeling Language) es un lenguaje de modelado unificado que proporciona una notación estándar para representar gráficamente los sistemas de software y los procesos de negocio. Es ampliamente utilizado en ingeniería de software para el modelado de sistemas de información y el diseño de arquitecturas de software.",
   "information-relationships-title": "Relaciones",
-
+  "information-relationships-handling-title": "Manejo de Relaciones",
+  "information-relationships-usage-dependency": "La dependencia es una relación entre dos elementos donde un elemento (el cliente) utiliza o depende de otro elemento (el proveedor) para su funcionalidad o comportamiento.",
+  "information-relationships-usage-association": "La asociación es una relación estructural que representa una conexión entre dos o más clases, indicando que las instancias de estas clases están relacionadas entre sí.",
+  "information-relationships-usage-implementation": "La implementación es una relación entre dos elementos donde un elemento (el cliente) implementa o hereda de otro elemento (el proveedor) para obtener su funcionalidad o comportamiento.",
+  "information-relationships-usage-inheritance": "La herencia es una relación entre dos elementos donde un elemento (el hijo) hereda propiedades y métodos de otro elemento (el padre).",
+  "information-relationships-usage-aggregation": "La agregación es una relación entre dos elementos donde un elemento (el todo) contiene o está compuesto por otro elemento (la parte).",
+  "information-relationships-usage-composition": "La composición es una relación entre dos elementos donde un elemento (el todo) contiene o está compuesto por otro elemento (la parte), y la parte no puede existir sin el todo.",
   "random-words": {
     "1": "caridad",
     "2": "significado",

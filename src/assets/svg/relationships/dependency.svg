@@ -1,7 +1,7 @@
 <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
  <g id="Layer_1">
   <title>Layer 1</title>
-  <line stroke-dasharray="2,2" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_1" y2="27" x2="16" y1="5" x1="16" stroke="#000" fill="none"/>
+  <line stroke-dasharray="3,4" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_1" y2="27" x2="16" y1="5" x1="16" stroke="#000" fill="none"/>
   <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_2" y2="4.54331" x2="25.37008" y1="4.62205" x1="6.7874" stroke="#000" fill="none"/>
   <line transform="rotate(6.26631 12.5354 25.5276)" stroke="#000" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_3" y2="29.10617" x2="16.78287" y1="21.94894" x1="8.288" fill="none"/>
   <line transform="rotate(-7.13225 19.5827 25.7244)" stroke="#000" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_5" y2="22.41732" x2="23.71654" y1="29.0315" x1="15.44882" fill="none"/>

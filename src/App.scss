@@ -1,3 +1,4 @@
+@use "@/assets/sass/abstracts/mixins" as *;
 $_app-padding: 2rem;
 
 .app-container {
@@ -5,8 +6,11 @@ $_app-padding: 2rem;
   flex-direction: column;
   height: 100%;
   width: 100%;
-  padding: $_app-padding;
   position: relative;
+  padding: $_app-padding;
+  @include respond(phone) {
+    padding: $_app-padding / 4;
+  }
 
   &__border {
     position: absolute;

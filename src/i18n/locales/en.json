@@ -42,6 +42,13 @@
   "information-edition-usage-2": "The add button of the right down corner of the entity allow you to add new relationships, before using it make sure there is another entity you want to pair to the present one. Hover it and it will display the catalogue of relationships available, select one and click the entity you want to connect with.",
   "information-uml-definition": "UML (Unified Modeling Language) is a unified modeling language that provides a standard notation for graphically representing software systems and business processes. It is widely used in software engineering for modeling information systems and designing software architectures.",
   "information-relationships-title": "Relationships",
+  "information-relationships-handling-title": "Handling Relationships",
+  "information-relationships-usage-dependency": "Dependency is a relationship between two elements where one element (the client) uses or relies on another element (the supplier) for its functionality or behavior.",
+  "information-relationships-usage-association": "Association is a structural relationship that represents a connection between two or more classes, indicating that instances of these classes are related to each other.",
+  "information-relationships-usage-implementation": "Implementation is a relationship between two elements where one element (the client) implements or inherits from another element (the supplier) to gain its functionality or behavior.",
+  "information-relationships-usage-inheritance": "Inheritance is a relationship between two elements where one element (the child) inherits properties and methods from another element (the parent).",
+  "information-relationships-usage-aggregation": "Aggregation is a relationship between two elements where one element (the whole) contains or is composed of another element (the part).",
+  "information-relationships-usage-composition": "Composition is a relationship between two elements where one element (the whole) contains or is composed of another element (the part), and the part cannot exist without the whole.",
 
   "random-words": {
     "1": "charity",
