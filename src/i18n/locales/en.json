@@ -49,7 +49,7 @@
   "information-relationships-usage-inheritance": "Inheritance is a relationship between two elements where one element (the child) inherits properties and methods from another element (the parent).",
   "information-relationships-usage-aggregation": "Aggregation is a relationship between two elements where one element (the whole) contains or is composed of another element (the part).",
   "information-relationships-usage-composition": "Composition is a relationship between two elements where one element (the whole) contains or is composed of another element (the part), and the part cannot exist without the whole.",
-
+  "information-footer": "© Dedicated to my cat Chester. Rest in peace.",
   "random-words": {
     "1": "charity",
     "2": "meaning",

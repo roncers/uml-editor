@@ -10,7 +10,13 @@ import {
 import RelationshipArrow from "@/components/uml-editor/parts/renderers/relationships-renderer/relationship-arrow/RelationshipArrow"
 import { useZoom } from "@/components/uml-editor/parts/board/ZoomContext"
 const RelationshipsRenderer = observer(
-  ({ entities }: { entities: EntityType[] }) => {
+  ({
+    entities,
+    container,
+  }: {
+    entities: EntityType[]
+    container?: HTMLElement | null
+  }) => {
     const relationships = entities.flatMap((entity) =>
       entity.relationships.map((rel) => ({ entityId: entity.id, ...rel })),
     )
@@ -96,7 +102,7 @@ const RelationshipsRenderer = observer(
           />
         ))}
       </svg>,
-      document.body,
+      container ?? document.body,
     )
   },
 )

@@ -48,7 +48,8 @@
   "information-relationships-usage-inheritance": "La herencia es una relación entre dos elementos donde un elemento (el hijo) hereda propiedades y métodos de otro elemento (el padre).",
   "information-relationships-usage-aggregation": "La agregación es una relación entre dos elementos donde un elemento (el todo) contiene o está compuesto por otro elemento (la parte).",
   "information-relationships-usage-composition": "La composición es una relación entre dos elementos donde un elemento (el todo) contiene o está compuesto por otro elemento (la parte), y la parte no puede existir sin el todo.",
-  "random-words": {
+  "information-footer": "© Dedicado a mi gato Chester. Que en paz descanse.",
+    "random-words": {
     "1": "caridad",
     "2": "significado",
     "3": "patrimonio",

@@ -8,15 +8,35 @@ export function trackMouse(onMove: (x: number, y: number) => void) {
         onMove(lastX, lastY);
     };
 
+    // TODO
+    // this is for a "smoother" animation when scrolling a relation in the popover, maybe watch this closer.
+    const moveHandlerWithDelay = (event: MouseEvent) => {
+        moveHandler(event)
+        setTimeout(() => {
+            moveHandler(event)
+        }, 50);
+        setTimeout(() => {
+            moveHandler(event)
+        }, 100);
+        setTimeout(() => {
+            moveHandler(event)
+        }, 150);
+        setTimeout(() => {
+            moveHandler(event)
+        }, 200);
+    };
+
     const scrollHandler = () => {
         onMove(lastX, lastY);
     };
 
     document.addEventListener('mousemove', moveHandler);
+    document.addEventListener('wheel', moveHandlerWithDelay);
     document.addEventListener('wheel', scrollHandler, true);
 
     return () => {
         document.removeEventListener('mousemove', moveHandler);
+        document.removeEventListener('wheel', moveHandlerWithDelay);
         document.removeEventListener('wheel', scrollHandler, true);
     };
 }

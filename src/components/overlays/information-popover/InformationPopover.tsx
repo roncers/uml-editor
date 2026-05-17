@@ -1,5 +1,5 @@
 import "./InformationPopover.scss"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import closeSvg from "@/assets/svg/common/close.svg"
 import AddButton from "@/components/uml-editor/parts/buttons-menu/buttons/add-button/AddButton"
@@ -10,9 +10,18 @@ import RelationshipsRenderer from "@/components/uml-editor/parts/renderers/relat
 
 export default function InformationPopover() {
   const { t } = useTranslation()
+  const [popoverEl, setPopoverEl] = useState<HTMLDivElement | null>(null)
   const mockEntity1 = useMemo(() => new ClassSynec(t("right-click-me")), [t])
   const mockEntity2 = useMemo(() => new ClassSynec(t("Relate me!")), [t])
   const mockEntity3 = useMemo(() => new ClassSynec(t("Relate me too!")), [t])
+
+  function joinMockRelationship(targetId: string) {
+    const owner = [mockEntity2, mockEntity3].find((e) =>
+      e.relationships.some((rel) => rel.destination === ""),
+    )
+    if (!owner || owner.id === targetId) return
+    owner.setRelationshipDestiny(targetId)
+  }
   const relationshipTypes = [
     "dependency",
     "association",
@@ -22,7 +31,12 @@ export default function InformationPopover() {
     "composition",
   ]
   return (
-    <div className="popover-container" popover="auto" id="information-popover">
+    <div
+      ref={setPopoverEl}
+      className="popover-container"
+      popover="auto"
+      id="information-popover"
+    >
       <div className="information-card">
         <section className="information-card__header">
           <h2 className="g-mimic-text">{t("information")}</h2>
@@ -69,17 +83,28 @@ export default function InformationPopover() {
 
           <section className="information-card__information-container">
             <article className="information-card__information">
-              <h4 className="g-mimic-text">{t("information-relationships-handling-title")}</h4>
+              <h4 className="g-mimic-text">
+                {t("information-relationships-handling-title")}
+              </h4>
               <section className="information-card__info-data">
                 <p className="information-card__info-text information-card__entity-toggling-text g-background-dashed">
                   {t("information-edition-usage-2")}
                 </p>
                 <div className="information-card__info-test information-card__entity-toggling-test g-background-dashed">
                   <div style={{ display: "flex", gap: "20vw" }}>
-                    <Entity entity={mockEntity2} />
-                    <Entity entity={mockEntity3} />
+                    <Entity
+                      entity={mockEntity2}
+                      onClick={() => joinMockRelationship(mockEntity2.id)}
+                    />
+                    <Entity
+                      entity={mockEntity3}
+                      onClick={() => joinMockRelationship(mockEntity3.id)}
+                    />
                   </div>
-                  <RelationshipsRenderer entities={[mockEntity2, mockEntity3]} />
+                  <RelationshipsRenderer
+                    entities={[mockEntity2, mockEntity3]}
+                    container={popoverEl}
+                  />
                 </div>
               </section>
             </article>
@@ -122,6 +147,9 @@ export default function InformationPopover() {
               return <div className="dot" key={i}></div>
             })}
           </div>
+        <footer className="information-card__footer">
+          <p>{t("information-footer")}</p>
+        </footer>
         </section>
       </div>
     </div>
