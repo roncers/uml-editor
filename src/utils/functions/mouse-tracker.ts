@@ -10,6 +10,7 @@ export function trackMouse(onMove: (x: number, y: number) => void) {
 
     // TODO
     // this is for a "smoother" animation when scrolling a relation in the popover, maybe watch this closer.
+    // maybe only doint it whilepopover is open
     const moveHandlerWithDelay = (event: MouseEvent) => {
         moveHandler(event)
         setTimeout(() => {
