@@ -17,6 +17,7 @@ import type {
 import { useTranslation } from "react-i18next"
 import AddButton from "./parts/add-button-edition/AddButtonEdition"
 import { InterfaceSynec } from "@/classes/classifiers/InterfaceSynec"
+import { ClassSynec } from "@/classes/classifiers/ClassSynec"
 import deleteSvg from "@/assets/svg/common/delete.svg"
 import ConfirmationDialog, {
   type ConfirmationDialogRef,
@@ -24,8 +25,10 @@ import ConfirmationDialog, {
 import { useRef } from "react"
 
 const getEntityType = (obj: unknown): string => {
-  if (obj && typeof obj === "object") {
-    return obj.constructor.name
+  if (obj instanceof InterfaceSynec) {
+    return "InterfaceSynec"
+  } else if (obj instanceof ClassSynec) {
+    return "ClassSynec"
   }
   return "Unknown"
 }
