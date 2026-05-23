@@ -10,21 +10,22 @@ export function trackMouse(onMove: (x: number, y: number) => void) {
 
     // TODO
     // this is for a "smoother" animation when scrolling a relation in the popover, maybe watch this closer.
-    // maybe only doint it whilepopover is open
+    // should only do it while popover is open
     const moveHandlerWithDelay = (event: MouseEvent) => {
-        moveHandler(event)
-        setTimeout(() => {
-            moveHandler(event)
-        }, 50);
-        setTimeout(() => {
-            moveHandler(event)
-        }, 100);
-        setTimeout(() => {
-            moveHandler(event)
-        }, 150);
-        setTimeout(() => {
-            moveHandler(event)
-        }, 200);
+        const timedRenderers = [0, 50, 100, 150, 200]
+        timedRenderers.forEach((delay) => {
+            setTimeout(() => {
+                moveHandler(event)
+            }, delay);
+        })
+    };
+
+    const touchHandler = (event: TouchEvent) => {
+        const touch = event.touches[0];
+        if (!touch) return;
+        lastX = touch.clientX;
+        lastY = touch.clientY;
+        onMove(lastX, lastY);
     };
 
     const scrollHandler = () => {
@@ -32,11 +33,20 @@ export function trackMouse(onMove: (x: number, y: number) => void) {
     };
 
     document.addEventListener('mousemove', moveHandler);
+    document.addEventListener('contextmenu', moveHandler);
+    document.addEventListener('touchstart', touchHandler);
+    document.addEventListener('touchmove', touchHandler);
     document.addEventListener('wheel', moveHandlerWithDelay);
     document.addEventListener('wheel', scrollHandler, true);
+    const timedRenders = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
+    timedRenders.forEach((delay) => {
+        setTimeout(scrollHandler, delay);
+    });
 
     return () => {
         document.removeEventListener('mousemove', moveHandler);
+        document.removeEventListener('touchstart', touchHandler);
+        document.removeEventListener('touchmove', touchHandler);
         document.removeEventListener('wheel', moveHandlerWithDelay);
         document.removeEventListener('wheel', scrollHandler, true);
     };
