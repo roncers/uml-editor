@@ -45,12 +45,14 @@ const toEntityFactory: Record<string, (data: StringEntity) => Entity> =
   }
 
 export function adaptToFormat(data: StringEntity[]): Entity[] {
-  return data.map((entity) => {
-    const factory = toEntityFactory[entity.type]
-    if (!factory) {
-      console.error(`Unknown entity type: ${entity.type}`)
-      return undefined as unknown as Entity
-    }
-    return factory(entity)
-  })
+  return data
+    .map((entity) => {
+      const factory = toEntityFactory[entity.type]
+      if (!factory) {
+        console.error(`Unknown entity type: ${entity.type}`)
+        return undefined
+      }
+      return factory(entity)
+    })
+    .filter((e): e is Entity => e !== undefined)
 }

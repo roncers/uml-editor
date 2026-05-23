@@ -3,6 +3,7 @@ import type { StringEntity } from "@/types/stringEntity.types"
 import { adaptToFormat } from "@/utils/functions/toEntityFactory"
 import { InterfaceSynec } from "@/classes/classifiers/InterfaceSynec"
 import { ClassSynec } from "@/classes/classifiers/ClassSynec"
+import { toJS } from "mobx"
 
 export abstract class EntityFactory {
   static createdEntities: Entity[] = []
@@ -23,7 +24,7 @@ export abstract class EntityFactory {
 
   static toString(): string {
     const entities = EntityFactory.createdEntities.map((entity) => ({
-      ...entity,
+      ...toJS(entity),
       type:
         entity instanceof InterfaceSynec
           ? "InterfaceSynec"
