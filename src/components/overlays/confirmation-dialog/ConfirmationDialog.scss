@@ -4,7 +4,7 @@
     overlay 0.5s allow-discrete;
   animation: fadeOut 0.5s forwards;
   border-radius: 0.6rem;
-
+  width: clamp(25rem, 20vw, 40rem);
   background-color: color-mix(
     in srgb,
     var(--color-secondary-contrast) 90%,

@@ -7,8 +7,10 @@ import Entity from "@/components/uml-editor/parts/entity/Entity"
 import { ClassSynec } from "@/classes/classifiers/ClassSynec"
 import { RelationshipIcons } from "@/utils/iconsBundle"
 import RelationshipsRenderer from "@/components/uml-editor/parts/renderers/relationships-renderer/RelationshipsRenderer"
+import { useResponsiveT } from "@/utils/functions/translateUtils"
 
 export default function InformationPopover() {
+  const tR = useResponsiveT()
   const { t } = useTranslation()
   const [popoverEl, setPopoverEl] = useState<HTMLDivElement | null>(null)
   const mockEntity1 = useMemo(() => new ClassSynec(t("right-click-me")), [t])
@@ -30,6 +32,7 @@ export default function InformationPopover() {
     "aggregation",
     "composition",
   ]
+  const isMobile = window.innerWidth < 768
   return (
     <div
       ref={setPopoverEl}
@@ -71,8 +74,8 @@ export default function InformationPopover() {
               <h4 className="g-mimic-text">{t("title-edition-usage")}</h4>
               <section className="information-card__info-data">
                 <div className="information-card__info-text information-card__entity-toggling-text g-background-dashed">
-                  <p>{t("information-edition-usage-1")}</p>
-                  <p>{t("information-edition-usage-2")}</p>
+                  <p>{tR("information-edition-usage-1")}</p>
+                  <p>{tR("information-edition-usage-2")}</p>
                 </div>
                 <div className="information-card__info-test information-card__entity-toggling-test g-background-dashed">
                   <Entity entity={mockEntity1} />
@@ -90,7 +93,7 @@ export default function InformationPopover() {
                 <p className="information-card__info-text information-card__entity-toggling-text g-background-dashed">
                   {t("information-edition-usage-2")}
                 </p>
-                <div className="information-card__info-test information-card__entity-toggling-test g-background-dashed">
+                {isMobile ? null : <div className="information-card__info-test information-card__entity-toggling-test g-background-dashed">
                   <div style={{ display: "flex", gap: "20vw" }}>
                     <Entity
                       entity={mockEntity2}
@@ -105,7 +108,7 @@ export default function InformationPopover() {
                     entities={[mockEntity2, mockEntity3]}
                     container={popoverEl}
                   />
-                </div>
+                </div>}
               </section>
             </article>
           </section>
