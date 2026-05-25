@@ -16,6 +16,8 @@ interface RelationshipArrowProps {
   type: RelationshipType
   scale?: number
   onDelete?: () => void
+  portalTarget?: HTMLElement | null
+  buttonPosition?: { x: number; y: number }
 }
 
 const STROKE_COLOR = "#555"
@@ -27,6 +29,8 @@ export default function RelationshipArrow({
   type,
   scale = 1,
   onDelete,
+  portalTarget,
+  buttonPosition,
 }: RelationshipArrowProps) {
   const uid = useId()
   const idPrefix = uid.replace(/:/g, "")
@@ -87,8 +91,8 @@ function toggleDeleteButton(e: React.MouseEvent) {
               className="relationship-delete-button"
               style={
                 {
-                  left: `${to.x}px`,
-                  top: `${to.y}px`,
+                  left: `${(buttonPosition ?? to).x}px`,
+                  top: `${(buttonPosition ?? to).y}px`,
                   "--from-x": `${from.x - to.x}px`,
                   "--from-y": `${from.y - to.y}px`,
                 } as React.CSSProperties
@@ -116,7 +120,7 @@ function toggleDeleteButton(e: React.MouseEvent) {
               <p>{t("dialog-delete-relationship-text")}</p>
             </ConfirmationDialog>
           </>,
-          document.body,
+          portalTarget ?? document.body,
         )}
     </>
   )

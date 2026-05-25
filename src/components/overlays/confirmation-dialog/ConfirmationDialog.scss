@@ -5,10 +5,10 @@
   animation: fadeOut 0.5s forwards;
   border-radius: 0.6rem;
   width: clamp(25rem, 20vw, 40rem);
-  background-color: color-mix(
-    in srgb,
-    var(--color-secondary-contrast) 90%,
-    var(--color-background-contrast) 10%
+  background: linear-gradient(
+    to top left,
+    color-mix(in srgb, var(--color-secondary-contrast) 90%, var(--color-background-contrast) 10%),
+    color-mix(in srgb, var(--color-secondary-contrast) 70%, var(--color-background-contrast) 30%)
   );
   &::backdrop {
     animation: backdropFadeOut 0.5s forwards;
@@ -30,8 +30,8 @@
     button {
       background-color: color-mix(
         in srgb,
-        var(--color-secondary) 90%,
-        var(--color-background) 10%
+        var(--color-secondary-contrast) 75%,
+        white 25%
       );
       padding: 0.5rem 1rem;
       border-radius: 0.25rem;

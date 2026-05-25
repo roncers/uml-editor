@@ -10,13 +10,7 @@ import {
 import RelationshipArrow from "@/components/uml-editor/parts/renderers/relationships-renderer/relationship-arrow/RelationshipArrow"
 import { useZoom } from "@/components/uml-editor/parts/board/ZoomContext"
 const RelationshipsRenderer = observer(
-  ({
-    entities,
-    container,
-  }: {
-    entities: EntityType[]
-    container?: HTMLElement | null
-  }) => {
+  ({ entities }: { entities: EntityType[] }) => {
     const relationships = entities.flatMap((entity) =>
       entity.relationships.map((rel) => ({ entityId: entity.id, ...rel })),
     )
@@ -85,7 +79,7 @@ const RelationshipsRenderer = observer(
             to={mouse}
             type={pendingRel.type}
             scale={scale}
-            onDelete={() => {
+              onDelete={() => {
               const owner = entities.find((e) => e.id === pendingRel.entityId)
               owner?.deleteRelationship(pendingRel.id)
             }}
@@ -102,7 +96,7 @@ const RelationshipsRenderer = observer(
           />
         ))}
       </svg>,
-      container ?? document.body,
+      document.body,
     )
   },
 )

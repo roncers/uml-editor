@@ -7,11 +7,12 @@ import { useEntityContext } from "@/components/uml-editor/parts/EntityContext"
 import type { ConfirmationDialogRef } from "@/components/overlays/confirmation-dialog/ConfirmationDialog"
 import deleteSvg from "@/assets/svg/common/delete.svg"
 
-export default function DeleteButton() {
+export default function DeleteButton({ disabled }: { disabled?: boolean }) {
   const deleteDialogRef = useRef<ConfirmationDialogRef>(null)
   const { clearEntities } = useEntityContext()
 
   function deleteAll() {
+    if (disabled) return
     clearEntities()
   }
   const { t } = useTranslation()

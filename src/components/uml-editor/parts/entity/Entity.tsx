@@ -14,19 +14,13 @@ const UMLClass = observer(function UMLClass({
     e?.preventDefault()
     entity.toggleEditionWithLock()
   }
-  const toggleEditionIfMobile = () => {
-    const isTabPort = window.matchMedia("(max-width: 900px)").matches
-    if (isTabPort) {
-      toggleEdition()
-    }
-  }
   const RenderedCard =
     entity.state === EntityStates.editing ? EditionCard : DefaultCard
   return (
     <div
       className={`entity entity--${entity.state}`}
       onContextMenu={toggleEdition}
-      onDoubleClick={toggleEditionIfMobile}
+      onDoubleClick={toggleEdition}
       style={{
         height: entity.isToggling ? "2rem" : undefined,
         minHeight: entity.isToggling ? "2rem" : undefined,

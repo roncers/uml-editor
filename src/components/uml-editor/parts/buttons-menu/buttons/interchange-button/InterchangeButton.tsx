@@ -8,8 +8,8 @@ import "./InterchangeButton.scss"
 const SIGNATURE_KEY = "john-ford"
 const SIGNATURE_VALUE = "stagecoach"
 
-export default function AddButton() {
-  const { t } = useTranslation()
+export default function InterchangeButton() {
+  const { t } = useTranslation()    
   const { refreshEntities } = useEntityContext()
 
   // Appends the signature object as the last element of the JSON array.
@@ -104,4 +104,3 @@ export default function AddButton() {
     </SyButtonOptions>
   )
 }
-
