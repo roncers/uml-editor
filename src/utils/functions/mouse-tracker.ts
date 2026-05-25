@@ -2,7 +2,7 @@ export function trackMouse(onMove: (x: number, y: number) => void) {
     let lastX = 0;
     let lastY = 0;
 
-    const moveHandler = (event: MouseEvent) => {
+    const moveHandler = (event: { clientX: number; clientY: number }) => {
         lastX = event.clientX;
         lastY = event.clientY;
         onMove(lastX, lastY);
@@ -23,9 +23,7 @@ export function trackMouse(onMove: (x: number, y: number) => void) {
     const touchHandler = (event: TouchEvent) => {
         const touch = event.touches[0];
         if (!touch) return;
-        lastX = touch.clientX;
-        lastY = touch.clientY;
-        onMove(lastX, lastY);
+        moveHandler(touch);
     };
 
     const scrollHandler = () => {
@@ -34,6 +32,7 @@ export function trackMouse(onMove: (x: number, y: number) => void) {
 
     document.addEventListener('mousemove', moveHandler);
     document.addEventListener('contextmenu', moveHandler);
+    document.addEventListener('dblclick', moveHandler);
     document.addEventListener('touchstart', touchHandler);
     document.addEventListener('touchmove', touchHandler);
     document.addEventListener('wheel', moveHandlerWithDelay);
@@ -45,6 +44,8 @@ export function trackMouse(onMove: (x: number, y: number) => void) {
 
     return () => {
         document.removeEventListener('mousemove', moveHandler);
+        document.removeEventListener('contextmenu', moveHandler);
+        document.removeEventListener('dblclick', moveHandler);
         document.removeEventListener('touchstart', touchHandler);
         document.removeEventListener('touchmove', touchHandler);
         document.removeEventListener('wheel', moveHandlerWithDelay);

@@ -43,7 +43,8 @@ export default function Board({
     if (e.touches.length === 2) {
       const dx = e.touches[0].clientX - e.touches[1].clientX
       const dy = e.touches[0].clientY - e.touches[1].clientY
-      pinchRef.current = Math.hypot(dx, dy)
+      const dist = Math.hypot(dx, dy)
+      pinchRef.current = dist > 10 ? dist : null
     }
   }
 
@@ -52,8 +53,10 @@ export default function Board({
       const dx = e.touches[0].clientX - e.touches[1].clientX
       const dy = e.touches[0].clientY - e.touches[1].clientY
       const dist = Math.hypot(dx, dy)
+      if (dist < 10) return
+      const ratio = Math.min(Math.max(dist / pinchRef.current!, 0.5), 2)
       setScale((s) => {
-        const next = clamp(s * (dist / pinchRef.current!))
+        const next = clamp(s * ratio)
         onZoomChange?.(next)
         return next
       })
