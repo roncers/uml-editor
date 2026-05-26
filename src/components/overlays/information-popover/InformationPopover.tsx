@@ -124,7 +124,6 @@ export default function InformationPopover() {
             </article>
           </section>
 
-          <h3 className="g-mimic-text">{t("information-title-deletion")}</h3>
           <section className="information-card__information-container">
             <article className="information-card__information">
               <h4 className="g-mimic-text">{t("title-deletion-usage")}</h4>
@@ -132,14 +131,13 @@ export default function InformationPopover() {
                 <p className="information-card__info-text g-background-dashed">
                   {t("information-deletion-usage")}
                 </p>
-                <div className="information-card__info-test information-card__padding-add-button g-background-dashed">
+                <div className="information-card__info-test information-card__padding-del-button g-background-dashed">
                   <DeleteButton disabled />
                 </div>
               </section>
             </article>
           </section>
 
-          <h3 className="g-mimic-text">{t("information-title-exchange")}</h3>
           <section className="information-card__information-container">
             <article className="information-card__information">
               <h4 className="g-mimic-text">{t("title-exchange-usage")}</h4>

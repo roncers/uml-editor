@@ -20,7 +20,7 @@ const UMLClass = observer(function UMLClass({
     <div
       className={`entity entity--${entity.state}`}
       onContextMenu={toggleEdition}
-      onDoubleClick={toggleEdition}
+      onDoubleClick={window.matchMedia("(max-width: 1024px)").matches ? toggleEdition : undefined}
       style={{
         height: entity.isToggling ? "2rem" : undefined,
         minHeight: entity.isToggling ? "2rem" : undefined,

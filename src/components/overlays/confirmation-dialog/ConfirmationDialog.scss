@@ -46,6 +46,22 @@
           var(--color-secondary-contrast) 90%,
           var(--color-primary) 10%
         );
+        border-color: transparent;
+      }
+    }
+    button:first-child {
+      background-color: color-mix(
+        in srgb,
+        var(--color-secondary-contrast) 75%,
+        red 25%
+      );
+
+      &:hover {
+        background-color: color-mix(
+          in srgb,
+          var(--color-secondary-contrast) 65%,
+          red 35%
+        );
         border-color: var(--color-primary);
       }
     }

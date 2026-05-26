@@ -2,56 +2,49 @@ export function trackMouse(onMove: (x: number, y: number) => void) {
   let lastX = 0
   let lastY = 0
 
-  const moveHandler = (event: { clientX: number; clientY: number }) => {
-    lastX = event.clientX
-    lastY = event.clientY
+  const updatePosition = (x: number, y: number) => {
+    lastX = x
+    lastY = y
     onMove(lastX, lastY)
   }
 
-  // TODO
-  // this is for a "smoother" animation when scrolling a relation in the popover, maybe watch this closer.
-  // should only do it while popover is open
-  const moveHandlerWithDelay = (event: MouseEvent) => {
-    const timedRenderers = [0, 50, 100, 150, 200]
-    timedRenderers.forEach((delay) => {
-      setTimeout(() => {
-        moveHandler(event)
-      }, delay)
-    })
+  const moveHandler = (event: MouseEvent) => {
+    updatePosition(event.clientX, event.clientY)
   }
 
   const touchHandler = (event: TouchEvent) => {
     const touch = event.touches[0]
     if (!touch) return
-    moveHandler(touch)
+    updatePosition(touch.clientX, touch.clientY)
   }
 
-  // TODO: understand
   const scrollHandler = () => {
     onMove(lastX, lastY)
   }
 
-  // TODO: do well pls haha
-  document.addEventListener("mousemove", moveHandler)
-  document.addEventListener("contextmenu", moveHandler)
-  document.addEventListener("dblclick", moveHandler)
-  document.addEventListener("touchstart", touchHandler)
-  document.addEventListener("touchmove", touchHandler)
-  document.addEventListener("wheel", moveHandlerWithDelay)
-  document.addEventListener("wheel", scrollHandler, true)
+  const moveHandled = ["mousemove", "contextmenu", "click", "dblclick"] as const
+  const touchHandled = ["touchstart", "touchmove"] as const
+
+  moveHandled.forEach((event) => {
+    document.addEventListener(event, moveHandler)
+  })
+  touchHandled.forEach((event) => {
+    document.addEventListener(event, touchHandler)
+  })
+  // document.addEventListener("wheel", scrollHandler, true)
   const timedRenders = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500]
   timedRenders.forEach((delay) => {
     setTimeout(scrollHandler, delay)
   })
 
   return () => {
-    document.removeEventListener("mousemove", moveHandler)
-    document.removeEventListener("contextmenu", moveHandler)
-    document.removeEventListener("dblclick", moveHandler)
-    document.removeEventListener("touchstart", touchHandler)
-    document.removeEventListener("touchmove", touchHandler)
-    document.removeEventListener("wheel", moveHandlerWithDelay)
-    document.removeEventListener("wheel", scrollHandler, true)
+    moveHandled.forEach((event) => {
+      document.removeEventListener(event, moveHandler)
+    })
+    touchHandled.forEach((event) => {
+      document.removeEventListener(event, touchHandler)
+    })
+    // document.removeEventListener("wheel", scrollHandler, true)
   }
 }
 
