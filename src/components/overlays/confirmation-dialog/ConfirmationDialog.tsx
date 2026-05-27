@@ -1,5 +1,6 @@
 import "./ConfirmationDialog.scss"
 import { forwardRef, useImperativeHandle, useRef } from "react"
+import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
 
 export interface ConfirmationDialogRef {
@@ -22,7 +23,7 @@ const ConfirmationDialog = forwardRef<
     closeDialog: () => dialogRef.current?.close(),
   }))
 
-  return (
+  return createPortal(
     <dialog
       onClose={() => dialogRef.current?.close()}
       onMouseDown={(e) => e.stopPropagation()}
@@ -36,7 +37,8 @@ const ConfirmationDialog = forwardRef<
           {t("delete")}
         </button>
       </form>
-    </dialog>
+    </dialog>,
+    document.body,
   )
 })
 
