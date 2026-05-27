@@ -1,78 +1,45 @@
-
 # UML Diagram Editor
 
-This project is a UML diagram editor built with React, TypeScript, and Vite. It allows users to visually create, edit, and manage UML class diagrams in a modern, fast, and scalable web environment. The architecture is designed for maintainability and extensibility, following SOLID principles and centralized state management.
+This project is a UML diagram editor built with React, TypeScript, and Vite. It allows users to visually create, edit, and manage UML class diagrams in a modern, fast, and easy way. The architecture is designed for maintainability and extensibility, following SOLID principles and centralized state management.
 
-# React + TypeScript + Vite
+## Preferences
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+For the moment it works better in a Chromium browser principally because of the use of:
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```css
+interpolate-size: allow-keywords;
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Which is a modern feature only available in chrome for the moment.
+
+## Dev Notes
+
+
+While testing the project I saw a bug that made me understand why using `constructor.name` for type checking is wrong. Vite/Terser minifies class names in the production bundle (`MyCustomObject` becomes something like `t`), so a string comparison against the original name always fails in prod but works in dev.
 
 ```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import MyCustomObject from './MyCustomObject';
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+// unsafe: breaks in production after minification
+if (obj.constructor.name === 'MyCustomObject') {
+  console.log('this works locally but fails in production')
+}
+
+// safe: instanceof checks the prototype chain by reference, not by name string
+if (obj instanceof MyCustomObject) {
+  console.log('works everywhere')
+}
+```
+
+I knew this was a pretty bad practice but I did it the bad way to test what would happen, and I ended up learning some stuff.
+
+# Run the project locally
+
+Make sure you have Node.js and npm installed on your system.
+
+With these commands is enough:
+
+```bash
+npm i
+npm run dev
 ```
