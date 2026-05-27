@@ -49,7 +49,7 @@
         border-color: transparent;
       }
     }
-    button:first-child {
+    button:last-child {
       background-color: color-mix(
         in srgb,
         var(--color-secondary-contrast) 75%,
