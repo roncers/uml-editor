@@ -18,7 +18,8 @@ const EntityInput = ({ value, onChange }: EntityInputProps) => {
         onChange={(e) => onChange(e.target.value)}
         onMouseDown={(e) => e.stopPropagation()}
         onTouchStart={(e) => e.stopPropagation()}
-        placeholder={t('name-placeholder')}
+        onDoubleClick={(e) => e.stopPropagation()}
+        placeholder={t("name-placeholder")}
       />
     </FormElement>
   )

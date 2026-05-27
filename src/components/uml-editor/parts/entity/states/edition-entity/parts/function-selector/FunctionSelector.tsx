@@ -1,4 +1,4 @@
-import { observer } from "mobx-react-lite" 
+import { observer } from "mobx-react-lite"
 import { attributeVisibility } from "@/types/interface.types"
 import type { FunctionSynec } from "@/classes/members/FunctionSynec"
 import { useTranslation } from "react-i18next"
@@ -28,7 +28,8 @@ const FunctionSelector = observer(
           onChange={(e) => onChange(e.target.value, "name", value)}
           onMouseDown={(e) => e.stopPropagation()}
           onTouchStart={(e) => e.stopPropagation()}
-          placeholder={t('name-placeholder')}
+          onDoubleClick={(e) => e.stopPropagation()}
+          placeholder={t("name-placeholder")}
         />
         <select
           id={`function-visibility-${formId}`}

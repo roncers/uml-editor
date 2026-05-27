@@ -44,6 +44,7 @@ const PropertySelector = observer(
             onChange={(e) => onChange(e.target.value, "name", value)}
             onMouseDown={(e) => e.stopPropagation()}
             onTouchStart={(e) => e.stopPropagation()}
+            onDoubleClick={(e) => e.stopPropagation()}
             placeholder={t("name-placeholder")}
           />
           <select
