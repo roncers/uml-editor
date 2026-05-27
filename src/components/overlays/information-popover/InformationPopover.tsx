@@ -191,12 +191,10 @@ export default function InformationPopover() {
                 {t("information-relationships-title")}
               </h4>
               <section className="information-card__info-grid">
-                {relationshipTypes.map((type, index) => (
+                {relationshipTypes.map((type) => (
                   <p
                     key={type}
-                    className={`information-card__info-text g-background-dashed ${
-                      index !== 0 && index !== 3 ? "no-margin" : ""
-                    }`}
+                    className="information-card__info-text g-background-dashed"
                   >
                     <strong>{t(`relationship-${type}`)}</strong>
                     <img src={RelationshipIcons[type]} alt={type} />
