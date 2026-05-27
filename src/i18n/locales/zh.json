@@ -64,6 +64,8 @@
   "information-uml-classes": "类是面向对象编程的基础。它们是对象的抽象，包含方法和属性。",
   "information-interfaces-title": "接口",
   "information-uml-interfaces": "接口是类必须遵循的契约的定义。它们提供了一种定义类的某些属性和方法名称而不实现它们的方式。主要用途是能够重用不同的对象实例。",
+  "title-moving-usage": "画板操作",
+  "information-moving-usage": "通过拖动来平移交互式画板，滚动来缩放。需要修改您的图表？只需点击并拖动任何元素即可立即重新排列您的工作区。",
   "information-footer": "© 献给Chester。",
   "random-words": {
     "1": "慈善",

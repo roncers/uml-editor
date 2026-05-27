@@ -64,6 +64,8 @@
   "information-uml-classes": "Las clases son la base de la POO (Programación Orientada a Objetos). Son abstracciones de objetos y contienen métodos y atributos.",
   "information-interfaces-title": "Interfaces",
   "information-uml-interfaces": "Las interfaces son la definición de un contrato que una clase debe cumplir. Ofrecen una forma de definir algunos nombres de atributos y métodos de una clase sin llegar a implementarlos. Su uso principal es poder reutilizar diferentes instancias de objetos.",
+  "title-moving-usage": "Manejo del Tablero",
+  "information-moving-usage": "Navega por un tablero interactivo arrastrando para desplazarte y usando la rueda del ratón para hacer zoom. ¿Necesitas modificar tu diagrama? Solo haz clic y arrastra cualquier elemento para reorganizar tu espacio de trabajo al instante.",
   "information-footer": "© Dedicado a Chester.",
   "random-words": {
     "1": "caridad",

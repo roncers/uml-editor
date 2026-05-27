@@ -64,6 +64,8 @@
   "information-uml-classes": "Classes are the base of OOP. They are abstractions of objects and they contain methods and attributes.",
   "information-interfaces-title": "Interfaces",
   "information-uml-interfaces": "Interfaces are a definition of a contract which a class must follow. They give a way to define some attributes and methods names of a class without implementing them. The main use is to being able to reuse different instances of objects.",
+  "title-moving-usage": "Board Handling",
+  "information-moving-usage": "Navigate an interactive board by dragging to pan and scrolling to zoom. Need to modify your diagram? Just click and drag any element to rearrange your workspace instantly.",
   "information-footer": "© Dedicated to Chester.",
   "random-words": {
     "1": "charity",

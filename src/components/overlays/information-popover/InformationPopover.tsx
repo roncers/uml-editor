@@ -59,6 +59,18 @@ export default function InformationPopover() {
         </section>
         <section className="information-card__content">
           <h3 className="g-mimic-text">{t("information-title-usage")}</h3>
+          
+          <section className="information-card__information-container">
+            <article className="information-card__information">
+              <h4 className="g-mimic-text">{t("title-moving-usage")}</h4>
+              <section className="information-card__info-data">
+                <p className="information-card__info-text g-background-dashed">
+                  {t("information-moving-usage")}
+                </p>
+              </section>
+            </article>
+          </section>
+
           <section className="information-card__information-container">
             <article className="information-card__information">
               <h4 className="g-mimic-text">{t("title-creation-usage")}</h4>
