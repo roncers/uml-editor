@@ -1,5 +1,7 @@
 # UML Diagram Editor
 
+![UML Diagram Editor](./docs/cap-1.png)
+
 This project is a UML diagram editor built with React, TypeScript, and Vite. It allows users to visually create, edit, and manage UML class diagrams in a modern, fast, and easy way. The architecture is designed for maintainability and extensibility, following SOLID principles and centralized state management.
 
 ## Preferences
@@ -13,7 +15,6 @@ interpolate-size: allow-keywords;
 Which is a modern feature only available in chrome for the moment.
 
 ## Dev Notes
-
 
 While testing the project I saw a bug that made me understand why using `constructor.name` for type checking is wrong. Vite/Terser minifies class names in the production bundle (`MyCustomObject` becomes something like `t`), so a string comparison against the original name always fails in prod but works in dev.
 
