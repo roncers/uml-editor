@@ -27,7 +27,7 @@ const UMLClass = observer(function UMLClass({
   return (
     <div
       className={`entity entity--${entity.state}`}
-      onContextMenu={toggleEdition}
+      onContextMenu={isMobile ? undefined : toggleEdition}
       onDoubleClick={isMobile ? toggleEdition : undefined}
       {...props}
       style={styling}
