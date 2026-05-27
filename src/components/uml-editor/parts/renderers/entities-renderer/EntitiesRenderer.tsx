@@ -16,7 +16,7 @@ export default function EntitiesRenderer({
           key={entity.id}
           entityPosition={entity.position}
         >
-          <Entity key={entity.id} entity={entity} onClick={() => {joinRelationship(entity.id)}}/>
+          <Entity key={entity.id} entity={entity} onClick={() => joinRelationship(entity.id)}/>
         </Draggable>
       ))}
     </>

@@ -63,8 +63,12 @@ const Draggable = observer(function Draggable({
     }
 
     function onTouchMove(ev: TouchEvent) {
-      if (ev.cancelable) ev.preventDefault()
-      onMove(ev.touches[0].clientX, ev.touches[0].clientY)
+      const dx = ev.touches[0].clientX - dragStart.current!.mouseX
+      const dy = ev.touches[0].clientY - dragStart.current!.mouseY
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+        if (ev.cancelable) ev.preventDefault()
+        onMove(ev.touches[0].clientX, ev.touches[0].clientY)
+      }
     }
 
     function stop() {
