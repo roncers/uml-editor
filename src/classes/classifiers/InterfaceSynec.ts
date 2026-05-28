@@ -6,22 +6,22 @@ import type { FunctionSynec } from "@/interfaces/FunctionSynec.interface"
 import { relationshipType } from "@/types/interface.types"
 import { makeObservable, override } from "mobx"
 
+type NonImplementationRelationship = Omit<RelationshipSynec, "type"> & {
+  type: Exclude<RelationshipSynec["type"], typeof relationshipType.implementation>
+}
+
 export class InterfaceSynec
   extends ClassSynec
   implements InterfaceSynecInterface
 {
-  declare relationships: (Omit<RelationshipSynec, "type"> & {
-    type: typeof relationshipType.implementation | typeof relationshipType.dependency
-  })[]
+  declare relationships: NonImplementationRelationship[]
 
   constructor(
     name = "",
     positions: number[] = [0, 0],
     properties: PropertySynec[] = [],
     functions: FunctionSynec[] = [],
-    relationships: (Omit<RelationshipSynec, "type"> & {
-      type: typeof relationshipType.implementation
-    })[] = [],
+    relationships: NonImplementationRelationship[] = [],
     entityId?: string,
   ) {
     super(name, positions, properties, functions, [], entityId)
@@ -31,15 +31,7 @@ export class InterfaceSynec
     })
   }
 
-  public addRelationship(
-    relationship: Omit<RelationshipSynec, "type"> & {
-      type: typeof relationshipType.implementation
-    },
-  ): void {
-    if (relationship.type === relationshipType.implementation) {
-      this.relationships.push(relationship)
-    } else {
-      console.error("Interfaces can only have implementation relationships.")
-    }
+  public addRelationship(relationship: NonImplementationRelationship): void {
+    this.relationships.push(relationship)
   }
 }

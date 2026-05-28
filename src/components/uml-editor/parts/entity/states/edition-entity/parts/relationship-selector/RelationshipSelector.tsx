@@ -28,12 +28,13 @@ export default function RelationshipsSelector({
 }: RelationshipProps) {
   const { t } = useTranslation()
 
-  const types = Object.values(relationshipType)
+  const isInterface = entityType === "InterfaceSynec"
+  const types = Object.values(relationshipType).filter(
+    (type) => !(isInterface && type === relationshipType.implementation),
+  )
   const total = types.length
 
-  return entityType === "InterfaceSynec" ? (
-    <> </>
-  ) : (
+  return (
     <span
       role="button"
       className="entity-form__relationship-selector"

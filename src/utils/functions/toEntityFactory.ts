@@ -20,7 +20,7 @@ const toEntityFactory: Record<string, (data: StringEntity) => Entity> =
         data.relationships.map(
           (r) => new RelationshipSynec(r.origin, r.destination, r.type, r.id),
         ) as (Omit<RelationshipSynec, "type"> & {
-          type: "implementation"
+          type: Exclude<RelationshipSynec["type"], "implementation">
         })[],
         data.id,
       )
