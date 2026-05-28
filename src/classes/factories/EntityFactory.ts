@@ -11,7 +11,6 @@ export abstract class EntityFactory {
 
   protected addEntity(entity: Entity): void {
     EntityFactory.createdEntities.push(entity)
-    console.log("Added entity:", EntityFactory.createdEntities)
   }
 
   static clearEntities(): void {

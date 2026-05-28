@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { EntityContext } from "@/components/uml-editor/parts/EntityContext"
 import { useTranslation } from "react-i18next"
 import SyButtonOptions from "@/components/shared/sy-button-options/SyButtonOptions"
@@ -9,24 +9,24 @@ export default function AddButton({ disabled }: { disabled?: boolean }) {
   const { t } = useTranslation()
 
   // TODO -> centralize it for more commands
-  useEffect(() => {
-    function onKeyDown(e: KeyboardEvent) {
-      if (
-        e.ctrlKey &&
-        e.shiftKey &&
-        e.key.toLowerCase() === "f" &&
-        !(
-          e.target instanceof HTMLInputElement ||
-          e.target instanceof HTMLTextAreaElement
-        )
-      ) {
-        e.preventDefault()
-        context?.createEntity("class")
-      }
-    }
-    window.addEventListener("keydown", onKeyDown)
-    return () => window.removeEventListener("keydown", onKeyDown)
-  }, [context])
+  // useEffect(() => {
+  //   function onKeyDown(e: KeyboardEvent) {
+  //     if (
+  //       e.ctrlKey &&
+  //       e.shiftKey &&
+  //       e.key.toLowerCase() === "f" &&
+  //       !(
+  //         e.target instanceof HTMLInputElement ||
+  //         e.target instanceof HTMLTextAreaElement
+  //       )
+  //     ) {
+  //       e.preventDefault()
+  //       context?.createEntity("class")
+  //     }
+  //   }
+  //   window.addEventListener("keydown", onKeyDown)
+  //   return () => window.removeEventListener("keydown", onKeyDown)
+  // }, [context])
 
   return (
     <SyButtonOptions

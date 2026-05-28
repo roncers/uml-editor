@@ -1,0 +1,12 @@
+.relationships-svg {
+  transition: opacity 0.2s ease;
+}
+
+body:has(.entity-form__relationship-selector:hover) {
+  .relationships-svg {
+    opacity: 0.7;
+  }
+  .relationships-svg * {
+    pointer-events: none;
+  }
+}

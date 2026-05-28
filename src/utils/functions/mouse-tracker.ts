@@ -22,6 +22,19 @@ export function trackMouse(onMove: (x: number, y: number) => void) {
     onMove(lastX, lastY)
   }
 
+  const renderMultipleTimes = () => {
+    const timedRenders = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500]
+    timedRenders.forEach((delay) => {
+      setTimeout(scrollHandler, delay)
+    })
+  }
+
+  const enterKeyHandler = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      renderMultipleTimes()
+    }
+  }
+
   const moveHandled = ["mousemove", "contextmenu", "click", "dblclick"] as const
   const touchHandled = ["touchstart", "touchmove"] as const
 
@@ -31,11 +44,9 @@ export function trackMouse(onMove: (x: number, y: number) => void) {
   touchHandled.forEach((event) => {
     document.addEventListener(event, touchHandler)
   })
+  document.addEventListener("keydown", enterKeyHandler)
   // document.addEventListener("wheel", scrollHandler, true)
-  const timedRenders = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500]
-  timedRenders.forEach((delay) => {
-    setTimeout(scrollHandler, delay)
-  })
+  renderMultipleTimes()
 
   return () => {
     moveHandled.forEach((event) => {
@@ -44,6 +55,7 @@ export function trackMouse(onMove: (x: number, y: number) => void) {
     touchHandled.forEach((event) => {
       document.removeEventListener(event, touchHandler)
     })
+    document.removeEventListener("keydown", enterKeyHandler)
     // document.removeEventListener("wheel", scrollHandler, true)
   }
 }

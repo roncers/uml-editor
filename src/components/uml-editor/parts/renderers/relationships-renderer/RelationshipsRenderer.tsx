@@ -64,6 +64,7 @@ const RelationshipsRenderer = observer(
     }
     return createPortal(
       <svg
+        className="relationships-svg"
         width={window.innerWidth}
         height={window.innerHeight}
         style={{
