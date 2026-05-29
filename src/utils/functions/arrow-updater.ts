@@ -1,4 +1,4 @@
-export function trackMouse(onMove: (x: number, y: number) => void) {
+export function trackUpdates(onMove: (x: number, y: number) => void) {
   let lastX = 0
   let lastY = 0
 

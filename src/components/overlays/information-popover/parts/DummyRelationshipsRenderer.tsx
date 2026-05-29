@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import { observer } from "mobx-react-lite"
 import {
-  trackMouse,
+  trackUpdates,
   getClosestBorderPoint,
-} from "@/utils/functions/mouse-tracker"
+} from "@/utils/functions/arrow-updater"
 import RelationshipArrow from "@/components/uml-editor/parts/renderers/relationships-renderer/relationship-arrow/RelationshipArrow"
 import type { Entity as EntityType } from "@/types/entity.types"
 
@@ -83,7 +83,7 @@ const DummyRelationshipsRenderer = observer(
       })
     }
 
-    useEffect(() => trackMouse((x, y) => onMoveRef.current(x, y)), [])
+    useEffect(() => trackUpdates((x, y) => onMoveRef.current(x, y)), [])
 
     if (!container) return null
 

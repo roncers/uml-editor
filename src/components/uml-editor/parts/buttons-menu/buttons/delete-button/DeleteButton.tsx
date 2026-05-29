@@ -26,7 +26,13 @@ export default function DeleteButton({ disabled }: { disabled?: boolean }) {
       >
         <img src={deleteSvg} alt={t("delete-all")} />
       </SyButton>
-      <ConfirmationDialog ref={deleteDialogRef} action={deleteAll}>
+      <ConfirmationDialog
+        ref={deleteDialogRef}
+        action={deleteAll}
+        portalDestination={
+          disabled ? (document.getElementById("information-popover") as HTMLElement) : undefined
+        }
+      >
         <p dangerouslySetInnerHTML={{ __html: t("dialog-delete-all-text") }} />
       </ConfirmationDialog>
     </>

@@ -12,9 +12,10 @@ const ConfirmationDialog = forwardRef<
   ConfirmationDialogRef,
   {
     action: () => void
+    portalDestination?: HTMLElement
     children: React.ReactNode
   }
->(({ action, children }, ref) => {
+>(({ action, portalDestination, children }, ref) => {
   const { t } = useTranslation()
   const dialogRef = useRef<HTMLDialogElement>(null)
 
@@ -38,7 +39,7 @@ const ConfirmationDialog = forwardRef<
         </button>
       </form>
     </dialog>,
-    document.body,
+    portalDestination || document.body,
   )
 })
 

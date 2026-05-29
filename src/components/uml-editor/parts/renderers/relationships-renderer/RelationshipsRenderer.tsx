@@ -4,9 +4,9 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { observer } from "mobx-react-lite"
 import {
-  trackMouse,
+  trackUpdates,
   getClosestBorderPoint,
-} from "@/utils/functions/mouse-tracker"
+} from "@/utils/functions/arrow-updater"
 import RelationshipArrow from "@/components/uml-editor/parts/renderers/relationships-renderer/relationship-arrow/RelationshipArrow"
 import { useZoom } from "@/components/uml-editor/parts/board/ZoomContext"
 const RelationshipsRenderer = observer(
@@ -49,7 +49,7 @@ const RelationshipsRenderer = observer(
     useLayoutEffect(() => {
       forceRender((n) => n + 1)
     }, [scale])
-    useEffect(() => trackMouse((x, y) => onMoveRef.current(x, y)), [])
+    useEffect(() => trackUpdates((x, y) => onMoveRef.current(x, y)), [])
     function getCoordinates(entityId: string, targetEntityId: string) {
       const ent = document.getElementById(entityId)
       if (!ent) return { x: 0, y: 0 }
