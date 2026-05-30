@@ -8,8 +8,12 @@ import "./InterchangeButton.scss"
 const SIGNATURE_KEY = "john-ford"
 const SIGNATURE_VALUE = "stagecoach"
 
-export default function InterchangeButton() {
-  const { t } = useTranslation()    
+export default function InterchangeButton({
+  disabled,
+}: {
+  disabled?: boolean
+}) {
+  const { t } = useTranslation()
   const { refreshEntities } = useEntityContext()
 
   // Appends the signature object as the last element of the JSON array.
@@ -45,6 +49,7 @@ export default function InterchangeButton() {
 
   // DOWNLOAD
   function exportData() {
+    if (disabled) return
     const dataAsText = addKey(EntityFactory.toString())
     const element = document.createElement("a")
     element.setAttribute(
@@ -62,6 +67,7 @@ export default function InterchangeButton() {
   }
 
   function importData() {
+    if (disabled) return
     const input = document.createElement("input")
     input.type = "file"
     input.accept = ".json,application/json"

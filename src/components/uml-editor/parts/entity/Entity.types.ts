@@ -4,4 +4,5 @@ export interface UMLClassProps {
   entity: InterfaceSynec | ClassSynec
   onToggle?: () => void
   [key: string]: string | number | boolean | undefined | object
+  dialogDestination?: HTMLElement
 }

@@ -112,6 +112,7 @@ function toggleDeleteButton(e: React.MouseEvent) {
             </button>
             <ConfirmationDialog
               ref={dialogRef}
+              portalDestination={portalTarget ?? document.body}
               action={() => {
                 onDelete?.()
                 setShowDelete(false)

@@ -9,6 +9,7 @@ const isMobile = window.matchMedia("(max-width: 1024px)").matches
 
 const UMLClass = observer(function UMLClass({
   entity,
+  dialogDestination,
   ...props
 }: UMLClassProps) {
   function toggleEdition(e?: React.MouseEvent) {
@@ -33,7 +34,7 @@ const UMLClass = observer(function UMLClass({
       style={styling}
       id={entity.id}
     >
-      <RenderedCard entity={entity} onToggle={toggleEdition} />
+      <RenderedCard entity={entity} onToggle={toggleEdition} dialogDestination={dialogDestination}/>
     </div>
   )
 })

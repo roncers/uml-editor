@@ -7,6 +7,21 @@ const MIN_SCALE = 0.2
 const MAX_SCALE = 4
 const BOARD_POS_KEY = "martin-roncero-board-position"
 
+function getSavedPosition() {
+  try {
+    const raw = localStorage.getItem(BOARD_POS_KEY)
+    if (raw) return JSON.parse(raw) as { x: number; y: number; scale?: number }
+  } catch {
+    void 0
+  }
+  return { x: -window.innerWidth, y: -window.innerHeight }
+}
+
+function updateInternalScale(scale: number) {
+  const current = getSavedPosition()
+  localStorage.setItem(BOARD_POS_KEY, JSON.stringify({ ...current, scale }))
+}
+
 export default function Board({
   children,
   onZoomChange,
@@ -28,19 +43,15 @@ export default function Board({
     return 1
   }
 
-  function updateInternalScale(scale: number) {
-    const current = getSavedPosition()
-    localStorage.setItem(BOARD_POS_KEY, JSON.stringify({ ...current, scale }))
-  }
-
-  function getSavedPosition() {
-    try {
-      const raw = localStorage.getItem(BOARD_POS_KEY)
-      if (raw) return JSON.parse(raw) as { x: number; y: number }
-    } catch {
-      void 0
-    }
-    return { x: -window.innerWidth, y: -window.innerHeight }
+  function boardIsVisible() {
+    const rect = boardSectionRef.current!.getBoundingClientRect()
+    const wrapperRect = wrapperRef.current!.getBoundingClientRect()
+    return !(
+      rect.bottom < wrapperRect.top ||
+      rect.top > wrapperRect.bottom ||
+      rect.right < wrapperRect.left ||
+      rect.left > wrapperRect.right
+    )
   }
 
   function updateInternalPos(x: number, y: number) {
@@ -53,17 +64,6 @@ export default function Board({
 
   function clamp(s: number) {
     return Math.min(MAX_SCALE, Math.max(MIN_SCALE, s))
-  }
-
-  function boardIsVisible() {
-    const rect = boardSectionRef.current!.getBoundingClientRect()
-    const wrapperRect = wrapperRef.current!.getBoundingClientRect()
-    return !(
-      rect.bottom < wrapperRect.top ||
-      rect.top > wrapperRect.bottom ||
-      rect.right < wrapperRect.left ||
-      rect.left > wrapperRect.right
-    )
   }
 
   useEffect(() => {

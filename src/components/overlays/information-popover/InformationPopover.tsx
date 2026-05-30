@@ -37,6 +37,9 @@ export default function InformationPopover() {
     "composition",
   ]
   const isMobile = window.innerWidth < 768
+  // const popoverEle = document.getElementById(
+  //   "information-popover",
+  // ) as HTMLElement
   return (
     <div
       ref={setPopoverEl}
@@ -59,7 +62,7 @@ export default function InformationPopover() {
         </section>
         <section className="information-card__content">
           <h3 className="g-mimic-text">{t("information-title-usage")}</h3>
-          
+
           <section className="information-card__information-container">
             <article className="information-card__information">
               <h4 className="g-mimic-text">{t("title-moving-usage")}</h4>
@@ -93,7 +96,7 @@ export default function InformationPopover() {
                   {tR("information-edition-usage-1")}
                 </p>
                 <div className="information-card__info-test information-card__entity-toggling-test g-background-dashed">
-                  <Entity entity={mockEntity1} />
+                  <Entity entity={mockEntity1} dialogDestination={popoverEl!} />
                 </div>
               </section>
             </article>
@@ -119,16 +122,18 @@ export default function InformationPopover() {
                       <Entity
                         entity={mockEntity2}
                         onClick={() => joinMockRelationship(mockEntity2.id)}
+                        dialogDestination={popoverEl!}
                       />
                       <Entity
                         entity={mockEntity3}
                         onClick={() => joinMockRelationship(mockEntity3.id)}
+                        dialogDestination={popoverEl!}
                       />
                     </div>
                     <DummyRelationshipsRenderer
                       entities={[mockEntity2, mockEntity3]}
                       container={arrowContainerEl}
-                      dialogTarget={popoverEl}
+                      dialogTarget={popoverEl!}
                     />
                   </div>
                 )}
@@ -158,7 +163,7 @@ export default function InformationPopover() {
                   {t("information-exchange-usage")}
                 </p>
                 <div className="information-card__info-test information-card__padding-add-button g-background-dashed">
-                  <InterchangeButton />
+                  <InterchangeButton disabled />
                 </div>
               </section>
             </article>

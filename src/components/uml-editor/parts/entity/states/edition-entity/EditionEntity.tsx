@@ -33,7 +33,7 @@ const getEntityType = (obj: unknown): string => {
   return "Unknown"
 }
 
-const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
+const EditionEntity = observer(({ entity, onToggle, dialogDestination }: UMLClassProps) => {
   const { t } = useTranslation()
   const { deleteEntity } = useEntityContext()
   function addRelationship(type: RelationshipType) {
@@ -137,6 +137,7 @@ const EditionEntity = observer(({ entity, onToggle }: UMLClassProps) => {
       </form>
       <ConfirmationDialog
         ref={deleteDialogRef}
+        portalDestination={dialogDestination || undefined}
         action={() => deleteEntity(entity.id)}
       >
         <p>{t("dialog-delete-text")}</p>
