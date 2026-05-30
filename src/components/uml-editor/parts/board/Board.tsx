@@ -5,6 +5,7 @@ import { ZoomContext } from "./ZoomContext"
 
 const MIN_SCALE = 0.2
 const MAX_SCALE = 4
+const BOARD_POS_KEY = "martin-roncero-board-position"
 
 export default function Board({
   children,
@@ -15,12 +16,54 @@ export default function Board({
   onZoomChange?: (zoom: number) => void
   boardSectionRef: React.RefObject<HTMLElement | null>
 }) {
-  const [scale, setScale] = useState(1)
+  const [scale, setScale] = useState(getSavedScale())
+
+  function getSavedScale() {
+    try {
+      const raw = localStorage.getItem(BOARD_POS_KEY)
+      if (raw) return JSON.parse(raw).scale as number
+    } catch {
+      void 0
+    }
+    return 1
+  }
+
+  function updateInternalScale(scale: number) {
+    const current = getSavedPosition()
+    localStorage.setItem(BOARD_POS_KEY, JSON.stringify({ ...current, scale }))
+  }
+
+  function getSavedPosition() {
+    try {
+      const raw = localStorage.getItem(BOARD_POS_KEY)
+      if (raw) return JSON.parse(raw) as { x: number; y: number }
+    } catch {
+      void 0
+    }
+    return { x: -window.innerWidth, y: -window.innerHeight }
+  }
+
+  function updateInternalPos(x: number, y: number) {
+    if (boardIsVisible()) {
+      localStorage.setItem(BOARD_POS_KEY, JSON.stringify({ x, y, scale }))
+    }
+  }
   const pinchRef = useRef<number | null>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
 
   function clamp(s: number) {
     return Math.min(MAX_SCALE, Math.max(MIN_SCALE, s))
+  }
+
+  function boardIsVisible() {
+    const rect = boardSectionRef.current!.getBoundingClientRect()
+    const wrapperRect = wrapperRef.current!.getBoundingClientRect()
+    return !(
+      rect.bottom < wrapperRect.top ||
+      rect.top > wrapperRect.bottom ||
+      rect.right < wrapperRect.left ||
+      rect.left > wrapperRect.right
+    )
   }
 
   useEffect(() => {
@@ -32,6 +75,7 @@ export default function Board({
       setScale((s) => {
         const next = clamp(s * factor)
         onZoomChange?.(next)
+        updateInternalScale(next)
         return next
       })
     }
@@ -79,9 +123,12 @@ export default function Board({
         onTouchEnd={onTouchEnd}
       >
         <Draggable
-          initialPosition={{ x: -window.innerWidth, y: -window.innerHeight }}
+          initialPosition={getSavedPosition()}
+          onUpdatePosition={(x, y) => updateInternalPos(x, y)}
         >
-          <section className="board" ref={boardSectionRef}>{children}</section>
+          <section className="board" ref={boardSectionRef}>
+            {children}
+          </section>
         </Draggable>
       </div>
     </ZoomContext.Provider>
