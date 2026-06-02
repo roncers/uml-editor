@@ -2,6 +2,7 @@ import "./InformationPopover.scss"
 import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import closeSvg from "@/assets/svg/common/close.svg"
+import contrastSvg from "@/assets/svg/common/contrast.svg"
 import AddButton from "@/components/uml-editor/parts/buttons-menu/buttons/add-button/AddButton"
 import DeleteButton from "@/components/uml-editor/parts/buttons-menu/buttons/delete-button/DeleteButton"
 import InterchangeButton from "@/components/uml-editor/parts/buttons-menu/buttons/interchange-button/InterchangeButton"
@@ -10,6 +11,7 @@ import { ClassSynec } from "@/classes/classifiers/ClassSynec"
 import { RelationshipIcons } from "@/utils/iconsBundle"
 import DummyRelationshipsRenderer from "./parts/DummyRelationshipsRenderer"
 import { useResponsiveT } from "@/utils/functions/translateUtils"
+import { toggleTheme } from "@/utils/functions/theme"
 
 export default function InformationPopover() {
   const tR = useResponsiveT()
@@ -20,6 +22,10 @@ export default function InformationPopover() {
   const mockEntity1 = useMemo(() => new ClassSynec(tR("right-click-me")), [tR])
   const mockEntity2 = useMemo(() => new ClassSynec(t("relate-me")), [t])
   const mockEntity3 = useMemo(() => new ClassSynec(t("relate-me-too")), [t])
+
+  function switchTheme() {
+    toggleTheme()
+  }
 
   function joinMockRelationship(targetId: string) {
     const owner = [mockEntity2, mockEntity3].find((e) =>
@@ -49,7 +55,16 @@ export default function InformationPopover() {
     >
       <div className="information-card">
         <section className="information-card__header">
-          <h2 className="g-mimic-text">{t("information")}</h2>
+          <div className="information-card__header-title">
+            <h2 className="g-mimic-text">{t("information")}</h2>
+            <button
+              className="mimic-button"
+              onClick={() => switchTheme()}
+              aria-label={t("aria-label-change-theme-info")}
+            >
+              <img src={contrastSvg} alt="Change theme" />
+            </button>
+          </div>
           <button
             className="mimic-button"
             onClick={() =>

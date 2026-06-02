@@ -1,6 +1,7 @@
 .button {
   padding: 0.5rem 1rem;
   font-size: 2rem;
+  border: 2px solid var(--color-primary);
   cursor: pointer;
   background-color: var(--color-background);
   transition: background-color 0.2s ease-in-out;

@@ -25,6 +25,16 @@ html,
 body {
   height: 100%;
   width: 100%;
+
+  /* The track (background) */
+  ::-webkit-scrollbar-track {
+    background: var(--color-secondary);
+  }
+
+  /* The thumb (draggable handle) */
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-secondary-contrast);
+  }
 }
 
 html {
@@ -33,10 +43,18 @@ html {
   color: var(--color-primary);
   background-color: var(--color-background);
   ::selection {
-    background-color: color-mix(in srgb, var(--color-secondary), transparent 30%);
+    background-color: color-mix(
+      in srgb,
+      var(--color-secondary),
+      transparent 30%
+    );
   }
   ::-moz-selection {
-    background-color: color-mix(in srgb, var(--color-secondary), transparent 30%);
+    background-color: color-mix(
+      in srgb,
+      var(--color-secondary),
+      transparent 30%
+    );
   }
 }
 
