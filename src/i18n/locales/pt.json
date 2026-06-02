@@ -67,6 +67,7 @@
   "title-moving-usage": "Manuseio do Quadro",
   "information-moving-usage": "Navegue por um quadro interativo arrastando para mover e rolando para dar zoom. Precisa modificar seu diagrama? Basta clicar e arrastar qualquer elemento para reorganizar seu espaço de trabalho instantaneamente.",
   "information-footer": "© Dedicado a Chester.",
+  "aria-label-change-theme-info": "Alternar tema",
   "random-words": {
     "1": "caridade",
     "2": "significado",

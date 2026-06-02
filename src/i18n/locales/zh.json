@@ -67,6 +67,7 @@
   "title-moving-usage": "画板操作",
   "information-moving-usage": "通过拖动来平移交互式画板，滚动来缩放。需要修改您的图表？只需点击并拖动任何元素即可立即重新排列您的工作区。",
   "information-footer": "© 献给Chester。",
+  "aria-label-change-theme-info": "切换主题",
   "random-words": {
     "1": "慈善",
     "2": "意义",

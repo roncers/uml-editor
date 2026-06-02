@@ -62,6 +62,7 @@ export default function InformationPopover() {
               className="mimic-button"
               onClick={() => switchTheme()}
               aria-label={t("aria-label-change-theme-info")}
+              title={t("aria-label-change-theme-info")}
             >
               <ContrastSvg />
             </button>
@@ -72,6 +73,7 @@ export default function InformationPopover() {
               document.getElementById("information-popover")?.hidePopover()
             }
             aria-label={t("aria-label-close-info")}
+            title={t("aria-label-close-info")}
           >
             <CloseSvg />
           </button>

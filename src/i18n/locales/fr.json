@@ -67,6 +67,7 @@
   "title-moving-usage": "Gestion du Tableau",
   "information-moving-usage": "Naviguez sur un tableau interactif en faisant glisser pour vous déplacer et en faisant défiler pour zoomer. Besoin de modifier votre diagramme ? Cliquez et faites glisser n'importe quel élément pour réorganiser votre espace de travail instantanément.",
   "information-footer": "© Dédié à Chester.",
+  "aria-label-change-theme-info": "Changer le thème",
   "random-words": {
     "1": "charité",
     "2": "signification",
