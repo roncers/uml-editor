@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import SyButtonOptions from "@/components/shared/sy-button-options/SyButtonOptions"
-import interchangeSvg from "@/assets/svg/common/download.svg"
+import InterchangeSvg from "@/assets/svg/common/download.svg?react"
 import { EntityFactory } from "@/classes/factories/EntityFactory"
 import { useEntityContext } from "@/components/uml-editor/parts/EntityContext"
 import "./InterchangeButton.scss"
@@ -102,11 +102,7 @@ export default function InterchangeButton({
       ]}
       label={t("aria-label-interchange-button")}
     >
-      <img
-        className="buttons-menu__interchange-button-img"
-        src={interchangeSvg}
-        alt={t("interchange-button")}
-      />
+      <InterchangeSvg className="buttons-menu__interchange-button-img" />
     </SyButtonOptions>
   )
 }

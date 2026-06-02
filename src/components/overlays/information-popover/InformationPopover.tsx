@@ -1,14 +1,14 @@
 import "./InformationPopover.scss"
 import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import closeSvg from "@/assets/svg/common/close.svg"
-import contrastSvg from "@/assets/svg/common/contrast.svg"
+import CloseSvg from "@/assets/svg/common/close.svg?react"
+import ContrastSvg from "@/assets/svg/common/contrast.svg?react"
+import { RelationshipComponents } from "@/utils/iconsBundle"
 import AddButton from "@/components/uml-editor/parts/buttons-menu/buttons/add-button/AddButton"
 import DeleteButton from "@/components/uml-editor/parts/buttons-menu/buttons/delete-button/DeleteButton"
 import InterchangeButton from "@/components/uml-editor/parts/buttons-menu/buttons/interchange-button/InterchangeButton"
 import Entity from "@/components/uml-editor/parts/entity/Entity"
 import { ClassSynec } from "@/classes/classifiers/ClassSynec"
-import { RelationshipIcons } from "@/utils/iconsBundle"
 import DummyRelationshipsRenderer from "./parts/DummyRelationshipsRenderer"
 import { useResponsiveT } from "@/utils/functions/translateUtils"
 import { toggleTheme } from "@/utils/functions/theme"
@@ -41,7 +41,8 @@ export default function InformationPopover() {
     "inheritance",
     "aggregation",
     "composition",
-  ]
+  ] as const
+
   const isMobile = window.innerWidth < 768
   // const popoverEle = document.getElementById(
   //   "information-popover",
@@ -62,7 +63,7 @@ export default function InformationPopover() {
               onClick={() => switchTheme()}
               aria-label={t("aria-label-change-theme-info")}
             >
-              <img src={contrastSvg} alt="Change theme" />
+              <ContrastSvg />
             </button>
           </div>
           <button
@@ -72,7 +73,7 @@ export default function InformationPopover() {
             }
             aria-label={t("aria-label-close-info")}
           >
-            <img src={closeSvg} alt="Close" />
+            <CloseSvg />
           </button>
         </section>
         <section className="information-card__content">
@@ -223,16 +224,19 @@ export default function InformationPopover() {
                 {t("information-relationships-title")}
               </h4>
               <section className="information-card__info-grid">
-                {relationshipTypes.map((type) => (
-                  <p
-                    key={type}
-                    className="information-card__info-text g-background-dashed"
-                  >
-                    <strong>{t(`relationship-${type}`)}</strong>
-                    <img src={RelationshipIcons[type]} alt={type} />
-                    {t(`information-relationships-usage-${type}`)}
-                  </p>
-                ))}
+                {relationshipTypes.map((type) => {
+                  const IconComponent = RelationshipComponents[type]
+                  return (
+                    <p
+                      key={type}
+                      className="information-card__info-text g-background-dashed"
+                    >
+                      <strong>{t(`relationship-${type}`)}</strong>
+                      <IconComponent />
+                      {t(`information-relationships-usage-${type}`)}
+                    </p>
+                  )
+                })}
               </section>
             </article>
           </section>

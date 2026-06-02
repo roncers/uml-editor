@@ -90,10 +90,9 @@ $_radius: 5rem;
       opacity 0.2s ease,
       background-color 0.15s ease;
 
-    img {
+    svg {
       width: 80%;
       height: 80%;
-      object-fit: contain;
     }
 
     &:hover {

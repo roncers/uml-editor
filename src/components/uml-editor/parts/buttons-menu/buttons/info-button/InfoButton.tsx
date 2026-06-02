@@ -1,6 +1,6 @@
 import "./InfoButton.scss"
 import SyButton from "@/components/shared/sy-button/SyButton"
-import infoSvg from "@/assets/svg/common/info.svg"
+import InfoSvg from "@/assets/svg/common/info.svg?react"
 import { useTranslation } from "react-i18next"
 import InformationPopover from "@/components/overlays/information-popover/InformationPopover"
 
@@ -14,7 +14,7 @@ export default function InfoButton() {
         aria-label="Info"
         title={t("information")}
       >
-        <img src={infoSvg} alt="Info" />
+        <InfoSvg />
       </SyButton>
       <InformationPopover />
     </>

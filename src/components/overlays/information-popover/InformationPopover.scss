@@ -77,14 +77,14 @@
   z-index: 1;
   border-radius: 1.5rem;
   border: 2px dashed var(--color-primary);
-  color: var(--color-primary)
+  color: var(--color-primary);
 }
 
 .information-card {
   position: relative;
   width: var(--_popover-width);
   height: var(--_popover-height);
-  background-color: white;
+  background-color: var(--color-background-contrast);
   border-radius: 8px;
   padding: 2.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -109,7 +109,8 @@
       background-color: var(--color-background);
       z-index: 4;
       cursor: pointer;
-      img {
+      svg {
+        color: var(--color-primary);
         width: 3rem;
         height: 3rem;
       }
@@ -183,12 +184,13 @@
     p {
       margin-bottom: 2rem;
     }
-    img {
-      transform: rotate(-90deg) translateX(-1rem) translateY(-0.5rem);
-    }
     strong {
       padding: 0.5rem;
       border: 1px solid var(--color-primary);
+    }
+    svg {
+      transform: rotate(-90deg) translateX(-1rem) translateY(-0.5rem);
+      color: var(--color-primary);
     }
     @include respond(tab-port) {
       padding: 2rem 2rem;
@@ -227,11 +229,10 @@
     }
   }
   &__footer {
-  color: var(--color-primary);
+    color: var(--color-primary);
     padding: 3rem 0;
     margin: auto;
     font-size: 1.25rem;
-    
   }
 }
 
