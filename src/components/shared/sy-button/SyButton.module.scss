@@ -4,7 +4,7 @@
   border: 2px solid var(--color-primary);
   cursor: pointer;
   background-color: var(--color-background);
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.4s ease;
   &:hover,
   &:active {
     background-color: var(--color-secondary-contrast);

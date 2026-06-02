@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next"
 import AddButton from "./parts/add-button-edition/AddButtonEdition"
 import { InterfaceSynec } from "@/classes/classifiers/InterfaceSynec"
 import { ClassSynec } from "@/classes/classifiers/ClassSynec"
-import deleteSvg from "@/assets/svg/common/delete.svg"
+import DeleteSvg from "@/assets/svg/common/delete.svg?react"
 import ConfirmationDialog, {
   type ConfirmationDialogRef,
 } from "@/components/overlays/confirmation-dialog/ConfirmationDialog"
@@ -125,13 +125,14 @@ const EditionEntity = observer(({ entity, onToggle, dialogDestination }: UMLClas
           <button
             className="entity-form__delete-button"
             onMouseDown={(e) => e.stopPropagation()}
+            onDoubleClick={(e) => e.stopPropagation()}
             onClick={(e) => {
               e.preventDefault()
               deleteDialogRef.current?.openDialog()
             }}
             aria-label={t("delete")}
           >
-            <img src={deleteSvg} alt={t("delete")} />
+            <DeleteSvg />
           </button>
         </div>
       </form>

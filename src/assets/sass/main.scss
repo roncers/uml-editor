@@ -6,7 +6,15 @@
 @use "keyframes.css";
 
 :root {
-  // really important for animations in chrome
+  transition:
+    --color-primary 0.4s ease,
+    --color-secondary 0.4s ease,
+    --color-secondary-contrast 0.4s ease,
+    --color-background 0.4s ease,
+    --color-background-contrast 0.4s ease,
+    --color-aux 0.4s ease;
+
+  // really important for entity animations in chrome
   interpolate-size: allow-keywords;
 
   @include respond(tab-land) {
@@ -20,21 +28,33 @@
   }
 }
 
+:root[data-theme="light"] {
+  --color-primary: rgb(21, 23, 22);
+  --color-secondary: rgb(255, 154, 117);
+  --color-secondary-contrast: rgb(255, 127, 80);
+  --color-background: #e8e8e8;
+  --color-background-contrast: white;
+  --color-aux: red;
+}
+
+:root[data-theme="dark"] {
+  --color-primary: #e8e8e8;
+  --color-secondary: rgb(20, 121, 20);
+  --color-secondary-contrast: rgb(16, 104, 56);
+  --color-background: rgb(21, 23, 22);
+  --color-background-contrast: rgb(40, 42, 41);
+  --color-aux: darkgreen;
+}
+
 #root,
 html,
 body {
   height: 100%;
   width: 100%;
 
-  /* The track (background) */
-  ::-webkit-scrollbar-track {
-    background: var(--color-secondary);
-  }
-
-  /* The thumb (draggable handle) */
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-secondary-contrast);
-  }
+  scrollbar-color:
+    color-mix(in srgb, var(--color-background) 80%, var(--color-primary) 20%)
+    var(--color-background-contrast);
 }
 
 html {

@@ -36,7 +36,7 @@ export default function ArrowMarkerDefs({ idPrefix, color }: ArrowMarkerDefsProp
       >
         <polygon
           points="0 0, 12 5, 0 10"
-          fill="white"
+          fill="var(--color-background-contrast)"
           stroke={color}
           strokeWidth={STROKE_WIDTH}
         />
@@ -53,7 +53,7 @@ export default function ArrowMarkerDefs({ idPrefix, color }: ArrowMarkerDefsProp
       >
         <polygon
           points="0 5, 7 0, 14 5, 7 10"
-          fill="white"
+          fill="var(--color-background-contrast)"
           stroke={color}
           strokeWidth={STROKE_WIDTH}
         />

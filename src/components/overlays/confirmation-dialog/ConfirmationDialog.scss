@@ -63,14 +63,14 @@
       background-color: color-mix(
         in srgb,
         var(--color-secondary-contrast) 75%,
-        red 25%
+        var(--color-aux) 25%
       );
 
       &:hover {
         background-color: color-mix(
           in srgb,
           var(--color-secondary-contrast) 65%,
-          red 35%
+          var(--color-aux) 35%
         );
         border-color: var(--color-primary);
       }
