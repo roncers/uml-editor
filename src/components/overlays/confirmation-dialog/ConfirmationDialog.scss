@@ -1,4 +1,5 @@
 .confirmation-dialog {
+  color: var(--color-primary);
   transition:
     display 0.5s allow-discrete,
     overlay 0.5s allow-discrete;
@@ -8,8 +9,16 @@
   line-height: 1.3;
   background: linear-gradient(
     to top left,
-    color-mix(in srgb, var(--color-secondary-contrast) 90%, var(--color-background-contrast) 10%),
-    color-mix(in srgb, var(--color-secondary-contrast) 70%, var(--color-background-contrast) 30%)
+    color-mix(
+      in srgb,
+      var(--color-secondary-contrast) 90%,
+      var(--color-background-contrast) 10%
+    ),
+    color-mix(
+      in srgb,
+      var(--color-secondary-contrast) 70%,
+      var(--color-background-contrast) 30%
+    )
   );
   &::backdrop {
     animation: backdropFadeOut 0.5s forwards;
@@ -54,14 +63,14 @@
       background-color: color-mix(
         in srgb,
         var(--color-secondary-contrast) 75%,
-        red 25%
+        var(--color-aux) 25%
       );
 
       &:hover {
         background-color: color-mix(
           in srgb,
           var(--color-secondary-contrast) 65%,
-          red 35%
+          var(--color-aux) 35%
         );
         border-color: var(--color-primary);
       }

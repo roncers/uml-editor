@@ -8,7 +8,7 @@ import RelationshipLine from "./parts/RelationshipLine"
 import ConfirmationDialog, {
   type ConfirmationDialogRef,
 } from "@/components/overlays/confirmation-dialog/ConfirmationDialog"
-import deleteSvg from "@/assets/svg/common/delete.svg"
+import DeleteSvg from "@/assets/svg/common/delete.svg?react"
 
 interface RelationshipArrowProps {
   from: { x: number; y: number }
@@ -20,7 +20,7 @@ interface RelationshipArrowProps {
   buttonPosition?: { x: number; y: number }
 }
 
-const STROKE_COLOR = "#555"
+const STROKE_COLOR = "color-mix(in srgb, var(--color-primary) 70%, var(--color-background-contrast) 30%)"
 const HOVER_COLOR = "var(--color-secondary)"
 
 export default function RelationshipArrow({
@@ -108,7 +108,7 @@ function toggleDeleteButton(e: React.MouseEvent) {
               }}
               aria-label={t("delete")}
             >
-              <img src={deleteSvg} alt={t("delete")} />
+              <DeleteSvg />
             </button>
             <ConfirmationDialog
               ref={dialogRef}

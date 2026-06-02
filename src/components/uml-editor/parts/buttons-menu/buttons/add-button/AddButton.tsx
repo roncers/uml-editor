@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { EntityContext } from "@/components/uml-editor/parts/EntityContext"
 import { useTranslation } from "react-i18next"
 import SyButtonOptions from "@/components/shared/sy-button-options/SyButtonOptions"
-import addSvg from "@/assets/svg/common/add.svg"
+import AddSvg from "@/assets/svg/common/add.svg?react"
 
 export default function AddButton({ disabled }: { disabled?: boolean }) {
   const context = useContext(EntityContext)
@@ -42,7 +42,7 @@ export default function AddButton({ disabled }: { disabled?: boolean }) {
       ]}
       label={t("aria-label-add-entity")}
     >
-      <img className="add-button__icon" src={addSvg} alt={t("add")} />
+      <AddSvg className="add-button__icon" />
     </SyButtonOptions>
   )
 }

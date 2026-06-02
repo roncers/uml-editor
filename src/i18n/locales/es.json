@@ -67,6 +67,7 @@
   "title-moving-usage": "Manejo del Tablero",
   "information-moving-usage": "Navega por un tablero interactivo arrastrando para desplazarte y usando la rueda del ratón para hacer zoom. ¿Necesitas modificar tu diagrama? Solo haz clic y arrastra cualquier elemento para reorganizar tu espacio de trabajo al instante.",
   "information-footer": "© Dedicado a Chester.",
+  "aria-label-change-theme-info": "Cambiar tema",
   "random-words": {
     "1": "caridad",
     "2": "significado",

@@ -10,10 +10,11 @@
       transition: transform 0.05s ease-out;
     }
 
-    img {
+    svg {
       width: 2.5rem;
       height: 2.5rem;
       display: block;
+      color: var(--color-primary);
     }
 
     &__text {

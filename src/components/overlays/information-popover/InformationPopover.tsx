@@ -1,15 +1,17 @@
 import "./InformationPopover.scss"
 import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import closeSvg from "@/assets/svg/common/close.svg"
+import CloseSvg from "@/assets/svg/common/close.svg?react"
+import ContrastSvg from "@/assets/svg/common/contrast.svg?react"
+import { RelationshipComponents } from "@/utils/iconsBundle"
 import AddButton from "@/components/uml-editor/parts/buttons-menu/buttons/add-button/AddButton"
 import DeleteButton from "@/components/uml-editor/parts/buttons-menu/buttons/delete-button/DeleteButton"
 import InterchangeButton from "@/components/uml-editor/parts/buttons-menu/buttons/interchange-button/InterchangeButton"
 import Entity from "@/components/uml-editor/parts/entity/Entity"
 import { ClassSynec } from "@/classes/classifiers/ClassSynec"
-import { RelationshipIcons } from "@/utils/iconsBundle"
 import DummyRelationshipsRenderer from "./parts/DummyRelationshipsRenderer"
 import { useResponsiveT } from "@/utils/functions/translateUtils"
+import { toggleTheme } from "@/utils/functions/theme"
 
 export default function InformationPopover() {
   const tR = useResponsiveT()
@@ -20,6 +22,10 @@ export default function InformationPopover() {
   const mockEntity1 = useMemo(() => new ClassSynec(tR("right-click-me")), [tR])
   const mockEntity2 = useMemo(() => new ClassSynec(t("relate-me")), [t])
   const mockEntity3 = useMemo(() => new ClassSynec(t("relate-me-too")), [t])
+
+  function switchTheme() {
+    toggleTheme()
+  }
 
   function joinMockRelationship(targetId: string) {
     const owner = [mockEntity2, mockEntity3].find((e) =>
@@ -35,7 +41,8 @@ export default function InformationPopover() {
     "inheritance",
     "aggregation",
     "composition",
-  ]
+  ] as const
+
   const isMobile = window.innerWidth < 768
   // const popoverEle = document.getElementById(
   //   "information-popover",
@@ -49,15 +56,26 @@ export default function InformationPopover() {
     >
       <div className="information-card">
         <section className="information-card__header">
-          <h2 className="g-mimic-text">{t("information")}</h2>
+          <div className="information-card__header-title">
+            <h2 className="g-mimic-text">{t("information")}</h2>
+            <button
+              className="mimic-button"
+              onClick={() => switchTheme()}
+              aria-label={t("aria-label-change-theme-info")}
+              title={t("aria-label-change-theme-info")}
+            >
+              <ContrastSvg />
+            </button>
+          </div>
           <button
             className="mimic-button"
             onClick={() =>
               document.getElementById("information-popover")?.hidePopover()
             }
             aria-label={t("aria-label-close-info")}
+            title={t("aria-label-close-info")}
           >
-            <img src={closeSvg} alt="Close" />
+            <CloseSvg />
           </button>
         </section>
         <section className="information-card__content">
@@ -208,16 +226,19 @@ export default function InformationPopover() {
                 {t("information-relationships-title")}
               </h4>
               <section className="information-card__info-grid">
-                {relationshipTypes.map((type) => (
-                  <p
-                    key={type}
-                    className="information-card__info-text g-background-dashed"
-                  >
-                    <strong>{t(`relationship-${type}`)}</strong>
-                    <img src={RelationshipIcons[type]} alt={type} />
-                    {t(`information-relationships-usage-${type}`)}
-                  </p>
-                ))}
+                {relationshipTypes.map((type) => {
+                  const IconComponent = RelationshipComponents[type]
+                  return (
+                    <p
+                      key={type}
+                      className="information-card__info-text g-background-dashed"
+                    >
+                      <strong>{t(`relationship-${type}`)}</strong>
+                      <IconComponent />
+                      {t(`information-relationships-usage-${type}`)}
+                    </p>
+                  )
+                })}
               </section>
             </article>
           </section>

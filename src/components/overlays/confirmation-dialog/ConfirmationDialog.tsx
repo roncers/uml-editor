@@ -26,6 +26,7 @@ const ConfirmationDialog = forwardRef<
 
   return createPortal(
     <dialog
+      onDoubleClick={(e) => e.stopPropagation()}
       onClose={() => dialogRef.current?.close()}
       onMouseDown={(e) => e.stopPropagation()}
       ref={dialogRef}

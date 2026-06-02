@@ -28,6 +28,12 @@
   initial-value: white;
 }
 
+@property --color-aux {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: red;
+}
+
 @property --board-width-scale {
   syntax: "<number>";
   inherits: true;
