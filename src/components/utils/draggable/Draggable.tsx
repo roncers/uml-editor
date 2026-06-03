@@ -3,16 +3,19 @@ import { useState, useRef } from "react"
 import { useZoom } from "@/components/uml-editor/parts/board/ZoomContext"
 import { observer } from "mobx-react-lite"
 import type { Position } from "@/classes/members/Position"
+import SelectionLayer from "@/components/utils/selection-layer/SelectionLayer"
 
 const Draggable = observer(function Draggable({
   children,
   initialPosition = { x: 0, y: 0 },
   entityPosition,
+  isBoard = false,
   onUpdatePosition = () => {},
 }: {
   children: React.ReactNode
   initialPosition?: { x: number; y: number }
   entityPosition?: Position
+  isBoard?: boolean
   onUpdatePosition?: (x: number, y: number) => void
 }) {
   const [localPos, setLocalPos] = useState(initialPosition)
@@ -108,7 +111,11 @@ const Draggable = observer(function Draggable({
       onMouseDown={onMouseDown}
       onTouchStart={onTouchStart}
     >
-      {children}
+      {isBoard ? (
+        <SelectionLayer>{children}</SelectionLayer>
+      ) : (
+        children
+      )}
     </div>
   )
 })
