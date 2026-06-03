@@ -56,7 +56,7 @@
   "information-relationships-usage-inheritance": "Es una relación en la que el objeto hereda la interfaz (como en la implementación) y también la implementación de otra clase. Además, es capaz de extender mi comportamiento.",
   "information-relationships-usage-aggregation": "Tipo especializado de asociación que representa relaciones de tipo \"uno a muchos\", \"muchos a muchos\" o \"todo-parte\" entre múltiples objetos.",
   "information-relationships-usage-composition": "Tipo específico de agregación donde un objeto está compuesto por una o más instancias del otro. El objeto relacionado solo puede existir como parte del contenedor.",
-  "title-deletion-usage": "Eliminación de Entidades",
+  "title-deletion-usage": "Borrado de Entidades",
   "information-deletion-usage": "Como se explicó anteriormente, las entidades se pueden eliminar haciendo clic en el botón de borrar que tienen en el modo de edición. También se pueden eliminar presionando el botón grande de la papelera en la parte superior, el cual borrará por completo tu tablero; ten cuidado con esto.",
   "title-exchange-usage": "Importar / Exportar Diagramas",
   "information-exchange-usage": "Puedes importar y exportar tus diagramas en formato JSON. Esto te permitirá guardar tu trabajo y compartirlo con otras personas. El botón de exportar guarda el diagrama actual en tu equipo, mientras que el botón de importar carga en la aplicación un diagrama existente guardado en un archivo .json.",

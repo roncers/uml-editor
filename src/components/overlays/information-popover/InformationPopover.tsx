@@ -180,7 +180,7 @@ export default function InformationPopover() {
                 <p className="information-card__info-text g-background-dashed">
                   {t("information-exchange-usage")}
                 </p>
-                <div className="information-card__info-test information-card__padding-add-button g-background-dashed">
+                <div className="information-card__info-test information-card__padding-inter-button g-background-dashed">
                   <InterchangeButton disabled />
                 </div>
               </section>

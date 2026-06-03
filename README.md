@@ -2,7 +2,7 @@
 
 ![UML Diagram Editor](./docs/cap-1.png)
 
-This project is a UML diagram editor built with React, TypeScript, and Vite. It allows users to visually create, edit, and manage UML class diagrams in a modern, fast, and easy way. The architecture is designed for maintainability and extensibility, following SOLID principles and centralized state management.
+This project is a UML diagram editor built with React, TypeScript, and Vite. It allows users to visually create, edit, and manage UML class diagrams in a modern, fast, and easy way. The architecture is designed for maintainability and extensibility, following SOLID principles and centralized state management. It has support to multiple languages: english, spanish, french, arabic, hindi, portuguese and chinese.
 
 ## Preferences
 

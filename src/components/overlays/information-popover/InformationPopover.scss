@@ -198,8 +198,17 @@
       margin-left: 0;
     }
   }
+  &__padding-inter-button,
   &__padding-add-button {
     padding: 1.5rem 7rem 1.5rem 2rem;
+    z-index: 5;
+  }
+  &__padding-add-button {
+    @include respond(tab-port) {
+      padding-left: 14rem;
+    }
+  }
+  &__padding-inter-button {
     @include respond(tab-port) {
       padding-left: 9rem;
     }
