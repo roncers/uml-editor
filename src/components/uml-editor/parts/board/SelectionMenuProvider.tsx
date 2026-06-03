@@ -1,31 +1,34 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useReducer } from "react";
-
-type MenuPositionContext = {
-    position: Position | null;
-    setPosition: (position: Position | null) => void;
-}
+import { createContext, useContext, useMemo } from "react";
+import { makeAutoObservable } from "mobx";
 
 export type Position = { x1: number; y1: number; x2: number; y2: number };
 
-export const SelectionMenuContext = createContext<MenuPositionContext>({
-    position: null,
-    setPosition: () => {}
-});
+export class SelectionStore {
+    position: Position | null = null
 
-function positionReducer(state: Position | null, action: { type: 'SET', payload: Position | null }) {
-    if (action.type === 'SET') {
-        return action.payload;
+    constructor() {
+        makeAutoObservable(this)
     }
-    return state;
+
+    setPosition(position: Position | null) {
+        this.position = position
+    }
+}
+
+export const SelectionMenuContext = createContext<SelectionStore | null>(null);
+
+export function useSelectionStore() {
+    const store = useContext(SelectionMenuContext)
+    if (!store) throw new Error("useSelectionStore must be used within SelectionMenuProvider")
+    return store
 }
 
 export default function SelectionMenuProvider({ children }: { children: React.ReactNode }) {
-    const [position, positionDispatch] = useReducer(positionReducer, null);
-    const ctxValue = { position, setPosition: (payload: Position | null) => positionDispatch({ type: 'SET', payload }) };
-    
+    const store = useMemo(() => new SelectionStore(), [])
+
     return (
-        <SelectionMenuContext.Provider value={ctxValue}>
+        <SelectionMenuContext.Provider value={store}>
             {children}
         </SelectionMenuContext.Provider>
     );
