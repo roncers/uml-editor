@@ -14,6 +14,7 @@ export default function EntitiesRenderer({
       {entities.map((entity) => (
         <Draggable
           key={entity.id}
+          id={entity.id}
           entityPosition={entity.position}
         >
           <Entity key={entity.id} entity={entity} onClick={() => joinRelationship(entity.id)}/>

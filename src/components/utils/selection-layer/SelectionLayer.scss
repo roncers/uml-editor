@@ -1,0 +1,10 @@
+.selection-layer {
+  &__overlay {
+    --_color-border: color-mix(in srgb, var(--color-secondary) 50%, var(--color-aux) 50%);
+    position: fixed;
+    background-color: var(--color-secondary-contrast);
+    border: 1px solid var(--_color-border);
+    opacity: 0.5;
+    z-index: 5;
+  }
+}

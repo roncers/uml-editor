@@ -1,23 +1,33 @@
 import "./Draggable.scss"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { useZoom } from "@/components/uml-editor/parts/board/ZoomContext"
+import { useSelectionStore } from "@/components/uml-editor/parts/board/SelectionMenuProvider"
 import { observer } from "mobx-react-lite"
 import type { Position } from "@/classes/members/Position"
 import SelectionLayer from "@/components/utils/selection-layer/SelectionLayer"
 
 const Draggable = observer(function Draggable({
   children,
+  id,
   initialPosition = { x: 0, y: 0 },
   entityPosition,
   isBoard = false,
   onUpdatePosition = () => {},
 }: {
   children: React.ReactNode
+  id?: string
   initialPosition?: { x: number; y: number }
   entityPosition?: Position
   isBoard?: boolean
   onUpdatePosition?: (x: number, y: number) => void
 }) {
+  const selectionStore = useSelectionStore()
+
+  useEffect(() => {
+    if (!id || !entityPosition) return
+    selectionStore.register(id, entityPosition)
+    return () => selectionStore.unregister(id)
+  }, [id, entityPosition, selectionStore])
   const [localPos, setLocalPos] = useState(initialPosition)
   const [isDragging, setIsDragging] = useState(false)
 
@@ -53,10 +63,15 @@ const Draggable = observer(function Draggable({
           dragStart.current.posY +
           (y - dragStart.current.mouseY) / scaleRef.current,
       }
+      const prevX = entityPosition ? entityPosition.x : localPos.x
+      const prevY = entityPosition ? entityPosition.y : localPos.y
       if (entityPosition) {
         entityPosition.setPosition(newPos.x, newPos.y)
       } else {
         setLocalPos(newPos)
+      }
+      if (id && selectionStore.isSelected(id)) {
+        selectionStore.applyDelta(newPos.x - prevX, newPos.y - prevY, id)
       }
       onUpdatePosition(newPos.x, newPos.y)
     }
@@ -91,6 +106,17 @@ const Draggable = observer(function Draggable({
 
   function onMouseDown(e: React.MouseEvent) {
     if (e.button !== 0) return
+    if ((e.ctrlKey || e.metaKey) && id) {
+      const entityEl = (e.currentTarget as HTMLElement).querySelector(
+        ".entity",
+      )
+      if (entityEl) {
+        e.preventDefault()
+        e.stopPropagation()
+        selectionStore.addEntity(entityEl)
+        return
+      }
+    }
     e.preventDefault()
     e.stopPropagation()
     startDrag(e.clientX, e.clientY)
