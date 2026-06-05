@@ -21,21 +21,33 @@ export default function UMLEditor() {
     interface: new InterfaceFactory(),
   }
 
-  // TODO: upgrade and understand well
-  function computeEntityPosition(entityCount: number): [number, number] {
+  function computeEntityPosition(): [number, number] {
     const board = boardSectionRef.current!
     const rect = board.getBoundingClientRect()
     const zoomEl = board.closest(".board-zoom")
     const zoom = zoomEl ? parseFloat(getComputedStyle(zoomEl).zoom) || 1 : 1
 
-    const centerX = (window.innerWidth / 2 - rect.left) / zoom
-    const centerY = (window.innerHeight / 2 - rect.top) / zoom
+    let x = (window.innerWidth / 2 - rect.left) / zoom
+    let y = (window.innerHeight / 2 - rect.top) / zoom
 
-    return [centerX + entityCount * 30, centerY + entityCount * 20]
+    const RADIUS = 60
+    const THRESHOLD = 30
+
+    while (
+      EntityFactory.createdEntities.some(
+        (e) => Math.abs(e.position.x - x) < THRESHOLD && Math.abs(e.position.y - y) < THRESHOLD,
+      )
+    ) {
+      const angle = Math.random() * 2 * Math.PI
+      x += RADIUS * Math.cos(angle)
+      y += RADIUS * Math.sin(angle)
+    }
+
+    return [x, y]
   }
 
   function createEntity(entityType: "class" | "interface") {
-    const position = computeEntityPosition(EntityFactory.createdEntities.length)
+    const position = computeEntityPosition()
     availableFactories[entityType].createEntity(position)
     setCreatedEntities([...EntityFactory.createdEntities])
   }
