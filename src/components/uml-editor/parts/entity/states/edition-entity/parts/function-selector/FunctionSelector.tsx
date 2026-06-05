@@ -37,6 +37,7 @@ const FunctionSelector = observer(
           value={value.visibility}
           onChange={(e) => onChange(e.target.value, "visibility", value)}
           onMouseDown={(e) => e.stopPropagation()}
+          onDoubleClick={(e) => e.stopPropagation()}
         >
           {Object.values(attributeVisibility).map((opt) => (
             <option key={opt} value={opt}>

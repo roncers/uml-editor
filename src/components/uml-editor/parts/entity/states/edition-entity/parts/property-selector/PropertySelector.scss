@@ -1,3 +1,5 @@
+@use "@/assets/sass/abstracts/mixins" as *;
+
 .entity-form {
   &__input-property {
     flex: 1;
@@ -22,6 +24,7 @@
     font-size: 1.1rem;
     cursor: pointer;
     outline: none;
+    @include custom-select-arrow;
 
     &:focus {
       border-color: var(--color-secondary);

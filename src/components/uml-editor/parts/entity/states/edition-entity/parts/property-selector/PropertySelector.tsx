@@ -28,6 +28,7 @@ const PropertySelector = observer(
           value={value.type}
           onChange={(e) => onChange(e.target.value, "type", value)}
           onMouseDown={(e) => e.stopPropagation()}
+          onDoubleClick={(e) => e.stopPropagation()}
         >
           {Object.values(attributeType).map((opt) => (
             <option key={opt} value={opt}>
@@ -53,6 +54,7 @@ const PropertySelector = observer(
             value={value.visibility}
             onChange={(e) => onChange(e.target.value, "visibility", value)}
             onMouseDown={(e) => e.stopPropagation()}
+            onDoubleClick={(e) => e.stopPropagation()}
           >
             {Object.values(attributeVisibility).map((opt) => (
               <option key={opt} value={opt}>

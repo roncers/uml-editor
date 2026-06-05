@@ -4,8 +4,8 @@ import SelectionMenuProvider from "./SelectionMenuProvider"
 import { useState, useRef, useEffect } from "react"
 import { ZoomContext } from "./ZoomContext"
 
-const MIN_SCALE = 0.2
-const MAX_SCALE = 4
+const MIN_SCALE = 0.125
+const MAX_SCALE = 500
 const BOARD_POS_KEY = "martin-roncero-board-position"
 
 function getSavedPosition() {
