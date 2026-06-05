@@ -24,13 +24,11 @@ export class SelectionStore {
 
     addEntity(el: Element) {
         if (this.entities.includes(el)) return
-        el.classList.add("entity--selected")
         this.entities = [...this.entities, el]
     }
 
     toggleEntity(el: Element) {
         if (this.entities.includes(el)) {
-            el.classList.remove("entity--selected")
             this.entities = this.entities.filter((e) => e !== el)
         } else {
             this.addEntity(el)
@@ -38,7 +36,6 @@ export class SelectionStore {
     }
 
     clearSelection() {
-        this.entities.forEach((e) => e.classList.remove("entity--selected"))
         this.entities = []
     }
 

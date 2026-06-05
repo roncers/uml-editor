@@ -30,9 +30,6 @@
     animation: textIn 200ms ease forwards;
     animation-delay: 150ms;
   }
-  &--selected {
-    border-color: var(--color-secondary-contrast);
-  }
   @keyframes textIn {
     from {
       opacity: 0;

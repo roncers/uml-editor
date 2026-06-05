@@ -24,8 +24,9 @@
   }
 
   &--selected {
-    border-color: var(--color-background-contrast);
+
     border: 0.3rem dashed;
+    border-color: color-mix(in srgb, var(--color-secondary-contrast) 70%, var(--color-aux) 30%);
     background-size: 300% 300%;
     background-image: linear-gradient(
       135deg,
