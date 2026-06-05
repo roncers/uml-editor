@@ -49,14 +49,14 @@ export default function RelationshipArrow({
       if (target.closest("dialog[open]")) return
       setShowDelete(false)
     }
-    function onScroll() {
-      setShowDelete(false)
-    }
+    // function onScroll() {
+    //   setShowDelete(false)
+    // }
     document.addEventListener("mousedown", onDocMouseDown, true)
-    window.addEventListener("scroll", onScroll, true)
+    // window.addEventListener("scroll", onScroll, true)
     return () => {
       document.removeEventListener("mousedown", onDocMouseDown, true)
-      window.removeEventListener("scroll", onScroll, true)
+      // window.removeEventListener("scroll", onScroll, true)
     }
   }, [showDelete])
 
@@ -124,6 +124,7 @@ function toggleDeleteButton(e: React.MouseEvent) {
                 onDelete?.()
                 setShowDelete(false)
               }}
+              onClose={() => setShowDelete(false)}
             >
               <p>{t("dialog-delete-relationship-text")}</p>
             </ConfirmationDialog>

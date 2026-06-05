@@ -1,62 +1,36 @@
 export function trackUpdates(onMove: (x: number, y: number) => void) {
-  let lastX = 0
-  let lastY = 0
+
+  const activeTimeouts = new Set<ReturnType<typeof setTimeout>>()
 
   const updatePosition = (x: number, y: number) => {
-    lastX = x
-    lastY = y
-    onMove(lastX, lastY)
+    onMove(x, y)
   }
 
-  const moveHandler = (event: MouseEvent) => {
-    updatePosition(event.clientX, event.clientY)
+  const singleUpdateHandler = (x: number, y: number) => {
+    updatePosition(x, y)
   }
 
-  const touchHandler = (event: TouchEvent) => {
-    const touch = event.touches[0]
-    if (!touch) return
-    updatePosition(touch.clientX, touch.clientY)
-  }
-
-  const scrollHandler = () => {
-    onMove(lastX, lastY)
-  }
-
-  const renderMultipleTimes = () => {
-    const timedRenders = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500]
+  const multipleUpdateHandler = () => {
+    const timedRenders = Array.from({ length: 10 }, (_, i) => (i + 1) * 50)
     timedRenders.forEach((delay) => {
-      setTimeout(scrollHandler, delay)
+      const timeoutId = setTimeout(() => {
+        updatePosition(0, 0)
+        activeTimeouts.delete(timeoutId)
+      }, delay)
+      activeTimeouts.add(timeoutId)
     })
   }
 
-  const enterKeyHandler = (event: KeyboardEvent) => {
-    if (event.key === "Enter") {
-      renderMultipleTimes()
-    }
-  }
 
-  const moveHandled = ["mousemove", "contextmenu", "click", "dblclick"] as const
-  const touchHandled = ["touchstart", "touchmove"] as const
+  multipleUpdateHandler()
 
-  moveHandled.forEach((event) => {
-    document.addEventListener(event, moveHandler)
-  })
-  touchHandled.forEach((event) => {
-    document.addEventListener(event, touchHandler)
-  })
-  document.addEventListener("keydown", enterKeyHandler)
-  // document.addEventListener("wheel", scrollHandler, true)
-  renderMultipleTimes()
-
-  return () => {
-    moveHandled.forEach((event) => {
-      document.removeEventListener(event, moveHandler)
-    })
-    touchHandled.forEach((event) => {
-      document.removeEventListener(event, touchHandler)
-    })
-    document.removeEventListener("keydown", enterKeyHandler)
-    // document.removeEventListener("wheel", scrollHandler, true)
+  return {
+    cleanup: () => {
+      activeTimeouts.forEach((timeoutId) => clearTimeout(timeoutId))
+      activeTimeouts.clear()
+    },
+    singleUpdateHandler,
+    multipleUpdateHandler,
   }
 }
 

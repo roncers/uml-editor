@@ -44,9 +44,6 @@ export default function InformationPopover() {
   ] as const
 
   const isMobile = window.innerWidth < 768
-  // const popoverEle = document.getElementById(
-  //   "information-popover",
-  // ) as HTMLElement
   return (
     <div
       ref={setPopoverEl}

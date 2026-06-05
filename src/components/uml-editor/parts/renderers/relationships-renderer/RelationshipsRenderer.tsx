@@ -7,6 +7,7 @@ import {
   trackUpdates,
   getClosestBorderPoint,
 } from "@/utils/functions/arrow-updater"
+import { useUpdatingContext } from "./UpdatingContext"
 import RelationshipArrow from "@/components/uml-editor/parts/renderers/relationships-renderer/relationship-arrow/RelationshipArrow"
 import { useZoom } from "@/components/uml-editor/parts/board/ZoomContext"
 const RelationshipsRenderer = observer(
@@ -27,13 +28,11 @@ const RelationshipsRenderer = observer(
     function onMove(posX: number, posY: number) {
       mouseRef.current = { x: posX, y: posY }
       setMouse({ x: posX, y: posY })
-      requestAnimationFrame(() => {
-        if (!sourceIdRef.current) return
-        const ent = document.getElementById(sourceIdRef.current)
-        if (!ent) return
-        const rect = ent.getBoundingClientRect()
-        setOrigin(getClosestBorderPoint(rect, { cursorX: posX, cursorY: posY }))
-      })
+      if (!sourceIdRef.current) return
+      const ent = document.getElementById(sourceIdRef.current)
+      if (!ent) return
+      const rect = ent.getBoundingClientRect()
+      setOrigin(getClosestBorderPoint(rect, { cursorX: posX, cursorY: posY }))
     }
     const onMoveRef = useRef(onMove)
     onMoveRef.current = onMove
@@ -48,8 +47,34 @@ const RelationshipsRenderer = observer(
     const [, forceRender] = useState(0)
     useLayoutEffect(() => {
       forceRender((n) => n + 1)
-    }, [scale])
-    useEffect(() => trackUpdates((x, y) => onMoveRef.current(x, y)), [])
+      if (creatingNew) {
+        onMoveRef.current(mouseRef.current.x, mouseRef.current.y)
+      }
+    }, [scale, creatingNew])
+    const updatingStore = useUpdatingContext()
+    useEffect(() => {
+      if (!creatingNew) return
+      function onMouseMove(ev: MouseEvent) {
+        updatingStore.update("single", { x: ev.clientX, y: ev.clientY })
+      }
+      document.addEventListener("mousemove", onMouseMove)
+      return () => document.removeEventListener("mousemove", onMouseMove)
+    }, [creatingNew, updatingStore])
+    useEffect(() => {
+      const { cleanup, singleUpdateHandler, multipleUpdateHandler } =
+        trackUpdates((x, y) => {
+          onMoveRef.current(x, y)
+        })
+      const unsubscribe = updatingStore.subscribe((type, payload) => {
+        if (type === "single")
+          singleUpdateHandler(payload?.x ?? 0, payload?.y ?? 0)
+        else if (type === "multiple") multipleUpdateHandler()
+      })
+      return () => {
+        cleanup()
+        unsubscribe()
+      }
+    }, [updatingStore])
     function getCoordinates(entityId: string, targetEntityId: string) {
       const ent = document.getElementById(entityId)
       if (!ent) return { x: 0, y: 0 }
@@ -80,7 +105,7 @@ const RelationshipsRenderer = observer(
             to={mouse}
             type={pendingRel.type}
             scale={scale}
-              onDelete={() => {
+            onDelete={() => {
               const owner = entities.find((e) => e.id === pendingRel.entityId)
               owner?.deleteRelationship(pendingRel.id)
             }}

@@ -6,6 +6,7 @@ import { SelectionMenuContext } from "@/components/uml-editor/parts/board/Select
 import { useContext } from "react"
 import DefaultCard from "./states/default-entity/DefaultEntity"
 import EditionCard from "./states/edition-entity/EditionEntity"
+import { useUpdatingContext } from "@/components/uml-editor/parts/renderers/relationships-renderer/UpdatingContext"
 
 const isMobile = window.matchMedia("(max-width: 1024px)").matches
 
@@ -17,8 +18,11 @@ const UMLClass = observer(function UMLClass({
   const selectionStore = useContext(SelectionMenuContext)
   const isSelected = selectionStore?.isSelected(entity.id) ?? false
 
+  const updatingStore = useUpdatingContext()
+
   function toggleEdition(e?: React.MouseEvent) {
     if (entity.isToggling || e?.ctrlKey) return
+    updatingStore.update("multiple")
     e?.preventDefault()
     entity.toggleEditionWithLock()
   }
@@ -39,7 +43,11 @@ const UMLClass = observer(function UMLClass({
       style={styling}
       id={entity.id}
     >
-      <RenderedCard entity={entity} onToggle={toggleEdition} dialogDestination={dialogDestination}/>
+      <RenderedCard
+        entity={entity}
+        onToggle={toggleEdition}
+        dialogDestination={dialogDestination}
+      />
     </div>
   )
 })
