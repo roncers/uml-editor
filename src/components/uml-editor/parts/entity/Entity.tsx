@@ -2,6 +2,8 @@ import "./Entity.scss"
 import type { UMLClassProps } from "./Entity.types"
 import { ClassStateEnum as EntityStates } from "@/types/entity.types"
 import { observer } from "mobx-react-lite"
+import { SelectionMenuContext } from "@/components/uml-editor/parts/board/SelectionMenuProvider"
+import { useContext } from "react"
 import DefaultCard from "./states/default-entity/DefaultEntity"
 import EditionCard from "./states/edition-entity/EditionEntity"
 
@@ -12,8 +14,11 @@ const UMLClass = observer(function UMLClass({
   dialogDestination,
   ...props
 }: UMLClassProps) {
+  const selectionStore = useContext(SelectionMenuContext)
+  const isSelected = selectionStore?.isSelected(entity.id) ?? false
+
   function toggleEdition(e?: React.MouseEvent) {
-    if (entity.isToggling) return
+    if (entity.isToggling || e?.ctrlKey) return
     e?.preventDefault()
     entity.toggleEditionWithLock()
   }
@@ -27,7 +32,7 @@ const UMLClass = observer(function UMLClass({
   }
   return (
     <div
-      className={`entity entity--${entity.state}`}
+      className={`entity entity--${entity.state}${isSelected ? " entity--selected" : ""}`}
       onContextMenu={isMobile ? undefined : toggleEdition}
       onDoubleClick={toggleEdition}
       {...props}

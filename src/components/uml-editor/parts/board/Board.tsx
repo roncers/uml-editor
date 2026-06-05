@@ -1,5 +1,6 @@
 import "./Board.scss"
 import Draggable from "@/components/utils/draggable/Draggable"
+import SelectionMenuProvider from "./SelectionMenuProvider"
 import { useState, useRef, useEffect } from "react"
 import { ZoomContext } from "./ZoomContext"
 
@@ -114,23 +115,26 @@ export default function Board({
 
   return (
     <ZoomContext.Provider value={scale}>
-      <div
-        ref={wrapperRef}
-        className="board-zoom"
-        style={{ zoom: scale }}
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-      >
-        <Draggable
-          initialPosition={getSavedPosition()}
-          onUpdatePosition={(x, y) => updateInternalPos(x, y)}
+      <SelectionMenuProvider>
+        <div
+          ref={wrapperRef}
+          className="board-zoom"
+          style={{ zoom: scale }}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
         >
-          <section className="board" ref={boardSectionRef}>
-            {children}
-          </section>
-        </Draggable>
-      </div>
+          <Draggable
+            initialPosition={getSavedPosition()}
+            onUpdatePosition={(x, y) => updateInternalPos(x, y)}
+            isBoard
+          >
+            <section className="board" ref={boardSectionRef}>
+              {children}
+            </section>
+          </Draggable>
+        </div>
+      </SelectionMenuProvider>
     </ZoomContext.Provider>
   )
 }
