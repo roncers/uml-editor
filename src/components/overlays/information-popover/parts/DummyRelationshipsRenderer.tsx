@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, useLayoutEffect } from "react"
 import { observer } from "mobx-react-lite"
 import {
   trackUpdates,
@@ -75,7 +75,7 @@ const DummyRelationshipsRenderer = observer(
       })
     }
 
-    const onMoveRef = useRef<(posX: number, posY: number) => void>(() => {})
+    const onMoveRef = useRef<(posX: number, posY: number) => void>(() => { })
     onMoveRef.current = (posX: number, posY: number) => {
       const { ox, oy } = getOffset()
       setMouseViewport({ x: posX, y: posY })
@@ -97,6 +97,7 @@ const DummyRelationshipsRenderer = observer(
       })
     }
     const [isOpen, setIsOpen] = useState(false)
+    const creatingNew = Boolean(sourceId)
 
     useEffect(() => {
       const popoverElement = document.getElementById("information-popover")
@@ -117,6 +118,15 @@ const DummyRelationshipsRenderer = observer(
     }, [])
 
     useEffect(() => {
+      if (!isOpen || !creatingNew) return
+      function onMouseMove(ev: MouseEvent) {
+        updatingStore.update("single", { x: ev.clientX, y: ev.clientY })
+      }
+      document.addEventListener("mousemove", onMouseMove)
+      return () => document.removeEventListener("mousemove", onMouseMove)
+    }, [creatingNew, isOpen, updatingStore])
+
+    useEffect(() => {
       if (!isOpen) return
       const { cleanup, singleUpdateHandler, multipleUpdateHandler } =
         trackUpdates((x, y) => {
@@ -133,9 +143,15 @@ const DummyRelationshipsRenderer = observer(
       }
     }, [updatingStore, isOpen])
 
-    if (!container) return null
+    const [, forceRender] = useState(0)
+    useLayoutEffect(() => {
+      forceRender((n) => n + 1)
+      if (creatingNew) {
+        onMoveRef.current(mouse.x, mouse.y)
+      }
+    }, [creatingNew])
 
-    const creatingNew = Boolean(sourceId)
+    if (!container) return null
 
     return (
       <svg

@@ -13,6 +13,7 @@
   "dialog-delete-text": "هل أنت متأكد أنك تريد حذف هذا العنصر؟",
   "dialog-delete-relationship-text": "هل أنت متأكد أنك تريد حذف هذه العلاقة؟",
   "dialog-delete-relationship-text-warn": "سيؤدي هذا الإجراء إلى حذف جميع العلاقات بين العنصرين.",
+  "dialog-delete-selected-entities": "هل أنت متأكد من أنك تريد حذف الكيانات المحددة؟",
   "confirm": "تأكيد",
   "cancel": "إلغاء",
   "aria-label-add-entity": "إضافة كيان جديد",
@@ -68,6 +69,9 @@
   "information-moving-usage": "تنقل في لوحة تفاعلية عن طريق السحب للتحريك والتمرير للتكبير. هل تحتاج إلى تعديل مخططك؟ ما عليك سوى النقر وسحب أي عنصر لإعادة ترتيب مساحة عملك على الفور.",
   "information-footer": "© مُهدى إلى Chester.",
   "aria-label-change-theme-info": "تبديل الثيم",
+  "info-toggle-theme": "يمكنك تبديل المظهر باستخدام هذا الزر",
+  "title-multiple-selection-usage": "تحديد متعدد",
+  "information-multiple-selection-usage": "يمكنك تحديد كيانات متعددة عن طريق الضغط على مفتاح Ctrl وسحب اللوحة. كما أن الضغط على Ctrl + النقر فوق الكيانات سيؤدي إلى تبديل حالة تحديدها. عند تحديدها، يمكنك تحريك مجموعة من الكيانات عن طريق السحب والإفلات أو حتى حذفها باستخدام مفتاح Delete.",
   "random-words": {
     "1": "إحسان",
     "2": "معنى",

@@ -4,11 +4,10 @@ import { ClassStateEnum as EntityStates } from "@/types/entity.types"
 import { observer } from "mobx-react-lite"
 import { SelectionMenuContext } from "@/components/uml-editor/parts/board/SelectionMenuProvider"
 import { useContext } from "react"
+import { useMediaQuery } from "@/utils/custom-hooks/useMediaQuery"
 import DefaultCard from "./states/default-entity/DefaultEntity"
 import EditionCard from "./states/edition-entity/EditionEntity"
 import { useUpdatingContext } from "@/components/uml-editor/parts/renderers/relationships-renderer/UpdatingContext"
-
-const isMobile = window.matchMedia("(max-width: 1024px)").matches
 
 const UMLClass = observer(function UMLClass({
   entity,
@@ -19,6 +18,7 @@ const UMLClass = observer(function UMLClass({
   const isSelected = selectionStore?.isSelected(entity.id) ?? false
 
   const updatingStore = useUpdatingContext()
+  const isMobile = useMediaQuery("(max-width: 1024px)")
 
   function toggleEdition(e?: React.MouseEvent) {
     if (entity.isToggling || e?.ctrlKey) return

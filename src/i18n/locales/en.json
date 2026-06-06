@@ -13,6 +13,7 @@
   "dialog-delete-text": "Are you sure you want to delete this item?",
   "dialog-delete-relationship-text": "Are you sure you want to delete this relationship?",
   "dialog-delete-relationship-text-warn": "This action will delete all relationships between the two elements.",
+  "dialog-delete-selected-entities": "Are you sure you want to delete the selected entities?",
   "confirm": "Confirm",
   "cancel": "Cancel",
   "aria-label-add-entity": "Add New Entity",
@@ -68,6 +69,11 @@
   "information-moving-usage": "Navigate an interactive board by dragging to pan and scrolling to zoom. Need to modify your diagram? Just click and drag any element to rearrange your workspace instantly.",
   "information-footer": "© Dedicated to Chester.",
   "aria-label-change-theme-info": "Toggle theme",
+  "info-toggle-theme": "You can toggle theme with this button",
+  "title-multiple-selection-usage": "Multiple Selection",
+  "information-multiple-selection-usage": "You can select multiple entities by holding the Ctrl and dragging the board. Also by doing Ctrl + click in entities will toggle their selected state. When selected you can move a group of entities by drag & drop or even delete them with the delete key.",
+
+
   "random-words": {
     "1": "charity",
     "2": "meaning",

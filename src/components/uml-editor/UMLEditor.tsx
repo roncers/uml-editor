@@ -2,114 +2,61 @@ import "./UMLEditor.scss"
 import ButtonsMenu from "./parts/buttons-menu/ButtonsMenu"
 import EntitiesRenderer from "./parts/renderers/entities-renderer/EntitiesRenderer"
 import Board from "./parts/board/Board"
-
-import { InterfaceFactory } from "@/classes/factories/InterfaceFactory"
-import { ClassFactory } from "@/classes/factories/ClassFactory"
-import { EntityFactory } from "@/classes/factories/EntityFactory"
-import { useState, useRef, useEffect } from "react"
-import {
-  loadFromLocalStorage,
-  storeToLocalStorage,
-} from "@/utils/functions/localStorage"
-import { EntityContext } from "./parts/EntityContext"
+import { useRef, useEffect } from "react"
+import EntityCtxProvider from "./parts/EntityCtxProvider"
+import SelectionMenuProvider from "./parts/board/SelectionMenuProvider"
 import RelationshipsRenderer from "./parts/renderers/relationships-renderer/RelationshipsRenderer"
+import { useEntityContext } from "./parts/EntityCtxProvider"
+import { useSelectionStore } from "./parts/board/SelectionMenuProvider"
 
 export default function UMLEditor() {
   const boardSectionRef = useRef<HTMLElement | null>(null)
-  const availableFactories = {
-    class: new ClassFactory(),
-    interface: new InterfaceFactory(),
-  }
-
-  function computeEntityPosition(): [number, number] {
-    const board = boardSectionRef.current!
-    const rect = board.getBoundingClientRect()
-    const zoomEl = board.closest(".board-zoom")
-    const zoom = zoomEl ? parseFloat(getComputedStyle(zoomEl).zoom) || 1 : 1
-
-    let x = (window.innerWidth / 2 - rect.left) / zoom
-    let y = (window.innerHeight / 2 - rect.top) / zoom
-
-    const RADIUS = 60
-    const THRESHOLD = 30
-
-    while (
-      EntityFactory.createdEntities.some(
-        (e) => Math.abs(e.position.x - x) < THRESHOLD && Math.abs(e.position.y - y) < THRESHOLD,
-      )
-    ) {
-      const angle = Math.random() * 2 * Math.PI
-      x += RADIUS * Math.cos(angle)
-      y += RADIUS * Math.sin(angle)
-    }
-
-    return [x, y]
-  }
-
-  function createEntity(entityType: "class" | "interface") {
-    const position = computeEntityPosition()
-    availableFactories[entityType].createEntity(position)
-    setCreatedEntities([...EntityFactory.createdEntities])
-  }
-
-  function clearEntities() {
-    EntityFactory.clearEntities()
-    setCreatedEntities([])
-  }
-
-  const [createdEntities, setCreatedEntities] = useState(() => {
-    loadFromLocalStorage()
-    return [...EntityFactory.createdEntities]
-  })
-
-  // persist on tab close / reload / navigation away
-  const latestRef = useRef(createdEntities)
-  useEffect(() => {
-    latestRef.current = createdEntities
-  }, [createdEntities])
-
-  function refreshEntities() {
-    setCreatedEntities([...EntityFactory.createdEntities])
-  }
-
-  useEffect(() => {
-    const handler = () => storeToLocalStorage()
-    window.addEventListener("beforeunload", handler)
-    return () => {
-      handler() // also save on component unmount (SPA route change)
-      window.removeEventListener("beforeunload", handler)
-    }
-  }, [])
-
-  function joinRelationship(entityId: string) {
-    const entity = createdEntities.find((e) =>
-      e.relationships.some((rel) => rel.destination === ""),
-    )
-    if (!entity) return
-    if (entity.id === entityId) return
-    entity.setRelationshipDestiny(entityId)
-  }
-
-  function deleteEntity(id: string) {
-    EntityFactory.deleteEntity(id)
-    setCreatedEntities([...EntityFactory.createdEntities])
-  }
 
   return (
-    <EntityContext.Provider value={{ createEntity, clearEntities, refreshEntities, deleteEntity }}>
-      <div className="uml-editor-frame">
-        <div className="uml-editor-frame__border" />
-        <div className="uml-editor">
-          <Board boardSectionRef={boardSectionRef}>
-            <EntitiesRenderer
-              entities={createdEntities}
-              joinRelationship={joinRelationship}
-            />
-            <RelationshipsRenderer entities={createdEntities} />
-          </Board>
-          <ButtonsMenu />
-        </div>
+    <div className="uml-editor-frame">
+      <div className="uml-editor-frame__border" />
+      <div className="uml-editor">
+        <EntityCtxProvider boardSectionRef={boardSectionRef}>
+          <SelectionMenuProvider>
+            <ButtonsMenu />
+            <UMLEditorInner boardSectionRef={boardSectionRef} />
+          </SelectionMenuProvider>
+        </EntityCtxProvider>
       </div>
-    </EntityContext.Provider>
+    </div>
+  )
+}
+
+function UMLEditorInner({ boardSectionRef }: { boardSectionRef: React.RefObject<HTMLElement | null> }) {
+  const { createdEntities, joinRelationship, createEntity } = useEntityContext()
+  const selectionStore = useSelectionStore()
+  // Key event orchestator
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (
+        e.ctrlKey &&
+        e.shiftKey &&
+        e.key.toLowerCase() === "f" &&
+        !(
+          e.target instanceof HTMLInputElement ||
+          e.target instanceof HTMLTextAreaElement
+        )
+      ) {
+        e.preventDefault()
+        createEntity("class")
+      } else if (selectionStore.entities.length && (e.key === "Delete" || e.key === "Backspace")) {
+        // selectionStore.disableClickListeners()
+        // in the dialog -> selectionStore.enableClickListeners() if they weren't deleted
+        console.log('show delete selected entities dialog, also putting the click listener of the selected entities to sleep or not to count this')
+      }
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [createEntity, selectionStore])
+  return (
+    <Board boardSectionRef={boardSectionRef}>
+      <EntitiesRenderer entities={createdEntities} joinRelationship={joinRelationship} />
+      <RelationshipsRenderer entities={createdEntities} />
+    </Board>
   )
 }

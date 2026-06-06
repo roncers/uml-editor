@@ -1,5 +1,6 @@
 import "./InformationPopover.scss"
 import { useMemo, useState } from "react"
+import { useMediaQuery } from "@/utils/custom-hooks/useMediaQuery"
 import { useTranslation } from "react-i18next"
 import CloseSvg from "@/assets/svg/common/close.svg?react"
 import ContrastSvg from "@/assets/svg/common/contrast.svg?react"
@@ -12,6 +13,7 @@ import { ClassSynec } from "@/classes/classifiers/ClassSynec"
 import DummyRelationshipsRenderer from "./parts/DummyRelationshipsRenderer"
 import { useResponsiveT } from "@/utils/functions/translateUtils"
 import { toggleTheme } from "@/utils/functions/theme"
+import ThemeInfo from "./parts/theme-toggling-info/ThemeInfo"
 
 export default function InformationPopover() {
   const tR = useResponsiveT()
@@ -22,10 +24,6 @@ export default function InformationPopover() {
   const mockEntity1 = useMemo(() => new ClassSynec(tR("right-click-me")), [tR])
   const mockEntity2 = useMemo(() => new ClassSynec(t("relate-me")), [t])
   const mockEntity3 = useMemo(() => new ClassSynec(t("relate-me-too")), [t])
-
-  function switchTheme() {
-    toggleTheme()
-  }
 
   function joinMockRelationship(targetId: string) {
     const owner = [mockEntity2, mockEntity3].find((e) =>
@@ -43,7 +41,7 @@ export default function InformationPopover() {
     "composition",
   ] as const
 
-  const isMobile = window.innerWidth < 768
+  const isMobile = useMediaQuery("(max-width: 767px)")
   return (
     <div
       ref={setPopoverEl}
@@ -57,12 +55,14 @@ export default function InformationPopover() {
             <h2 className="g-mimic-text">{t("information")}</h2>
             <button
               className="mimic-button"
-              onClick={() => switchTheme()}
+              onClick={toggleTheme}
               aria-label={t("aria-label-change-theme-info")}
               title={t("aria-label-change-theme-info")}
             >
               <ContrastSvg />
             </button>
+            {/* TODO: show this popover (over the current popover) in mounted */}
+            <ThemeInfo />
           </div>
           <button
             className="mimic-button"
@@ -184,16 +184,18 @@ export default function InformationPopover() {
             </article>
           </section>
 
-          <section className="information-card__information-container">
-            <article className="information-card__information">
-              <h4 className="g-mimic-text">{t("title-multiple-selection-usage")}</h4>
-              <section className="information-card__info-data">
-                <p className="information-card__info-text g-background-dashed">
-                  {t("information-multiple-selection-usage")}
-                </p>
-              </section>
-            </article>
-          </section>
+          {!isMobile &&
+            <section className="information-card__information-container">
+              <article className="information-card__information">
+                <h4 className="g-mimic-text g-mimic-selected">{t("title-multiple-selection-usage")}</h4>
+                <section className="information-card__info-data">
+                  <p className="information-card__info-text g-background-dashed">
+                    {t("information-multiple-selection-usage")}
+                  </p>
+                </section>
+              </article>
+            </section>
+          }
 
           <h3 className="g-mimic-text">{t("information-title-uml")}</h3>
           <section className="information-card__information-container">

@@ -2,7 +2,7 @@
 
 ## 🔴 Critical Issues
 
-### 1. `trackUpdates` — 6 global listeners always active + setTimeout spam
+### 1. `trackUpdates` — 6 global listeners always active + setTimeout spam XXX Popover delete relationship left
 
 **File:** `src/utils/functions/arrow-updater.ts`
 
@@ -16,20 +16,20 @@
 
 ---
 
-### 2. `RelationshipsRenderer` — extreme re-render pressure
+### 2. `RelationshipsRenderer` — extreme re-render pressure 
 
 **File:** `src/components/uml-editor/parts/renderers/relationships-renderer/RelationshipsRenderer.tsx`
 
 **Problems:**
 - **Every mouse move** triggers `setMouse` + `setOrigin` inside rAF → **2 React re-renders per frame** even when no rubber-band is being drawn.
-- `forceRender` on every `scale` change is a hack that causes an extra synchronous re-render.
-- `getCoordinates()` is called inline during render for **every established relationship** — this does DOM queries (`getElementById` + `getBoundingClientRect`) during the render phase.
+- `forceRender` on every `scale` change is a hack that causes an extra synchronous re-render. 
+- `getCoordinates()` is called inline during render for **every established relationship** — this does DOM queries  (`getElementById` + `getBoundingClientRect`) during the render phase. TODO
 
 **Fix:** Gate `setMouse`/`setOrigin` behind `if (!sourceIdRef.current) return` early. Remove `forceRender` — if `scale` is from `useZoom()` context, the observer already re-renders. Move `getCoordinates` into a memoized structure or use MobX computed values.
 
 ---
 
-### 3. `SelectionLayer` — `mousemove` listener leak
+### 3. `SelectionLayer` — `mousemove` listener leak XXX
 
 **File:** `src/components/utils/selection-layer/SelectionLayer.tsx`
 

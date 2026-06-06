@@ -13,6 +13,7 @@
   "dialog-delete-text": "Tem certeza de que deseja excluir este item?",
   "dialog-delete-relationship-text": "Tem certeza de que deseja excluir esta relação?",
   "dialog-delete-relationship-text-warn": "Esta ação excluirá todas as relações entre os dois elementos.",
+  "dialog-delete-selected-entities": "Tem certeza de que deseja excluir as entidades selecionadas?",
   "confirm": "Confirmar",
   "cancel": "Cancelar",
   "aria-label-add-entity": "Adicionar nova entidade",
@@ -68,6 +69,9 @@
   "information-moving-usage": "Navegue por um quadro interativo arrastando para mover e rolando para dar zoom. Precisa modificar seu diagrama? Basta clicar e arrastar qualquer elemento para reorganizar seu espaço de trabalho instantaneamente.",
   "information-footer": "© Dedicado a Chester.",
   "aria-label-change-theme-info": "Alternar tema",
+  "info-toggle-theme": "Você pode alternar o tema com este botão",
+  "title-multiple-selection-usage": "Seleção Múltipla",
+  "information-multiple-selection-usage": "Você pode selecionar várias entidades pressionando a tecla Ctrl e arrastrando o tabuleiro. Além disso, clicar nas entidades enquanto segura Ctrl alternará o estado de seleção delas. Quando selecionadas, você pode mover um grupo de entidades por arrastar e soltar ou até mesmo excluí-las com a tecla Delete.",
   "random-words": {
     "1": "caridade",
     "2": "significado",

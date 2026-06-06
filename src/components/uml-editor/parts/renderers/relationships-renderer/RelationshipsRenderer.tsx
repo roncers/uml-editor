@@ -75,6 +75,7 @@ const RelationshipsRenderer = observer(
         unsubscribe()
       }
     }, [updatingStore])
+    // TODO clean the DOM queries by using an store that contains all of the created entities and their domRects
     function getCoordinates(entityId: string, targetEntityId: string) {
       const ent = document.getElementById(entityId)
       if (!ent) return { x: 0, y: 0 }

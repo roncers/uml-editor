@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next"
 import SyButtonOptions from "@/components/shared/sy-button-options/SyButtonOptions"
 import InterchangeSvg from "@/assets/svg/common/download.svg?react"
 import { EntityFactory } from "@/classes/factories/EntityFactory"
-import { useEntityContext } from "@/components/uml-editor/parts/EntityContext"
+import { useEntityContext } from "@/components/uml-editor/parts/EntityCtxProvider"
 import "./InterchangeButton.scss"
 
 const SIGNATURE_KEY = "john-ford"

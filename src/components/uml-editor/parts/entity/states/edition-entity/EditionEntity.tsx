@@ -9,7 +9,7 @@ import FunctionSelector from "./parts/function-selector/FunctionSelector"
 import PropertySelector from "./parts/property-selector/PropertySelector"
 import { FunctionSynec } from "@/classes/members/FunctionSynec"
 import { PropertySynec } from "@/classes/members/PropertySynec"
-import { useEntityContext } from "@/components/uml-editor/parts/EntityContext"
+import { useEntityContext } from "@/components/uml-editor/parts/EntityCtxProvider"
 import type {
   AttributeVisibility,
   AttributeType,

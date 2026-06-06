@@ -44,6 +44,7 @@ export class SelectionStore {
     }
 
     unregister(id: string) {
+        this.entities = this.entities.filter((el) => el.id !== id)
         this.entityPositions.delete(id)
     }
 

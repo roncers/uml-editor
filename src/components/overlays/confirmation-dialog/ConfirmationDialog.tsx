@@ -12,11 +12,11 @@ const ConfirmationDialog = forwardRef<
   ConfirmationDialogRef,
   {
     action: () => void
-    onClose: () => void
+    onClose?: () => void
     portalDestination?: HTMLElement
     children: React.ReactNode
   }
->(({ action, onClose, portalDestination, children }, ref) => {
+>(({ action, onClose = () => { }, portalDestination, children }, ref) => {
   const { t } = useTranslation()
   const dialogRef = useRef<HTMLDialogElement>(null)
 
