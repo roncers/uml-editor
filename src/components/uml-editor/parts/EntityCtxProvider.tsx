@@ -3,6 +3,7 @@ import { InterfaceFactory } from "@/classes/factories/InterfaceFactory"
 import { ClassFactory } from "@/classes/factories/ClassFactory"
 import { EntityFactory } from "@/classes/factories/EntityFactory"
 import { loadFromLocalStorage, storeToLocalStorage } from "@/utils/functions/localStorage"
+import { useUpdatingContext } from "@/components/uml-editor/parts/renderers/relationships-renderer/UpdatingContext"
 import type { Entity } from "@/types/entity.types"
 
 export interface EntityContextType {
@@ -34,6 +35,7 @@ export default function EntityCtxProvider({
   children: React.ReactNode
   boardSectionRef: React.RefObject<HTMLElement | null>
 }) {
+  const updatingStore = useUpdatingContext()
   const [createdEntities, setCreatedEntities] = useState(() => {
     loadFromLocalStorage()
     return [...EntityFactory.createdEntities]
@@ -86,6 +88,7 @@ export default function EntityCtxProvider({
 
   function refreshEntities() {
     setCreatedEntities([...EntityFactory.createdEntities])
+    updatingStore.update("multiple")
   }
 
   function deleteEntity(id: string) {

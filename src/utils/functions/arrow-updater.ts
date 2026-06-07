@@ -1,6 +1,8 @@
+const TRANSITION_DURATION_MS = 600
+
 export function trackUpdates(onMove: (x: number, y: number) => void) {
 
-  const activeTimeouts = new Set<ReturnType<typeof setTimeout>>()
+  let rafId: number | null = null
 
   const updatePosition = (x: number, y: number) => {
     onMove(x, y)
@@ -11,14 +13,17 @@ export function trackUpdates(onMove: (x: number, y: number) => void) {
   }
 
   const multipleUpdateHandler = () => {
-    const timedRenders = Array.from({ length: 10 }, (_, i) => (i + 1) * 50)
-    timedRenders.forEach((delay) => {
-      const timeoutId = setTimeout(() => {
-        updatePosition(0, 0)
-        activeTimeouts.delete(timeoutId)
-      }, delay)
-      activeTimeouts.add(timeoutId)
-    })
+    if (rafId !== null) cancelAnimationFrame(rafId)
+    const start = performance.now()
+    const tick = (now: number) => {
+      updatePosition(0, 0)
+      if (now - start < TRANSITION_DURATION_MS) {
+        rafId = requestAnimationFrame(tick)
+      } else {
+        rafId = null
+      }
+    }
+    rafId = requestAnimationFrame(tick)
   }
 
 
@@ -26,8 +31,10 @@ export function trackUpdates(onMove: (x: number, y: number) => void) {
 
   return {
     cleanup: () => {
-      activeTimeouts.forEach((timeoutId) => clearTimeout(timeoutId))
-      activeTimeouts.clear()
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+        rafId = null
+      }
     },
     singleUpdateHandler,
     multipleUpdateHandler,

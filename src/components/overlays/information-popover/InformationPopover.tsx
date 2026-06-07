@@ -61,7 +61,6 @@ export default function InformationPopover() {
             >
               <ContrastSvg />
             </button>
-            {/* TODO: show this popover (over the current popover) in mounted */}
             <ThemeInfo />
           </div>
           <button

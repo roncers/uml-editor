@@ -75,11 +75,15 @@ const DummyRelationshipsRenderer = observer(
       })
     }
 
+    const lastMouseRef = useRef({ x: 0, y: 0 })
     const onMoveRef = useRef<(posX: number, posY: number) => void>(() => { })
     onMoveRef.current = (posX: number, posY: number) => {
+      const rx = posX || lastMouseRef.current.x
+      const ry = posY || lastMouseRef.current.y
+      lastMouseRef.current = { x: rx, y: ry }
       const { ox, oy } = getOffset()
-      setMouseViewport({ x: posX, y: posY })
-      setMouse({ x: posX - ox, y: posY - oy })
+      setMouseViewport({ x: rx, y: ry })
+      setMouse({ x: rx - ox, y: ry - oy })
       requestAnimationFrame(() => {
         if (!sourceIdRef.current) return
         const ent = document.getElementById(sourceIdRef.current)
@@ -92,7 +96,7 @@ const DummyRelationshipsRenderer = observer(
           rect.height,
         )
         setOrigin(
-          getClosestBorderPoint(ar, { cursorX: posX - ox, cursorY: posY - oy }),
+          getClosestBorderPoint(ar, { cursorX: rx - ox, cursorY: ry - oy }),
         )
       })
     }
@@ -147,9 +151,31 @@ const DummyRelationshipsRenderer = observer(
     useLayoutEffect(() => {
       forceRender((n) => n + 1)
       if (creatingNew) {
-        onMoveRef.current(mouse.x, mouse.y)
+        onMoveRef.current(lastMouseRef.current.x, lastMouseRef.current.y)
       }
     }, [creatingNew])
+
+    useEffect(() => {
+      if (!isOpen) return
+
+      const track = (ev: MouseEvent) => {
+        lastMouseRef.current = { x: ev.clientX, y: ev.clientY }
+      }
+
+      const handleScroll = () => {
+        forceRender((n) => n + 1)
+      }
+
+      document.addEventListener("mousemove", track)
+
+      const popoverElement = document.getElementById("information-popover")
+      popoverElement?.addEventListener("scroll", handleScroll, true)
+
+      return () => {
+        document.removeEventListener("mousemove", track)
+        popoverElement?.removeEventListener("scroll", handleScroll, true)
+      }
+    }, [isOpen])
 
     if (!container) return null
 

@@ -121,7 +121,7 @@ const Draggable = observer(function Draggable({
       if (entityEl) {
         e.preventDefault()
         e.stopPropagation()
-        selectionStore.toggleEntity(entityEl)
+        selectionStore.toggleEntity(entityEl.id)
         return
       }
     }
