@@ -7,8 +7,9 @@ export type Position = { x1: number; y1: number; x2: number; y2: number };
 
 export class SelectionStore {
     position: Position | null = null
-    entities: Element[] = []
+    selectedIds: string[] = []
     entityPositions = new Map<string, EntityPosition>()
+    dialogOpened = false
 
     constructor() {
         makeAutoObservable(this, { entityPositions: false })
@@ -18,25 +19,29 @@ export class SelectionStore {
         this.position = position
     }
 
-    setEntities(entities: Element[]) {
-        this.entities = entities
+    setEntities(ids: string[]) {
+        this.selectedIds = ids
+    }
+    
+    setDialogOpened(opened: boolean) {
+        this.dialogOpened = opened
     }
 
-    addEntity(el: Element) {
-        if (this.entities.includes(el)) return
-        this.entities = [...this.entities, el]
+    addEntity(id: string) {
+        if (this.selectedIds.includes(id)) return
+        this.selectedIds = [...this.selectedIds, id]
     }
 
-    toggleEntity(el: Element) {
-        if (this.entities.includes(el)) {
-            this.entities = this.entities.filter((e) => e !== el)
+    toggleEntity(id: string) {
+        if (this.selectedIds.includes(id)) {
+            this.selectedIds = this.selectedIds.filter((e) => e !== id)
         } else {
-            this.addEntity(el)
+            this.addEntity(id)
         }
     }
 
     clearSelection() {
-        this.entities = []
+        this.selectedIds = []
     }
 
     register(id: string, position: EntityPosition) {
@@ -44,19 +49,19 @@ export class SelectionStore {
     }
 
     unregister(id: string) {
-        this.entities = this.entities.filter((el) => el.id !== id)
+        this.selectedIds = this.selectedIds.filter((e) => e !== id)
         this.entityPositions.delete(id)
     }
 
     isSelected(id: string): boolean {
-        return this.entities.some((el) => el.id === id)
+        return this.selectedIds.includes(id)
     }
 
     applyDelta(dx: number, dy: number, exceptId: string) {
         if (!dx && !dy) return
-        this.entities.forEach((el) => {
-            if (el.id === exceptId) return
-            const pos = this.entityPositions.get(el.id)
+        this.selectedIds.forEach((id) => {
+            if (id === exceptId) return
+            const pos = this.entityPositions.get(id)
             if (pos) pos.setPosition(pos.x + dx, pos.y + dy)
         })
     }

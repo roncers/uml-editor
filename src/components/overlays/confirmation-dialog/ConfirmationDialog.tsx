@@ -21,7 +21,7 @@ const ConfirmationDialog = forwardRef<
   const dialogRef = useRef<HTMLDialogElement>(null)
 
   useImperativeHandle(ref, () => ({
-    openDialog: () => dialogRef.current?.showModal(),
+    openDialog: () => { dialogRef.current?.showModal(); dialogRef.current?.focus() },
     closeDialog: () => dialogRef.current?.close(),
   }))
 

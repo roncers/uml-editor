@@ -42,15 +42,17 @@ const RelationshipsRenderer = observer(
         .filter((rel) => rel.destination)
         .map((rel) => ({ entity, rel })),
     )
-    // for using the scaling in the relationships when wheel is used
     const scale = useZoom()
+    const relationshipSignature = createdRelationships
+      .map(({ rel }) => `${rel.id}:${rel.origin}>${rel.destination}`)
+      .join("|")
     const [, forceRender] = useState(0)
     useLayoutEffect(() => {
       forceRender((n) => n + 1)
       if (creatingNew) {
         onMoveRef.current(mouseRef.current.x, mouseRef.current.y)
       }
-    }, [scale, creatingNew])
+    }, [scale, creatingNew, relationshipSignature])
     const updatingStore = useUpdatingContext()
     useEffect(() => {
       if (!creatingNew) return
