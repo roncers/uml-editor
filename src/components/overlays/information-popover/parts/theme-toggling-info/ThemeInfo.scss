@@ -1,0 +1,56 @@
+@keyframes theme-info-appear {
+    0% {
+        opacity: 0;
+        transform: translateY(-0.5rem);
+    }
+
+    15% {
+        opacity: 0;
+        transform: translateY(-0.5rem);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    80% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-0.5rem);
+    }
+}
+
+.theme-info-popover {
+    // Anchored to the right of the theme button (.information-card__header-title
+    // is the positioning context). Absolute so it never reserves layout space.
+    position: absolute;
+    left: 100%;
+    top: 0;
+    bottom: 0;
+    height: fit-content;
+    margin: auto 0 auto 1rem;
+    border: 1px solid var(--color-primary);
+    border-radius: 0.5rem;
+    background: var(--color-background);
+    color: var(--color-primary);
+    padding: 0.75rem 1.25rem;
+    font-size: 1.4rem;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1000;
+
+    // Hidden by default; only shown while the information popover is open.
+    // The animation ends at opacity:0, giving the 3s auto-hide for free, and
+    // it restarts each time the popover re-opens (display none -> block).
+    display: none;
+
+    .popover-container:popover-open & {
+        display: block;
+        animation: theme-info-appear 3s ease forwards;
+    }
+}

@@ -12,15 +12,16 @@ const ConfirmationDialog = forwardRef<
   ConfirmationDialogRef,
   {
     action: () => void
+    onClose?: () => void
     portalDestination?: HTMLElement
     children: React.ReactNode
   }
->(({ action, portalDestination, children }, ref) => {
+>(({ action, onClose = () => { }, portalDestination, children }, ref) => {
   const { t } = useTranslation()
   const dialogRef = useRef<HTMLDialogElement>(null)
 
   useImperativeHandle(ref, () => ({
-    openDialog: () => dialogRef.current?.showModal(),
+    openDialog: () => { dialogRef.current?.showModal(); dialogRef.current?.focus() },
     closeDialog: () => dialogRef.current?.close(),
   }))
 
@@ -34,7 +35,7 @@ const ConfirmationDialog = forwardRef<
     >
       <div className="confirmation-dialog__content">{children}</div>
       <form method="dialog" className="confirmation-dialog__actions">
-        <button value="cancel">{t("cancel")}</button>
+        <button value="cancel" onClick={() => onClose?.()}>{t("cancel")}</button>
         <button type="button" onClick={() => { action(); dialogRef.current?.close() }}>
           {t("delete")}
         </button>

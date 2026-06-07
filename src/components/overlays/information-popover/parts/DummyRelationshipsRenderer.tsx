@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, useLayoutEffect } from "react"
 import { observer } from "mobx-react-lite"
 import {
   trackUpdates,
@@ -6,6 +6,7 @@ import {
 } from "@/utils/functions/arrow-updater"
 import RelationshipArrow from "@/components/uml-editor/parts/renderers/relationships-renderer/relationship-arrow/RelationshipArrow"
 import type { Entity as EntityType } from "@/types/entity.types"
+import { useUpdatingContext } from "@/components/uml-editor/parts/renderers/relationships-renderer/UpdatingContext"
 
 const DummyRelationshipsRenderer = observer(
   ({
@@ -23,6 +24,7 @@ const DummyRelationshipsRenderer = observer(
     const [origin, setOrigin] = useState<{ x: number; y: number } | null>(null)
     const [mouse, setMouse] = useState({ x: 0, y: 0 })
     const [mouseViewport, setMouseViewport] = useState({ x: 0, y: 0 })
+    const updatingStore = useUpdatingContext()
 
     const pendingRel = relationships.find((rel) => rel.destination === "")
     const sourceId = pendingRel?.entityId
@@ -48,7 +50,12 @@ const DummyRelationshipsRenderer = observer(
       const target = document.getElementById(targetEntityId)
       if (!target) return { x: 0, y: 0 }
       const targetRect = target.getBoundingClientRect()
-      const ar = new DOMRect(rect.left - ox, rect.top - oy, rect.width, rect.height)
+      const ar = new DOMRect(
+        rect.left - ox,
+        rect.top - oy,
+        rect.width,
+        rect.height,
+      )
       return getClosestBorderPoint(ar, {
         cursorX: targetRect.left - ox + targetRect.width / 2,
         cursorY: targetRect.top - oy + targetRect.height / 2,
@@ -68,26 +75,109 @@ const DummyRelationshipsRenderer = observer(
       })
     }
 
-    const onMoveRef = useRef<(posX: number, posY: number) => void>(() => {})
+    const lastMouseRef = useRef({ x: 0, y: 0 })
+    const onMoveRef = useRef<(posX: number, posY: number) => void>(() => { })
     onMoveRef.current = (posX: number, posY: number) => {
+      const rx = posX || lastMouseRef.current.x
+      const ry = posY || lastMouseRef.current.y
+      lastMouseRef.current = { x: rx, y: ry }
       const { ox, oy } = getOffset()
-      setMouseViewport({ x: posX, y: posY })
-      setMouse({ x: posX - ox, y: posY - oy })
+      setMouseViewport({ x: rx, y: ry })
+      setMouse({ x: rx - ox, y: ry - oy })
       requestAnimationFrame(() => {
         if (!sourceIdRef.current) return
         const ent = document.getElementById(sourceIdRef.current)
         if (!ent) return
         const rect = ent.getBoundingClientRect()
-        const ar = new DOMRect(rect.left - ox, rect.top - oy, rect.width, rect.height)
-        setOrigin(getClosestBorderPoint(ar, { cursorX: posX - ox, cursorY: posY - oy }))
+        const ar = new DOMRect(
+          rect.left - ox,
+          rect.top - oy,
+          rect.width,
+          rect.height,
+        )
+        setOrigin(
+          getClosestBorderPoint(ar, { cursorX: rx - ox, cursorY: ry - oy }),
+        )
       })
     }
+    const [isOpen, setIsOpen] = useState(false)
+    const creatingNew = Boolean(sourceId)
 
-    useEffect(() => trackUpdates((x, y) => onMoveRef.current(x, y)), [])
+    useEffect(() => {
+      const popoverElement = document.getElementById("information-popover")
+      if (!popoverElement) return
+
+      const handleToggle = (event: ToggleEvent) => {
+        setIsOpen(event.newState === "open")
+      }
+
+      popoverElement.addEventListener("toggle", handleToggle as EventListener)
+
+      return () => {
+        popoverElement.removeEventListener(
+          "toggle",
+          handleToggle as EventListener,
+        )
+      }
+    }, [])
+
+    useEffect(() => {
+      if (!isOpen || !creatingNew) return
+      function onMouseMove(ev: MouseEvent) {
+        updatingStore.update("single", { x: ev.clientX, y: ev.clientY })
+      }
+      document.addEventListener("mousemove", onMouseMove)
+      return () => document.removeEventListener("mousemove", onMouseMove)
+    }, [creatingNew, isOpen, updatingStore])
+
+    useEffect(() => {
+      if (!isOpen) return
+      const { cleanup, singleUpdateHandler, multipleUpdateHandler } =
+        trackUpdates((x, y) => {
+          onMoveRef.current(x, y)
+        })
+      const unsubscribe = updatingStore.subscribe((type, payload) => {
+        if (type === "single")
+          singleUpdateHandler(payload?.x ?? 0, payload?.y ?? 0)
+        else if (type === "multiple") multipleUpdateHandler()
+      })
+      return () => {
+        cleanup()
+        unsubscribe()
+      }
+    }, [updatingStore, isOpen])
+
+    const [, forceRender] = useState(0)
+    useLayoutEffect(() => {
+      forceRender((n) => n + 1)
+      if (creatingNew) {
+        onMoveRef.current(lastMouseRef.current.x, lastMouseRef.current.y)
+      }
+    }, [creatingNew])
+
+    useEffect(() => {
+      if (!isOpen) return
+
+      const track = (ev: MouseEvent) => {
+        lastMouseRef.current = { x: ev.clientX, y: ev.clientY }
+      }
+
+      const handleScroll = () => {
+        forceRender((n) => n + 1)
+      }
+
+      document.addEventListener("mousemove", track)
+
+      const popoverElement = document.getElementById("information-popover")
+      popoverElement?.addEventListener("scroll", handleScroll, true)
+
+      return () => {
+        document.removeEventListener("mousemove", track)
+        popoverElement?.removeEventListener("scroll", handleScroll, true)
+      }
+    }, [isOpen])
 
     if (!container) return null
-
-    const creatingNew = Boolean(sourceId)
 
     return (
       <svg

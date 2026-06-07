@@ -1,62 +1,49 @@
+const TRANSITION_DURATION_MS = 600
+
 export function trackUpdates(onMove: (x: number, y: number) => void) {
-  let lastX = 0
-  let lastY = 0
+
+  let rafId: number | null = null
 
   const updatePosition = (x: number, y: number) => {
-    lastX = x
-    lastY = y
-    onMove(lastX, lastY)
+    onMove(x, y)
   }
 
-  const moveHandler = (event: MouseEvent) => {
-    updatePosition(event.clientX, event.clientY)
+  const singleUpdateHandler = (x: number, y: number) => {
+    updatePosition(x, y)
   }
 
-  const touchHandler = (event: TouchEvent) => {
-    const touch = event.touches[0]
-    if (!touch) return
-    updatePosition(touch.clientX, touch.clientY)
-  }
-
-  const scrollHandler = () => {
-    onMove(lastX, lastY)
-  }
-
-  const renderMultipleTimes = () => {
-    const timedRenders = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500]
-    timedRenders.forEach((delay) => {
-      setTimeout(scrollHandler, delay)
-    })
-  }
-
-  const enterKeyHandler = (event: KeyboardEvent) => {
-    if (event.key === "Enter") {
-      renderMultipleTimes()
+  const multipleUpdateHandler = () => {
+    if (rafId !== null) cancelAnimationFrame(rafId)
+    const start = performance.now()
+    const tick = (now: number) => {
+      updatePosition(0, 0)
+      if (now - start < TRANSITION_DURATION_MS) {
+        rafId = requestAnimationFrame(tick)
+      } else {
+        rafId = null
+      }
     }
+    rafId = requestAnimationFrame(tick)
   }
 
-  const moveHandled = ["mousemove", "contextmenu", "click", "dblclick"] as const
-  const touchHandled = ["touchstart", "touchmove"] as const
 
-  moveHandled.forEach((event) => {
-    document.addEventListener(event, moveHandler)
-  })
-  touchHandled.forEach((event) => {
-    document.addEventListener(event, touchHandler)
-  })
-  document.addEventListener("keydown", enterKeyHandler)
-  // document.addEventListener("wheel", scrollHandler, true)
-  renderMultipleTimes()
+  multipleUpdateHandler()
 
-  return () => {
-    moveHandled.forEach((event) => {
-      document.removeEventListener(event, moveHandler)
-    })
-    touchHandled.forEach((event) => {
-      document.removeEventListener(event, touchHandler)
-    })
-    document.removeEventListener("keydown", enterKeyHandler)
-    // document.removeEventListener("wheel", scrollHandler, true)
+  function onResize() {
+    updatePosition(0, 0)
+  }
+  window.addEventListener("resize", onResize)
+
+  return {
+    cleanup: () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+        rafId = null
+      }
+      window.removeEventListener("resize", onResize)
+    },
+    singleUpdateHandler,
+    multipleUpdateHandler,
   }
 }
 

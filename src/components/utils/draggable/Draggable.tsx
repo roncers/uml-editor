@@ -5,6 +5,7 @@ import { useSelectionStore } from "@/components/uml-editor/parts/board/Selection
 import { observer } from "mobx-react-lite"
 import type { Position } from "@/classes/members/Position"
 import SelectionLayer from "@/components/utils/selection-layer/SelectionLayer"
+import { useUpdatingContext } from "@/components/uml-editor/parts/renderers/relationships-renderer/UpdatingContext"
 
 const Draggable = observer(function Draggable({
   children,
@@ -22,6 +23,7 @@ const Draggable = observer(function Draggable({
   onUpdatePosition?: (x: number, y: number) => void
 }) {
   const selectionStore = useSelectionStore()
+  const updatingStore = useUpdatingContext()
 
   useEffect(() => {
     if (!id || !entityPosition) return
@@ -78,6 +80,7 @@ const Draggable = observer(function Draggable({
 
     function onMouseMove(ev: MouseEvent) {
       onMove(ev.clientX, ev.clientY)
+      updatingStore.update("single", { x: ev.clientX, y: ev.clientY })
     }
 
     function onTouchMove(ev: TouchEvent) {
@@ -87,9 +90,16 @@ const Draggable = observer(function Draggable({
         if (ev.cancelable) ev.preventDefault()
         onMove(ev.touches[0].clientX, ev.touches[0].clientY)
       }
+      updatingStore.update("single", { x: ev.touches[0].clientX, y: ev.touches[0].clientY })
     }
 
-    function stop() {
+    function stop(e: MouseEvent | TouchEvent) {
+      const clientX = "clientX" in e ? e.clientX : (e as TouchEvent).changedTouches?.[0]?.clientX ?? 0
+      const clientY = "clientY" in e ? e.clientY : (e as TouchEvent).changedTouches?.[0]?.clientY ?? 0
+      updatingStore.update("single", { x: clientX, y: clientY })
+      requestAnimationFrame(() => {
+        updatingStore.update("single", { x: clientX, y: clientY })
+      })
       setIsDragging(false)
       dragStart.current = null
       window.removeEventListener("mousemove", onMouseMove)
@@ -107,25 +117,25 @@ const Draggable = observer(function Draggable({
   function onMouseDown(e: React.MouseEvent) {
     if (e.button !== 0) return
     if ((e.ctrlKey || e.metaKey) && id) {
-      const entityEl = (e.currentTarget as HTMLElement).querySelector(
-        ".entity",
-      )
+      const entityEl = (e.currentTarget as HTMLElement).querySelector(".entity")
       if (entityEl) {
         e.preventDefault()
         e.stopPropagation()
-        selectionStore.toggleEntity(entityEl)
+        selectionStore.toggleEntity(entityEl.id)
         return
       }
     }
     e.preventDefault()
     e.stopPropagation()
     startDrag(e.clientX, e.clientY)
+    updatingStore.update("single", { x: e.clientX, y: e.clientY })
   }
 
   function onTouchStart(e: React.TouchEvent) {
     if (e.touches.length > 1) return
     e.stopPropagation()
     startDrag(e.touches[0].clientX, e.touches[0].clientY)
+    updatingStore.update("single", { x: e.touches[0].clientX, y: e.touches[0].clientY })
   }
 
   return (
@@ -137,11 +147,7 @@ const Draggable = observer(function Draggable({
       onMouseDown={onMouseDown}
       onTouchStart={onTouchStart}
     >
-      {isBoard ? (
-        <SelectionLayer>{children}</SelectionLayer>
-      ) : (
-        children
-      )}
+      {isBoard ? <SelectionLayer>{children}</SelectionLayer> : children}
     </div>
   )
 })

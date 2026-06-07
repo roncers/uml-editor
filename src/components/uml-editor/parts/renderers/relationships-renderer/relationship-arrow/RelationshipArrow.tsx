@@ -124,6 +124,7 @@ function toggleDeleteButton(e: React.MouseEvent) {
                 onDelete?.()
                 setShowDelete(false)
               }}
+              onClose={() => setShowDelete(false)}
             >
               <p>{t("dialog-delete-relationship-text")}</p>
             </ConfirmationDialog>

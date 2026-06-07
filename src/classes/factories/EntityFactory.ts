@@ -48,6 +48,13 @@ export abstract class EntityFactory {
         EntityFactory.createdEntities.indexOf(entity),
         1,
       )
+      // cleanup of relationships that point to the deleted entity
+      for (const other of EntityFactory.createdEntities) {
+        const orphaned = other.relationships.filter((rel) => rel.destination === id)
+        for (const rel of orphaned) {
+          other.deleteRelationship(rel.id)
+        }
+      }
     }
   }
 }

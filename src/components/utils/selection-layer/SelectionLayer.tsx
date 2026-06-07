@@ -17,18 +17,18 @@ const SelectionLayer = observer(function SelectionLayer({
   const store = useSelectionStore()
 
   useEffect(() => {
-    if (store.entities.length === 0) return
+    if (store.selectedIds.length === 0) return
     function onDocumentMouseDown(event: MouseEvent) {
       const entityEl = (event.target as Element)?.closest(".entity")
-      if ((event.ctrlKey || event.metaKey) && entityEl) return
+      if (((event.ctrlKey || event.metaKey) && entityEl) || store.dialogOpened) return
       const clickedSelected =
-        !!entityEl && store.entities.some((e) => e === entityEl)
+        !!entityEl && store.isSelected(entityEl.id)
       if (!clickedSelected) store.clearSelection()
     }
     window.addEventListener("mousedown", onDocumentMouseDown, true)
     return () =>
       window.removeEventListener("mousedown", onDocumentMouseDown, true)
-  }, [store, store.entities.length])
+  }, [store, store.selectedIds.length])
 
   function updateFirstPos(e: MouseEvent) {
     e.preventDefault()
@@ -44,6 +44,7 @@ const SelectionLayer = observer(function SelectionLayer({
       e.stopPropagation()
       updateFirstPos(e as unknown as MouseEvent)
       document.addEventListener("mousemove", updatePos)
+      document.addEventListener("mouseup", handleMouseUp)
     }
   }
 
@@ -53,34 +54,38 @@ const SelectionLayer = observer(function SelectionLayer({
       putEntitiesSelected(entities)
       store.setPosition(null)
       document.removeEventListener("mousemove", updatePos)
+      document.removeEventListener("mouseup", handleMouseUp)
     }
   }
 
   function getEntitiesInArea(position: Position): Element[] {
     const entities = document.querySelectorAll(".entity")
+    const minX = Math.min(position.x1, position.x2)
+    const maxX = Math.max(position.x1, position.x2)
+    const minY = Math.min(position.y1, position.y2)
+    const maxY = Math.max(position.y1, position.y2)
 
     return Array.from(entities).filter((el) => {
       const rect = el.getBoundingClientRect()
 
       const isOutside =
-        rect.right < position.x1 ||
-        rect.left > position.x2 ||
-        rect.bottom < position.y1 ||
-        rect.top > position.y2
+        rect.right < minX ||
+        rect.left > maxX ||
+        rect.bottom < minY ||
+        rect.top > maxY
 
       return !isOutside
     })
   }
   function putEntitiesSelected(entities: Element[]) {
     store.clearSelection()
-    entities.forEach((entity) => store.addEntity(entity))
+    entities.forEach((entity) => store.addEntity(entity.id))
   }
 
   return (
     <div
       className="selection-layer"
       onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
     >
       {store.position?.x1 &&
         store.position?.y1 &&

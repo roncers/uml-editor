@@ -13,6 +13,7 @@
   "dialog-delete-text": "您确定要删除此项目吗？",
   "dialog-delete-relationship-text": "您确定要删除此关系吗？",
   "dialog-delete-relationship-text-warn": "此操作将删除两个元素之间的所有关系。",
+  "dialog-delete-selected-entities": "您确定要删除选中的实体吗？",
   "confirm": "确认",
   "cancel": "取消",
   "aria-label-add-entity": "添加新实体",
@@ -68,6 +69,9 @@
   "information-moving-usage": "通过拖动来平移交互式画板，滚动来缩放。需要修改您的图表？只需点击并拖动任何元素即可立即重新排列您的工作区。",
   "information-footer": "© 献给Chester。",
   "aria-label-change-theme-info": "切换主题",
+  "info-toggle-theme": "您可以使用此按钮切换主题",
+  "title-multiple-selection-usage": "多选",
+  "information-multiple-selection-usage": "您可以通过按住 Ctrl 键并在画布上拖动来选择多个实体。此外，按住 Ctrl 键点击实体可以切换它们的选中状态。选中后，您可以通过拖放来移动一组实体，甚至可以使用 Delete 键将其删除。",
   "random-words": {
     "1": "慈善",
     "2": "意义",

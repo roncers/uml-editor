@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { EntityContext } from "@/components/uml-editor/parts/EntityContext"
+import { EntityContext } from "@/components/uml-editor/parts/EntityCtxProvider"
 import { useTranslation } from "react-i18next"
 import SyButtonOptions from "@/components/shared/sy-button-options/SyButtonOptions"
 import AddSvg from "@/assets/svg/common/add.svg?react"
@@ -7,26 +7,6 @@ import AddSvg from "@/assets/svg/common/add.svg?react"
 export default function AddButton({ disabled }: { disabled?: boolean }) {
   const context = useContext(EntityContext)
   const { t } = useTranslation()
-
-  // TODO -> centralize it for more commands
-  // useEffect(() => {
-  //   function onKeyDown(e: KeyboardEvent) {
-  //     if (
-  //       e.ctrlKey &&
-  //       e.shiftKey &&
-  //       e.key.toLowerCase() === "f" &&
-  //       !(
-  //         e.target instanceof HTMLInputElement ||
-  //         e.target instanceof HTMLTextAreaElement
-  //       )
-  //     ) {
-  //       e.preventDefault()
-  //       context?.createEntity("class")
-  //     }
-  //   }
-  //   window.addEventListener("keydown", onKeyDown)
-  //   return () => window.removeEventListener("keydown", onKeyDown)
-  // }, [context])
 
   return (
     <SyButtonOptions
