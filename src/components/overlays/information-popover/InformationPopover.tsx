@@ -14,6 +14,7 @@ import DummyRelationshipsRenderer from "./parts/DummyRelationshipsRenderer"
 import { useResponsiveT } from "@/utils/functions/translateUtils"
 import { toggleTheme } from "@/utils/functions/theme"
 import ThemeInfo from "./parts/theme-toggling-info/ThemeInfo"
+import SelectionTitle from "./parts/selection-toggling/SelectionTitle"
 
 export default function InformationPopover() {
   const tR = useResponsiveT()
@@ -79,7 +80,7 @@ export default function InformationPopover() {
 
           <section className="information-card__information-container">
             <article className="information-card__information">
-              <h4 className="g-mimic-text">{t("title-moving-usage")}</h4>
+              <SelectionTitle>{t("title-moving-usage")}</SelectionTitle>
               <section className="information-card__info-data">
                 <p className="information-card__info-text g-background-dashed">
                   {t("information-moving-usage")}
@@ -90,7 +91,7 @@ export default function InformationPopover() {
 
           <section className="information-card__information-container">
             <article className="information-card__information">
-              <h4 className="g-mimic-text">{t("title-creation-usage")}</h4>
+              <SelectionTitle>{t("title-creation-usage")}</SelectionTitle>
               <section className="information-card__info-data">
                 <p className="information-card__info-text g-background-dashed">
                   {t("information-creation-usage")}
@@ -104,7 +105,7 @@ export default function InformationPopover() {
 
           <section className="information-card__information-container">
             <article className="information-card__information">
-              <h4 className="g-mimic-text">{t("title-edition-usage")}</h4>
+              <SelectionTitle>{t("title-edition-usage")}</SelectionTitle>
               <section className="information-card__info-data">
                 <p className="information-card__info-text information-card__entity-toggling-text g-background-dashed">
                   {tR("information-edition-usage-1")}
@@ -118,9 +119,9 @@ export default function InformationPopover() {
 
           <section className="information-card__information-container">
             <article className="information-card__information">
-              <h4 className="g-mimic-text">
+              <SelectionTitle>
                 {t("information-relationships-handling-title")}
-              </h4>
+              </SelectionTitle>
               <section className="information-card__info-data">
                 <div className="information-card__info-text information-card__entity-toggling-text g-background-dashed">
                   <p>{tR("information-edition-usage-2")}</p>
@@ -157,7 +158,7 @@ export default function InformationPopover() {
 
           <section className="information-card__information-container">
             <article className="information-card__information">
-              <h4 className="g-mimic-text">{t("title-deletion-usage")}</h4>
+              <SelectionTitle>{t("title-deletion-usage")}</SelectionTitle>
               <section className="information-card__info-data">
                 <p className="information-card__info-text g-background-dashed">
                   {t("information-deletion-usage")}
@@ -171,7 +172,7 @@ export default function InformationPopover() {
 
           <section className="information-card__information-container">
             <article className="information-card__information">
-              <h4 className="g-mimic-text">{t("title-exchange-usage")}</h4>
+              <SelectionTitle>{t("title-exchange-usage")}</SelectionTitle>
               <section className="information-card__info-data">
                 <p className="information-card__info-text g-background-dashed">
                   {t("information-exchange-usage")}
@@ -186,7 +187,7 @@ export default function InformationPopover() {
           {!isMobile &&
             <section className="information-card__information-container">
               <article className="information-card__information">
-                <h4 className="g-mimic-text g-mimic-selected">{t("title-multiple-selection-usage")}</h4>
+                <SelectionTitle startValue>{t("title-multiple-selection-usage")}</SelectionTitle>
                 <section className="information-card__info-data">
                   <p className="information-card__info-text g-background-dashed">
                     {t("information-multiple-selection-usage")}
@@ -209,7 +210,7 @@ export default function InformationPopover() {
 
           <section className="information-card__information-container">
             <article className="information-card__information">
-              <h4 className="g-mimic-text">{t("information-classes-title")}</h4>
+              <SelectionTitle>{t("information-classes-title")}</SelectionTitle>
               <section className="information-card__info-data">
                 <p className="information-card__info-text g-background-dashed">
                   {t("information-uml-classes")}
@@ -219,9 +220,9 @@ export default function InformationPopover() {
           </section>
           <section className="information-card__information-container">
             <article className="information-card__information">
-              <h4 className="g-mimic-text">
+              <SelectionTitle>
                 {t("information-interfaces-title")}
-              </h4>
+              </SelectionTitle>
               <section className="information-card__info-data">
                 <p className="information-card__info-text g-background-dashed">
                   {t("information-uml-interfaces")}
@@ -231,9 +232,9 @@ export default function InformationPopover() {
           </section>
           <section className="information-card__information-container">
             <article className="information-card__information">
-              <h4 className="g-mimic-text">
+              <SelectionTitle>
                 {t("information-relationships-title")}
-              </h4>
+              </SelectionTitle>
               <section className="information-card__info-grid">
                 {relationshipTypes.map((type) => {
                   const IconComponent = RelationshipComponents[type]

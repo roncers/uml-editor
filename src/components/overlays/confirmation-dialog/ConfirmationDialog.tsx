@@ -34,9 +34,11 @@ const ConfirmationDialog = forwardRef<
       className="confirmation-dialog"
     >
       <div className="confirmation-dialog__content">{children}</div>
-      <form method="dialog" className="confirmation-dialog__actions">
-        <button value="cancel" onClick={() => onClose?.()}>{t("cancel")}</button>
-        <button type="button" onClick={() => { action(); dialogRef.current?.close() }}>
+      <form method="dialog" className="confirmation-dialog__actions"
+        onSubmit={() => { action(); }}
+        onReset={() => { onClose?.(); dialogRef.current?.close(); }}>
+        <button type="reset" value="cancel">{t("cancel")}</button>
+        <button type="submit">
           {t("delete")}
         </button>
       </form>
