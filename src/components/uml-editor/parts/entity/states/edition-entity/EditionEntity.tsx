@@ -86,10 +86,15 @@ const EditionEntity = observer(({ entity, onToggle, dialogDestination }: UMLClas
         <EntityInput
           value={entity.name}
           onChange={(value) => entity.setName(value)}
+          title=""
+          aria-label="{t('name')}"
         />
         <h5 className="entity-form__methods-title">
           <span className="entity-form__subtitle">{t("attributes")}</span>
-          <AddButton action={() => entity.addProperty(new PropertySynec())} />
+          <AddButton
+            action={() => entity.addProperty(new PropertySynec())}
+            title={t('add-attrs')}
+            aria-label={t('add-attrs')} />
         </h5>
         {entity.properties.map((property, indx) => (
           <PropertySelector
@@ -103,7 +108,10 @@ const EditionEntity = observer(({ entity, onToggle, dialogDestination }: UMLClas
         ))}
         <h5 className="entity-form__methods-title">
           <span className="entity-form__subtitle">{t("methods")}</span>
-          <AddButton action={() => entity.addFunction(new FunctionSynec())} />
+          <AddButton
+            action={() => entity.addFunction(new FunctionSynec())}
+            title={t('add-methds')}
+            aria-label={t('add-mthds')} />
         </h5>
         {entity.functions.map((method, indx) => (
           <FunctionSelector
@@ -130,7 +138,8 @@ const EditionEntity = observer(({ entity, onToggle, dialogDestination }: UMLClas
               e.preventDefault()
               deleteDialogRef.current?.openDialog()
             }}
-            aria-label={t("delete")}
+            aria-label={t("delete-entity")}
+            title={t("delete-entity")}
           >
             <DeleteSvg />
           </button>

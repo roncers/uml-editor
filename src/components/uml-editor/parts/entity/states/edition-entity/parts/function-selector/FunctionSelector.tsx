@@ -30,6 +30,8 @@ const FunctionSelector = observer(
           onTouchStart={(e) => e.stopPropagation()}
           onDoubleClick={(e) => e.stopPropagation()}
           placeholder={t("name-placeholder")}
+          title={t('')}
+          aria-label={t('')}
         />
         <select
           id={`function-visibility-${formId}`}
@@ -38,6 +40,8 @@ const FunctionSelector = observer(
           onChange={(e) => onChange(e.target.value, "visibility", value)}
           onMouseDown={(e) => e.stopPropagation()}
           onDoubleClick={(e) => e.stopPropagation()}
+          title={t('')}
+          aria-label={t('')}
         >
           {Object.values(attributeVisibility).map((opt) => (
             <option key={opt} value={opt}>

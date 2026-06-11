@@ -32,6 +32,8 @@ export default function RelationshipsSelector({
       onClick={(e) => {
         e.preventDefault()
       }}
+      title=""
+      aria-label={t('add-relationship')}
     >
       <AddSvg aria-hidden="true" />
       <div className="entity-form__relationship-menu">

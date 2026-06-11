@@ -72,7 +72,11 @@
   "info-toggle-theme": "You can toggle theme with this button",
   "title-multiple-selection-usage": "Multiple Selection",
   "information-multiple-selection-usage": "You can select multiple entities by holding the Ctrl and dragging the board. Also by doing Ctrl + click in entities will toggle their selected state. When selected you can move a group of entities by drag & drop or even delete them with the delete key.",
-
+  "toggle-info": "Right click to toggle",
+  "add-attrs": "Add attributes",
+  "add-methds": "Add methods",
+  "delete-entity": "Delete entity",
+  "add-relationship": "Add relationship",
 
   "random-words": {
     "1": "charity",

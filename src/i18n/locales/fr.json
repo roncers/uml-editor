@@ -72,6 +72,11 @@
   "info-toggle-theme": "Vous pouvez changer de thème avec ce bouton",
   "title-multiple-selection-usage": "Sélection multiple",
   "information-multiple-selection-usage": "Vous pouvez sélectionner plusieurs entités en maintenant la touche Ctrl enfoncée et en faisant glisser le tableau. Faire Ctrl + clic sur les entités basculera également leur état de sélection. Une fois sélectionnées, vous pouvez déplacer un groupe d'entités par glisser-déposer ou même les supprimer avec la touche Suppr.",
+  "toggle-info": "Clic droit pour basculer",
+  "add-attrs": "Ajouter des attributs",
+  "add-methds": "Ajouter des méthodes",
+  "delete-entity": "Supprimer l'entité",
+  "add-relationship": "Ajouter une relation",
   "random-words": {
     "1": "charité",
     "2": "signification",

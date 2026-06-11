@@ -29,6 +29,8 @@ const PropertySelector = observer(
           onChange={(e) => onChange(e.target.value, "type", value)}
           onMouseDown={(e) => e.stopPropagation()}
           onDoubleClick={(e) => e.stopPropagation()}
+          title={t('')}
+          aria-label={t('')}
         >
           {Object.values(attributeType).map((opt) => (
             <option key={opt} value={opt}>
@@ -47,6 +49,8 @@ const PropertySelector = observer(
             onTouchStart={(e) => e.stopPropagation()}
             onDoubleClick={(e) => e.stopPropagation()}
             placeholder={t("name-placeholder")}
+            title={t('')}
+            aria-label={t('')}
           />
           <select
             id={`property-visibility-${formId}`}
@@ -55,6 +59,8 @@ const PropertySelector = observer(
             onChange={(e) => onChange(e.target.value, "visibility", value)}
             onMouseDown={(e) => e.stopPropagation()}
             onDoubleClick={(e) => e.stopPropagation()}
+            title={t('')}
+            aria-label={t('')}
           >
             {Object.values(attributeVisibility).map((opt) => (
               <option key={opt} value={opt}>

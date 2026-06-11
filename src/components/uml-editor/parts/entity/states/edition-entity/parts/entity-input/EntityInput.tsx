@@ -1,12 +1,15 @@
 import { useTranslation } from "react-i18next"
 import FormElement from "../form-element/FormElement"
 import "./EntityInput.scss"
-interface EntityInputProps {
+import type { InputHTMLAttributes } from "react"
+
+interface EntityInputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange"> {
   value: string
   onChange: (value: string) => void
 }
 
-const EntityInput = ({ value, onChange }: EntityInputProps) => {
+const EntityInput = ({ value, onChange, ...rest }: EntityInputProps) => {
   const { t } = useTranslation()
   return (
     <FormElement elementId="name">
@@ -20,6 +23,7 @@ const EntityInput = ({ value, onChange }: EntityInputProps) => {
         onTouchStart={(e) => e.stopPropagation()}
         onDoubleClick={(e) => e.stopPropagation()}
         placeholder={t("name-placeholder")}
+        {...rest}
       />
     </FormElement>
   )

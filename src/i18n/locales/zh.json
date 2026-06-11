@@ -72,6 +72,11 @@
   "info-toggle-theme": "您可以使用此按钮切换主题",
   "title-multiple-selection-usage": "多选",
   "information-multiple-selection-usage": "您可以通过按住 Ctrl 键并在画布上拖动来选择多个实体。此外，按住 Ctrl 键点击实体可以切换它们的选中状态。选中后，您可以通过拖放来移动一组实体，甚至可以使用 Delete 键将其删除。",
+  "toggle-info": "右键单击以切换",
+  "add-attrs": "添加属性",
+  "add-methds": "添加方法",
+  "delete-entity": "删除实体",
+  "add-relationship": "添加关系",
   "random-words": {
     "1": "慈善",
     "2": "意义",

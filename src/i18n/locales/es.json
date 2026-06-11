@@ -72,6 +72,11 @@
   "info-toggle-theme": "Puedes cambiar el tema con este botón",
   "title-multiple-selection-usage": "Selección Múltiple",
   "information-multiple-selection-usage": "Puedes seleccionar múltiples entidades manteniendo presionada la tecla Ctrl y arrastrando el tablero. También puedes hacer clic en las entidades mientras mantienes presionada la tecla Ctrl para alternar su estado de selección. Cuando están seleccionadas, puedes mover un grupo de entidades arrastrándolas o incluso eliminarlas con la tecla de suprimir.",
+  "toggle-info": "Clic derecho para alternar",
+  "add-attrs": "Añadir atributos",
+  "add-methds": "Añadir métodos",
+  "delete-entity": "Eliminar entidad",
+  "add-relationship": "Añadir relación",
   "random-words": {
     "1": "caridad",
     "2": "significado",

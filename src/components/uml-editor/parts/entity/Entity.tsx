@@ -8,12 +8,14 @@ import { useMediaQuery } from "@/utils/custom-hooks/useMediaQuery"
 import DefaultCard from "./states/default-entity/DefaultEntity"
 import EditionCard from "./states/edition-entity/EditionEntity"
 import { useUpdatingContext } from "@/components/uml-editor/parts/renderers/relationships-renderer/UpdatingContext"
+import { useTranslation } from "react-i18next"
 
 const UMLClass = observer(function UMLClass({
   entity,
   dialogDestination,
   ...props
 }: UMLClassProps) {
+  const { t } = useTranslation()
   const selectionStore = useContext(SelectionMenuContext)
   const isSelected = selectionStore?.isSelected(entity.id) ?? false
 
@@ -42,6 +44,8 @@ const UMLClass = observer(function UMLClass({
       {...props}
       style={styling}
       id={entity.id}
+      title={t('toggle-info')}
+      aria-label={t('toggle-info')}
     >
       <RenderedCard
         entity={entity}
