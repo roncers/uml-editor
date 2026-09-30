@@ -35,6 +35,10 @@ if (obj instanceof MyCustomObject) {
 
 I knew this was a pretty bad practice but I did it the bad way to test what would happen, and I ended up learning some stuff.
 
+### pnpm migration
+
+Recently I migrated it to pnpm. While doing so I encountered that I needed to aprove the bulding of a dependency manually because it communicated with the SO of my project. I finded it really useful for granting an extra layer of project security.
+
 # Run the project locally
 
 Make sure you have Node.js and npm installed on your system.
@@ -42,6 +46,6 @@ Make sure you have Node.js and npm installed on your system.
 With these commands is enough:
 
 ```bash
-npm i
-npm run dev
+pnpm i
+pnpm run dev
 ```
