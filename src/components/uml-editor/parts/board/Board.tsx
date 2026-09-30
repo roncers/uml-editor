@@ -12,6 +12,7 @@ function getSavedPosition() {
     const raw = localStorage.getItem(BOARD_POS_KEY)
     if (raw) return JSON.parse(raw) as { x: number; y: number; scale?: number }
   } catch {
+    console.warn("Error accesing localStorage")
     void 0
   }
   return { x: -window.innerWidth, y: -window.innerHeight }
@@ -19,7 +20,12 @@ function getSavedPosition() {
 
 function updateInternalScale(scale: number) {
   const current = getSavedPosition()
-  localStorage.setItem(BOARD_POS_KEY, JSON.stringify({ ...current, scale }))
+  try {
+    localStorage.setItem(BOARD_POS_KEY, JSON.stringify({ ...current, scale }))
+  } catch {
+    console.warn("Error accesing localStorage")
+    return current
+  }
 }
 
 export default function Board({
@@ -38,6 +44,7 @@ export default function Board({
       const raw = localStorage.getItem(BOARD_POS_KEY)
       if (raw) return JSON.parse(raw).scale as number
     } catch {
+      console.warn("Error accesing localStorage")
       void 0
     }
     return 1
@@ -56,7 +63,11 @@ export default function Board({
 
   function updateInternalPos(x: number, y: number) {
     if (boardIsVisible()) {
-      localStorage.setItem(BOARD_POS_KEY, JSON.stringify({ x, y, scale }))
+      try {
+        localStorage.setItem(BOARD_POS_KEY, JSON.stringify({ x, y, scale }))
+      } catch {
+        console.warn("Error accesing localStorage")
+      }
     }
   }
   const pinchRef = useRef<number | null>(null)
@@ -114,24 +125,24 @@ export default function Board({
 
   return (
     <ZoomContext.Provider value={scale}>
-        <div
-          ref={wrapperRef}
-          className="board-zoom"
-          style={{ zoom: scale }}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
+      <div
+        ref={wrapperRef}
+        className="board-zoom"
+        style={{ zoom: scale }}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        <Draggable
+          initialPosition={getSavedPosition()}
+          onUpdatePosition={updateInternalPos}
+          isBoard
         >
-          <Draggable
-            initialPosition={getSavedPosition()}
-            onUpdatePosition={updateInternalPos}
-            isBoard
-          >
-            <section className="board" ref={boardSectionRef}>
-              {children}
-            </section>
-          </Draggable>
-        </div>
+          <section className="board" ref={boardSectionRef}>
+            {children}
+          </section>
+        </Draggable>
+      </div>
     </ZoomContext.Provider>
   )
 }

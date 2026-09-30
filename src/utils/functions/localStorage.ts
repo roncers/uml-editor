@@ -7,6 +7,12 @@ export function loadFromLocalStorage(): void {
   // Guard: if entities are already hydrated (caused by React StrictMode)
   if (EntityFactory.createdEntities.length > 0) return
 
+  try {
+    localStorage.getItem(LOCAL_STORAGE_KEY)
+  } catch {
+    console.warn("Error accesing localStorage")
+    return
+  }
   const data = localStorage.getItem(LOCAL_STORAGE_KEY)
 
   if (data) {
@@ -16,7 +22,11 @@ export function loadFromLocalStorage(): void {
 }
 
 export function storeToLocalStorage(): void {
-  localStorage.setItem(LOCAL_STORAGE_KEY, EntityFactory.toString())
+  try {
+    localStorage.setItem(LOCAL_STORAGE_KEY, EntityFactory.toString())
+  } catch {
+    console.warn("Error accesing localStorage")
+  }
 }
 
 
